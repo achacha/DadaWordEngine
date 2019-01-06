@@ -38,7 +38,7 @@ public class HyphenData {
     /**
      * Load hyphen data by base path
      * Will load .patterns.txt and .exceptions.txt
-     * .patterns.txt is the TeX pattern file for the algoritm
+     * .patterns.txt is the TeX pattern file for the algorithm
      * .exceptions.txt is a a=b style file with exceptions to the algorithm
      * @param basePath String to load from
      */
@@ -74,13 +74,10 @@ public class HyphenData {
                     }
                     else if (Character.isDigit(first)) {
                         int pos = 0;
-                        while (Character.isDigit(first) && pos < value.length()) {
+                        while (Character.isDigit(first)) {
                             first = value.charAt(++pos);
                         }
-                        if (pos == value.length())
-                            throw new RuntimeException("Did not found a lowercase letter in data: "+value);
-                        else
-                            bucket = lookupByLetter.get(first - 'a');
+                        bucket = lookupByLetter.get(first - 'a');
                     }
                     else if (Character.isLowerCase(first)) {
                         bucket = lookupByLetter.get(first - 'a');
