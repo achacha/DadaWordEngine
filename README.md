@@ -26,9 +26,8 @@ Running examples:
 
 Available examples:
 
-`
-org.achacha.dada.examples.GenerateRandomSentenceExample
-org.achacha.dada.examples.HyphenateExample
-org.achacha.dada.examples.ParseAndRegenerateSentenceExample
-org.achacha.dada.examples.PhonemixExample
-`
+- org.achacha.dada.examples.GenerateRandomSentenceExample
+- org.achacha.dada.examples.HyphenateExample
+- org.achacha.dada.examples.ParseAndRegenerateSentenceExample
+- org.achacha.dada.examples.PhonemixExample
+
