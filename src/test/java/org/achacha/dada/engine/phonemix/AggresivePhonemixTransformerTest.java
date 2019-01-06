@@ -10,7 +10,7 @@ public class AggresivePhonemixTransformerTest {
     public void testAgggresiveVowelRemoval() {
         PhoneticTransformer transformer = PhoneticTransformerBuilder
                 .builder()
-                .withAggresiveTransformer()
+                .withAggressiveTransformer()
                 .withIgnoreLeadingVowel()
                 .build();
 

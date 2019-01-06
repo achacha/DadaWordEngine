@@ -194,7 +194,7 @@ public class WordsByType<T extends Word> {
      *
      * @param type Word.Type
      * @param path Path of the file to open (with optional resource: for resource files)
-     * @return InpuStream or null if unable to open stream
+     * @return InputStream or null if unable to open stream
      * @throws FileNotFoundException when physical file specified is not found
      */
     @Nullable
@@ -377,7 +377,7 @@ public class WordsByType<T extends Word> {
     /**
      * Save word list to base path with output name of 'type'.csv
      * @param basePath Path
-     * @throws IOException
+     * @throws IOException if unable to read files
      */
     public void saveWords(Path basePath) throws IOException {
         Path outfile = basePath.resolve(type.getTypeName()+".csv");
@@ -389,7 +389,7 @@ public class WordsByType<T extends Word> {
     /**
      * Write data to file
      * @param writer BufferedWriter
-     * @throws IOException
+     * @throws IOException if unable to write file
      */
     protected void writeWords(BufferedWriter writer) throws IOException {
         writer.write(getOutputHeader());

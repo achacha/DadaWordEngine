@@ -18,8 +18,16 @@ import java.util.stream.Collectors;
 /**
  * Given a string will transform into phonemix format
  * <p>
- * Original algorithm designed in 1993 loosely based on Russell Soundex (1918)
- * Updates in 2004, 2017
+ *     Phonemix is a made-up word to represent form of a word converted and compacted into it's phoneme-like
+ *     representation that can be used in forward and reverse
+ * <p>
+ * Algorithm is very loosely based on ideas in Russell Soundex (1918)
+ * Original algorithm below was designed in 1993 by Alex Chachanashvili for Dada Wallpaper Poem BBS art project
+ * Updates in 2004, 2017 by Alex Chachanashvili
+ *
+ * Algorithm is designed to be used forwards and backwards to allow sound based matching and rhyme detection
+ * Some consonant pairs follow custom remapping based on American English
+ * Aggressive compactor removes and compacts based on American English
  */
 public abstract class PhonemixTransformerBase implements PhoneticTransformer {
     protected static final Logger LOGGER = LogManager.getLogger(PhonemixTransformerBase.class);
@@ -37,7 +45,7 @@ public abstract class PhonemixTransformerBase implements PhoneticTransformer {
     protected final boolean keepLeadingVowel;
 
     /**
-     * If withReverse all data before transform
+     * If reverse all data before transform
      */
     protected final boolean reverse;
 

@@ -7,7 +7,7 @@ public class PhoneticTransformerBuilder {
 
     private enum TYPE {
         Phonemix,
-        PhonemixAggresive
+        PhonemixAggressive
     }
 
     private TYPE type = TYPE.Phonemix;
@@ -77,14 +77,14 @@ public class PhoneticTransformerBuilder {
      * Use aggressive transformer that ignores more non-essential sounds
      * @return PhoneticTransformerBuilder this
      */
-    public PhoneticTransformerBuilder withAggresiveTransformer() {
-        this.type = TYPE.PhonemixAggresive;
+    public PhoneticTransformerBuilder withAggressiveTransformer() {
+        this.type = TYPE.PhonemixAggressive;
         return this;
     }
 
     /**
      * Ignore leading vowel
-     * By default all leading phonems are kept
+     * By default all leading phonemixs are kept
      * @return PhoneticTransformerBuilder this
      */
     public PhoneticTransformerBuilder withIgnoreLeadingVowel() {
@@ -109,7 +109,7 @@ public class PhoneticTransformerBuilder {
      */
     public PhoneticTransformer build() {
         switch (type) {
-            case PhonemixAggresive:
+            case PhonemixAggressive:
                 return new PhonemixAggressiveTransformer(this);
 
             default:

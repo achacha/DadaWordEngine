@@ -157,7 +157,7 @@ public class WordData {
      * data/custom/nouns.csv              - opens file with relative path
      *
      * @param path Path of the file to open (with optional resource: for resource files)
-     * @return InpuStream or null if unable to open stream
+     * @return InputStream or null if unable to open stream
      * @throws FileNotFoundException when physical file specified is not found
      */
     @Nullable

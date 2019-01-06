@@ -17,6 +17,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Hyphenation algorithm based on C/C++ project at https://github.com/hunspell/hyphen
+ * Algorithms were re-written in java
+ *
+ * Data from: https://raw.githubusercontent.com/hyphenation/tex-hyphen/master/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/hyph-en-us.pat.txt
+ */
 public class HyphenData {
     private static final Logger LOGGER = LogManager.getLogger(HyphenData.class);
 
@@ -214,7 +220,7 @@ public class HyphenData {
      * Process word into hyphenation array
      * See https://github.com/hunspell/hyphen/blob/master/README.hyphen
      * @param wordToProcess Word to process, non-lowercase are ignored
-     * @return char[] array contains letter followed by hyphen weight, odd weight is a hypen
+     * @return char[] array contains letter followed by hyphen weight, odd weight is a hyphen
      */
     protected char[] processHypens(String wordToProcess) {
         Preconditions.checkState(wordToProcess.length() > MIN_HYPHENATE_SIZE, wordToProcess);
@@ -259,7 +265,7 @@ public class HyphenData {
     }
 
     /**
-     * Apply hypenation value to processing array
+     * Apply hyphenation value to processing array
      * Letters should match and numbers are only applied if greater than what is there
      *
      * @param pos start position in the processing array (which is 2 * word_position)

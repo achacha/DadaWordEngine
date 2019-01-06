@@ -29,7 +29,7 @@ public class PhonemixAggressiveTransformer extends PhonemixTransformerBase {
                 case 'y':
                 case 'Y':
                     if (i == 0 && keepLeadingVowel) {
-                        LOGGER.debug(" | Keeping leading vowel, i={} s={}", i, s);
+                        LOGGER.debug(" | Keeping leading vowel (aggressive form), i={} s={}", i, s);
                     }
                     else {
                         LOGGER.debug(" < vowel removal, i={} s={}", i, s);

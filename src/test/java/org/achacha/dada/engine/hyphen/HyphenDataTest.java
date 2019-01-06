@@ -77,9 +77,9 @@ public class HyphenDataTest {
         assertEquals(2, hyphenData.countSyllables("table"));
     }
 
-    //@Test
-    public void countSyllables() {
     // Not sure if these are all exceptions or not
+    //@Test
+    //public void countSyllables() {
     /*
         assertEquals("accouchements", 4, hyphenData.countSyllables("accouchements"));
         assertEquals("aged", 1, hyphenData.countSyllables("aged"));
@@ -216,6 +216,6 @@ public class HyphenDataTest {
         assertEquals("wambled", 2, hyphenData.countSyllables("wambled"));
         assertEquals("warred", 1, hyphenData.countSyllables("warred"));
 */
-    }
+    //}
 
 }
