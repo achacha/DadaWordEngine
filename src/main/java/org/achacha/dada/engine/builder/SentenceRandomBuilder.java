@@ -12,14 +12,29 @@ import java.util.stream.Collectors;
  * Allows building a Sentence using random words and parsing
  */
 public class SentenceRandomBuilder extends Sentence {
+    /**
+     * @param baseResourceDir Base resource directory to load WordData
+     * @see Sentence
+     */
     public SentenceRandomBuilder(String baseResourceDir) {
         super(baseResourceDir);
     }
 
+    /**
+     * @param wordData WordData to use
+     * @see Sentence
+     */
     public SentenceRandomBuilder(WordData wordData) {
         super(wordData);
     }
 
+    /**
+     * @param wordData WordData to use
+     * @param unknownAddedAsText if unknown words should be added as {@link Text} or discarded
+     * NOTE: default is add as Text
+     *
+     * @see Sentence
+     */
     public SentenceRandomBuilder(WordData wordData, boolean unknownAddedAsText) {
         super(wordData, unknownAddedAsText);
     }
@@ -27,6 +42,7 @@ public class SentenceRandomBuilder extends Sentence {
     /**
      * Add text
      * @param str Fixed text
+     * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder text(String str) {
         words.add(new Text(str));
@@ -35,6 +51,7 @@ public class SentenceRandomBuilder extends Sentence {
 
     /**
      * Add random adjective
+     * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder adjective() {
         words.add(wordData.getAdjectives().getRandomWord());
@@ -43,6 +60,7 @@ public class SentenceRandomBuilder extends Sentence {
 
     /**
      * Add random adverb
+     * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder adverb() {
         words.add(wordData.getAdverbs().getRandomWord());
@@ -51,6 +69,7 @@ public class SentenceRandomBuilder extends Sentence {
 
     /**
      * Add random conjunction
+     * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder conjunction() {
         words.add(wordData.getConjunctions().getRandomWord());
@@ -59,6 +78,7 @@ public class SentenceRandomBuilder extends Sentence {
 
     /**
      * Add random noun
+     * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder noun() {
         words.add(wordData.getNouns().getRandomWord());
@@ -67,6 +87,7 @@ public class SentenceRandomBuilder extends Sentence {
 
     /**
      * Add random pronoun
+     * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder pronoun() {
         words.add(wordData.getPronouns().getRandomWord());
@@ -75,6 +96,7 @@ public class SentenceRandomBuilder extends Sentence {
 
     /**
      * Add random verb
+     * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder verb() {
         words.add(wordData.getVerbs().getRandomWord());

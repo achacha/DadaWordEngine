@@ -47,6 +47,8 @@ public class Sentence {
 
     /**
      * Set up sentence parser and add unknown words are Text objects
+     * NOTE: default is add as Text
+     *
      * @param wordData WordData
      * @param unknownAddedAsText if unknown words should be added as {@link Text}
      */
@@ -64,6 +66,7 @@ public class Sentence {
 
     /**
      * Set subsequent parsing mode to ignore unknown words during parse
+     * @return Sentence this
      * @see #parse(String)
      */
     public Sentence ignoreUnknown() {
@@ -73,6 +76,7 @@ public class Sentence {
 
     /**
      * Set subsequent parsing mode to add unknown words during parse
+     * @return Sentence this
      * @see #parse(String)
      */
     public Sentence addUnknown() {
@@ -85,6 +89,7 @@ public class Sentence {
      * All known words will become lower case to match them in WordData
      * Text blocks are unchanged
      * @param text String
+     * @return Sentence this
      */
     public Sentence parse(String text) {
         BreakIterator bi = BreakIterator.getWordInstance();

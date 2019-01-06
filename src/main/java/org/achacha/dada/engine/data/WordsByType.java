@@ -132,8 +132,10 @@ public class WordsByType<T extends Word> {
     /**
      * Create a set of data.words based on CSV file in resourcePath
      *
-     * @param type         Word.Type
+     * @param type Word.Type
      * @param resourcePath String resource resourcePath
+     * @param xformer Transformer to use for forward words
+     * @param xformerReverse Transformer to use for reversed words
      */
     public WordsByType(Word.Type type, String resourcePath, PhoneticTransformer xformer, PhoneticTransformer xformerReverse) {
         this.resourcePath = resourcePath;
@@ -272,6 +274,7 @@ public class WordsByType<T extends Word> {
     }
 
     /**
+     * @param <T> extends Word
      * @return Empty set of words of type Unknown
      */
     @SuppressWarnings("unchecked")
