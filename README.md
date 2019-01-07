@@ -27,7 +27,17 @@ Running examples:
 Available examples:
 
 - org.achacha.dada.examples.GenerateRandomSentenceExample
-- org.achacha.dada.examples.HyphenateExample
 - org.achacha.dada.examples.ParseAndRegenerateSentenceExample
+- org.achacha.dada.examples.HyphenateExample
 - org.achacha.dada.examples.PhonemixExample
+- org.achacha.dada.examples.FindWordsThatRhymeExample
+
+
+JSP integration
+---
+1. Copy TLD file from  /src/main/java/org/achacha/dada/integration/tags/tlds to WEB-INF/tlds
+2. Initialize TagSingleton with WordData and HypenData during container/context initialization
+    - TagSingleton.setWordData(new WordData("resource:/data/extended2018"));
+    - TagSingleton.setHypenData(new HyphenData("resource:data/hyphen"));
+3. Add tags to JSP page
 

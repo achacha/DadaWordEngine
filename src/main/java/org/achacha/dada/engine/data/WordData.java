@@ -254,7 +254,7 @@ public class WordData {
      * @param type Word.Type
      * @return WordsByType
      */
-    public WordsByType getWordsByType(Word.Type type) {
+    public WordsByType<? extends Word> getWordsByType(Word.Type type) {
         switch(type) {
             case Noun: return nouns;
             case Adjective: return adjectives;

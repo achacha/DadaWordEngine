@@ -42,11 +42,21 @@ public class HyphenData {
     private Map<String,String> exceptions = new HashMap<>();
 
     /**
+     * Load default hyphen data
+     * resource:/data/hyphen
+     */
+    public HyphenData() {
+        this("resource:/data/hyphen");
+    }
+
+    /**
      * Load hyphen data by base path
      * Will load .patterns.txt and .exceptions.txt
      * .patterns.txt is the TeX pattern file for the algorithm
      * .exceptions.txt is a a=b style file with exceptions to the algorithm
      * @param basePath String to load from
+     *
+     * @see FileHelper#getStreamFromPath(String)
      */
     public HyphenData(String basePath) {
         // Allocate lookup maps

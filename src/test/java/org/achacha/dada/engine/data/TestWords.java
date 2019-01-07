@@ -12,7 +12,7 @@ public class TestWords {
      * @param noun String
      * @return Noun
      */
-    static Noun makeNoun(String noun) {
+    public static Noun makeNoun(String noun) {
         return new Noun(Lists.newArrayList(noun, WordHelper.makePlural(noun)));
     }
 
@@ -25,7 +25,7 @@ public class TestWords {
      * @param present Present
      * @return Verb
      */
-    static Verb makeVerb(String verb, String past, String pastParticiple, String singular, String present) {
+    public static Verb makeVerb(String verb, String past, String pastParticiple, String singular, String present) {
         return new Verb(Lists.newArrayList(verb, past, pastParticiple, singular, present));
     }
 
@@ -36,7 +36,7 @@ public class TestWords {
      * @param superlative Superlative
      * @return Adjective
      */
-    static Adjective makeAdjective(String adjective, String comparative, String superlative) {
+    public static Adjective makeAdjective(String adjective, String comparative, String superlative) {
         return new Adjective(Lists.newArrayList(adjective, comparative, superlative));
     }
 
@@ -45,7 +45,7 @@ public class TestWords {
      * @param adverb String
      * @return Adverb
      */
-    static Adverb makeAdverb(String adverb) {
+    public static Adverb makeAdverb(String adverb) {
         return new Adverb(Lists.newArrayList(adverb));
     }
 
@@ -54,7 +54,7 @@ public class TestWords {
      * @param conjunction String
      * @return Conjunction
      */
-    static Conjunction makeConjunction(String conjunction) {
+    public static Conjunction makeConjunction(String conjunction) {
         return new Conjunction(Lists.newArrayList(conjunction));
     }
 
@@ -63,7 +63,7 @@ public class TestWords {
      * @param preposition String
      * @return Preposition
      */
-    static Preposition makePreposition(String preposition) {
+    public static Preposition makePreposition(String preposition) {
         return new Preposition(Lists.newArrayList(preposition));
     }
 }

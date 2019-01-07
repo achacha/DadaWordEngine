@@ -7,7 +7,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HyphenDataTest {
-    private static HyphenData hyphenData = new HyphenData("resource:data/hyphen");
+    private static HyphenData hyphenData = new HyphenData("resource:/data/hyphen");
 
     @Test
     public void testFixValue() {

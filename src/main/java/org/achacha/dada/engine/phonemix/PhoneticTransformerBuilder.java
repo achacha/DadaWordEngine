@@ -35,7 +35,7 @@ public class PhoneticTransformerBuilder {
     /**
      * Default reverse transformer
      */
-    private static final PhoneticTransformer DEFAULT_REVERSE = PhoneticTransformerBuilder.builder().build();
+    private static final PhoneticTransformer DEFAULT_REVERSE = PhoneticTransformerBuilder.builder().withReverse().build();
 
     /**
      * @return Default XFormer

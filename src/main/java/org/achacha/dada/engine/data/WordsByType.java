@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -242,23 +243,23 @@ public class WordsByType<T extends Word> {
 
         word.getAllForms().forEach(pair->{
             // Word mapped to text
-            wordsByText.put(pair.getRight(), word);
+            String form = pair.getRight();
+            wordsByText.put(form, word);
 
             // Word mapped to phonetic
-            String phonetic = xformer.transform(pair.getRight());
+            String phonetic = xformer.transform(form);
             if (phonetic.length() > 0) {
-                wordsByPhonetic.put(phonetic, new SavedWord(word, pair.getLeft()));
+                wordsByPhonetic.put(phonetic, new SavedWord(word, form));
             }
 
             // Word mapped to withReverse phonetic
-            String reversePhonetic = xformerReverse.transform(pair.getRight());
+            String reversePhonetic = xformerReverse.transform(form);
             if (reversePhonetic.length() > 0) {
                 Character last = reversePhonetic.charAt(0);
                 Multimap<String, SavedWord> bucket = wordBucketsByReversePhonetic.computeIfAbsent(last, LinkedListMultimap::create);
-                bucket.put(reversePhonetic, new SavedWord(word, pair.getLeft()));
+                bucket.put(reversePhonetic, new SavedWord(word, form));
             }
         });
-
     }
 
     public String getResourcePath() {
@@ -327,6 +328,29 @@ public class WordsByType<T extends Word> {
      */
     public Map<Character, Multimap<String, SavedWord>> getWordBucketsByReversePhonetic() {
         return wordBucketsByReversePhonetic;
+    }
+
+    /**
+     * Find all words that rhyme provided word based on just the last phonem
+     *
+     * @param source word
+     * @return List of SavedWord containing Word and form that rhymes
+     */
+    public List<SavedWord> findRhymes(String source) {
+        String reversePhonetic = getXformerReverse().transform(source);
+        Multimap<String, SavedWord> bucket = wordBucketsByReversePhonetic.get(reversePhonetic.charAt(0));
+        if (bucket != null) {
+            // Match last phonem
+            return bucket.entries().stream()
+                    .filter(
+                            entry -> entry.getKey().charAt(0) == reversePhonetic.charAt(0)
+                    )
+                    .map(Map.Entry::getValue)
+                    .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+        }
+        else
+            return Collections.emptyList();
+
     }
 
     /**

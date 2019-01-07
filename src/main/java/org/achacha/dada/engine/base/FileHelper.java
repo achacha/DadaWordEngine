@@ -13,14 +13,14 @@ public class FileHelper {
     private static final Logger LOGGER = LogManager.getLogger(FileHelper.class);
 
     /**
-     * Open an input stream from relative path (no leading /)
+     * Open an input stream from relative path (leading / is ignored)
      * <p>
      * FORMAT:
      * resource:data/default/nouns.csv    - opens resource from data/default/nouns.csv using classloader
      * data/custom/nouns.csv              - opens file with relative path
      *
      * @param path Path of the file to open (with optional resource: for resource files)
-     * @return InpuStream or null if unable to open stream
+     * @return InputStream or null if unable to open stream
      * @throws FileNotFoundException when physical file specified is not found
      */
     @Nullable
@@ -40,9 +40,11 @@ public class FileHelper {
         else {
             // Default is relative stream from resource
             String rp = path.substring(9);
+            if (rp.charAt(0) == '/')
+                rp = rp.substring(1);  // Remove leading /
+
             LOGGER.debug("Opening resource input stream at path={}", rp);
             return Thread.currentThread().getContextClassLoader().getResourceAsStream(rp);
         }
-
     }
 }
