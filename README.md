@@ -22,15 +22,15 @@ See /src/main/java/org/achacha/dada/examples
 
 Running examples:
 
-`mvn exec:java -Dexec.mainClass="org.achacha.dada.examples.PhonemixExample"` 
+`mvn exec:java -Dexec.mainClass="io.github.achacha.dada.examples.PhonemixExample"` 
 
 Available examples:
 
-- org.achacha.dada.examples.GenerateRandomSentenceExample
-- org.achacha.dada.examples.ParseAndRegenerateSentenceExample
-- org.achacha.dada.examples.HyphenateExample
-- org.achacha.dada.examples.PhonemixExample
-- org.achacha.dada.examples.FindWordsThatRhymeExample
+- io.github.achacha.dada.examples.GenerateRandomSentenceExample
+- io.github.achacha.dada.examples.ParseAndRegenerateSentenceExample
+- io.github.achacha.dada.examples.HyphenateExample
+- io.github.achacha.dada.examples.PhonemixExample
+- io.github.achacha.dada.examples.FindWordsThatRhymeExample
 
 
 JSP integration

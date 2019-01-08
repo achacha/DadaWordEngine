@@ -10,12 +10,12 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="org.achacha.dada.engine" level="info" additivity="false">
+        <Logger name="io.github.achacha.dada.engine" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
 
         <!-- Root debug level for base package -->
-        <Logger name="org.achacha" level="info" additivity="false">
+        <Logger name="io.github.achacha" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
         <Root level="info">
