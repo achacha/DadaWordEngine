@@ -8,6 +8,18 @@ You can generate random sentences based on defined structure by parsing or const
 on word types and generating random output using the parsed structure. 
 
 
+Where is it?
+---
+Source maintained at: https://github.com/AlexChachanashviliOss/DadaWordEngine
+
+Releases at Maven Repository:
+
+`
+<groupId>io.github.achacha</groupId>
+<artifactId>DadaWordEngine</artifactId>
+`
+
+
 Features
 ---
 - Support for multiple word sets (WordData)
