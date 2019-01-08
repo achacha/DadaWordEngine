@@ -96,9 +96,9 @@
 
 
     <scm>
-        <connection>scm:git:git://github.com/achacha/DadaWordEngine.git</connection>
-        <developerConnection>scm:git:ssh://github.com:achacha/DadaWordEngine.git</developerConnection>
-        <url>https://github.com/achacha/DadaWordEngine</url>
+        <connection>scm:git:git://github.com/AlexChachanashviliOss/DadaWordEngine.git</connection>
+        <developerConnection>scm:git:ssh://github.com:AlexChachanashviliOss/DadaWordEngine.git</developerConnection>
+        <url>https://github.com/AlexChachanashviliOss/DadaWordEngine</url>
     </scm>
 
     <properties>
