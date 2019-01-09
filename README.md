@@ -47,9 +47,10 @@ Available examples:
 
 JSP integration
 ---
-1. Copy TLD file from  /src/main/java/org/achacha/dada/integration/tags/tlds to WEB-INF/tlds
+1. Copy TLD file from  {this jar}/WEB-INF/tlds to {your webapp resources}/WEB-INF/tlds
 2. Initialize TagSingleton with WordData and HypenData during container/context initialization
     - TagSingleton.setWordData(new WordData("resource:/data/extended2018"));
     - TagSingleton.setHypenData(new HyphenData("resource:data/hyphen"));
-3. Add tags to JSP page
+3. Add tags to your JSP page (see provided examples in {this jar}/WEB-INF/*.jsp)
+
 
