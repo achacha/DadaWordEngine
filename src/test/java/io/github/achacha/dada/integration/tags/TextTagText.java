@@ -15,23 +15,8 @@ public class TextTagText {
     }
 
     @Test
-    public void testFromStringTag() {
-        TextTag tag = new TextTag("constant");
-
-        // All should return same thing
-        assertEquals("constant", tag.generateWord().getWord());
-        assertEquals("constant", tag.generateWord().getWord());
-        assertEquals("constant", tag.generateWord().getWord());
-        assertEquals("constant", tag.execute());
-
-        tag.setArticle("the");
-        tag.setCapMode("words");
-        assertEquals("The Constant", tag.execute());
-    }
-
-    @Test
-    public void testExtendedConstructor() {
-        TextTag tag = new TextTag("constant", "a", "all", "");
-        assertEquals("A CONSTANT", tag.execute());
+    public void testInternal() {
+        TextTag tag = new TextTag("some text");
+        assertEquals("some text", tag.getWordRenderer().execute());
     }
 }

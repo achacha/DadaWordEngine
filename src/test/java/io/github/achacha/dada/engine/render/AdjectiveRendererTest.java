@@ -1,13 +1,14 @@
-package io.github.achacha.dada.integration.tags;
+package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
+import io.github.achacha.dada.integration.tags.TagSingleton;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class VerbTagTest {
+public class AdjectiveRendererTest {
     @BeforeAll
     public static void beforeClass() {
         TagSingleton.setWordData(new WordData("resource:/data/test"));
@@ -16,7 +17,7 @@ public class VerbTagTest {
 
     @Test
     public void testInternals() {
-        VerbTag tag = new VerbTag();
+        AdjectiveRenderer tag = new AdjectiveRenderer();
         assertNotNull(tag.toString());
     }
 }

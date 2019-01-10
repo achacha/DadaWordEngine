@@ -5,7 +5,6 @@ import io.github.achacha.dada.engine.hyphen.HyphenData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class PrepositionTagTest {
@@ -19,17 +18,5 @@ public class PrepositionTagTest {
     public void testInternals() {
         PrepositionTag tag = new PrepositionTag();
         assertNotNull(tag.toString());
-    }
-
-    @Test
-    public void testConjunctionForm() {
-        PrepositionTag tag = new PrepositionTag();
-        assertEquals("on", tag.execute());
-    }
-
-    @Test
-    public void testExtendedConstructor() {
-        PrepositionTag tag = new PrepositionTag("", "first", "");
-        assertEquals("On", tag.execute());
     }
 }

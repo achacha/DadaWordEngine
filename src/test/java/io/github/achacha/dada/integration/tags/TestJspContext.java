@@ -22,7 +22,12 @@ public class TestJspContext extends JspContext {
         return backingMap;
     }
 
-    public TestJspWriter getTestJspWriter() {
+    /**
+     * Backing JspWriter using for testing
+     * @return TestJspWriter
+     * @see TestJspWriter#getBackingSw()
+     */
+    public TestJspWriter getBackingJspWriter() {
         return jspWriter;
     }
 

@@ -5,7 +5,6 @@ import io.github.achacha.dada.engine.hyphen.HyphenData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class AdverbTagTest {
@@ -19,17 +18,5 @@ public class AdverbTagTest {
     public void testInternals() {
         AdverbTag tag = new AdverbTag();
         assertNotNull(tag.toString());
-    }
-
-    @Test
-    public void testAdverbForm() {
-        AdverbTag tag = new AdverbTag();
-        assertEquals("ADVERBLY", tag.execute());
-    }
-
-    @Test
-    public void testExtendedConstructor() {
-        AdverbTag tag = new AdverbTag("the", "first", "");
-        assertEquals("The ADVERBLY", tag.execute());
     }
 }

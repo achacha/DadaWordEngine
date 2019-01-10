@@ -1,13 +1,14 @@
-package io.github.achacha.dada.integration.tags;
+package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
+import io.github.achacha.dada.integration.tags.TagSingleton;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BaseWordTagTest {
+public class BaseWordRendererTest {
     @BeforeAll
     public static void beforeClass() {
         TagSingleton.setWordData(new WordData("resource:/data/test"));
@@ -16,17 +17,17 @@ public class BaseWordTagTest {
 
     @Test
     public void testRenderingList() {
-        TagSentence tagsToRender = new TagSentence();
-        tagsToRender.add(new TextTag("with"));
-        tagsToRender.add(new AdjectiveTag("a", "", ""));
-        tagsToRender.add(new NounTag());
+        SentenceRenderer tagsToRender = new SentenceRenderer();
+        tagsToRender.add(new TextRenderer("with"));
+        tagsToRender.add(new AdjectiveRenderer("a", "", ""));
+        tagsToRender.add(new NounRenderer());
 
         assertEquals("with a subtle noun", tagsToRender.execute());
     }
 
     @Test
     public void testSyllables() {
-        NounTag noun = new NounTag();
+        NounRenderer noun = new NounRenderer();
         noun.setSyllables("1");
 
         assertEquals("noun", noun.execute());

@@ -5,7 +5,6 @@ import io.github.achacha.dada.engine.hyphen.HyphenData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ConjunctionTagTest {
@@ -19,17 +18,5 @@ public class ConjunctionTagTest {
     public void testInternals() {
         ConjunctionTag tag = new ConjunctionTag();
         assertNotNull(tag.toString());
-    }
-
-    @Test
-    public void testConjunctionForm() {
-        ConjunctionTag tag = new ConjunctionTag();
-        assertEquals("&", tag.execute());
-    }
-
-    @Test
-    public void testExtendedConstructor() {
-        ConjunctionTag tag = new ConjunctionTag("the", "first", "");
-        assertEquals("The &", tag.execute());
     }
 }
