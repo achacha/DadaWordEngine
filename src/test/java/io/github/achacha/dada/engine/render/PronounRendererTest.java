@@ -2,7 +2,11 @@ package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.data.Pronoun;
 import io.github.achacha.dada.engine.data.Pronouns;
+import io.github.achacha.dada.engine.data.WordData;
+import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.engine.phonemix.PhoneticTransformerBuilder;
+import io.github.achacha.dada.integration.tags.TagSingleton;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,6 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class PronounRendererTest {
+    @BeforeAll
+    public static void beforeClass() {
+        TagSingleton.setWordData(new WordData("resource:/data/test"));
+        TagSingleton.setHypenData(new HyphenData());
+    }
+
     @Test
     public void testInternals() {
         PronounRenderer tag = new PronounRenderer();
@@ -20,6 +30,12 @@ public class PronounRendererTest {
     public void testPronounDefaultTag() {
         PronounRenderer tag = new PronounRenderer();
         assertNotNull(tag.execute());
+    }
+
+    @Test
+    public void testExtendedConstructor() {
+        PronounRenderer tag = new PronounRenderer("", "first", "subjective");
+        assertEquals("Who", tag.execute());
     }
 
     @Test

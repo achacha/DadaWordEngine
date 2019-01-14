@@ -18,7 +18,7 @@ public class ConjunctionRenderer extends BaseWordRenderer<Conjunction> {
      * @param capMode capitalization mode: first, words, all
      * @param form specific to the word
      */
-    ConjunctionRenderer(String article, String capMode, String form) {
+    public ConjunctionRenderer(String article, String capMode, String form) {
         this();
         this.article = article;
         this.capMode = capMode;

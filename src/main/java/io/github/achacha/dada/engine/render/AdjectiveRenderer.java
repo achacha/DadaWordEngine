@@ -19,7 +19,7 @@ public class AdjectiveRenderer extends BaseWordRenderer<Adjective> {
      * @param capMode capitalization mode: first, words, all
      * @param form specific to the word
      */
-    AdjectiveRenderer(String article, String capMode, String form) {
+    public AdjectiveRenderer(String article, String capMode, String form) {
         this();
         this.article = article;
         this.capMode = capMode;

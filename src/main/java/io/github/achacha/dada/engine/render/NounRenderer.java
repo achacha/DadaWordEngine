@@ -19,7 +19,7 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
      * @param capMode capitalization mode: first, words, all
      * @param form specific to the word
      */
-    NounRenderer(String article, String capMode, String form) {
+    public NounRenderer(String article, String capMode, String form) {
         this();
         this.article = article;
         this.capMode = capMode;

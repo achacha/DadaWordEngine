@@ -18,7 +18,7 @@ public class AdverbRenderer extends BaseWordRenderer<Adverb> {
      * @param capMode capitalization mode: first, words, all
      * @param form specific to the word
      */
-    AdverbRenderer(String article, String capMode, String form) {
+    public AdverbRenderer(String article, String capMode, String form) {
         this();
         this.article = article;
         this.capMode = capMode;

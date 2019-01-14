@@ -24,8 +24,9 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
      * @param article article prefix
      * @param capMode capitalization mode: first, words, all
      * @param form specific to the word
+     * @see Pronoun.Form
      */
-    PronounRenderer(String article, String capMode, String form) {
+    public PronounRenderer(String article, String capMode, String form) {
         this();
         this.article = article;
         this.capMode = capMode;
