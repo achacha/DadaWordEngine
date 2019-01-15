@@ -16,8 +16,8 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
     /**
      * Extended constructor
      * @param article article prefix
-     * @param capMode capitalization mode: first, words, all
-     * @param form specific to the word
+     * @param capMode capitalization mode: "first", "words", "all"
+     * @param form "singular" or "plural"
      */
     public NounRenderer(String article, String capMode, String form) {
         this();

@@ -28,7 +28,7 @@ public class BaseWordRendererTest {
     @Test
     public void testSyllables() {
         NounRenderer noun = new NounRenderer();
-        noun.setSyllables("1");
+        noun.setSyllablesDesired(1);
 
         assertEquals("noun", noun.execute());
     }

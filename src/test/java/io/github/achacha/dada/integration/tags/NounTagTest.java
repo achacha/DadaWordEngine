@@ -50,7 +50,7 @@ public class NounTagTest {
 
         // Save the "noun" to the JspContext provided
         tag.setJspContext(jspContext);
-        tag.getWordRenderer().setSave("saved");
+        tag.getWordRenderer().setSaveKey("saved");
         tag.getWordRenderer().execute();
         SavedWord savedWord = (SavedWord)jspContext.getAttribute("saved");
         assertNotNull(savedWord);
@@ -59,7 +59,7 @@ public class NounTagTest {
         assertEquals(1, jspContext.getBackingMap().size());
 
         // Test loading
-        tag.getWordRenderer().setLoad("saved");
+        tag.getWordRenderer().setLoadKey("saved");
         assertEquals("noun", tag.getWordRenderer().execute());
 
         // Test output
@@ -74,7 +74,7 @@ public class NounTagTest {
 
         // Save the "noun" to the JspContext provided
         tag.setJspContext(jspContext);
-        tag.getWordRenderer().setSave("saved");
+        tag.getWordRenderer().setSaveKey("saved");
         tag.getWordRenderer().setForm("plural");
         tag.getWordRenderer().execute();
         SavedWord savedWord = (SavedWord)jspContext.getAttribute("saved");
@@ -85,7 +85,7 @@ public class NounTagTest {
 
         // Output will only take into account the current form of the tag not the saved one
         // Test loading
-        tag.getWordRenderer().setLoad("saved");
+        tag.getWordRenderer().setLoadKey("saved");
         tag.getWordRenderer().setForm("");
         assertEquals("noun", tag.getWordRenderer().execute());
 
@@ -101,11 +101,33 @@ public class NounTagTest {
 
         // Save the "noun" to the JspContext provided
         tag.setJspContext(jspContext);
-        tag.getWordRenderer().setSave("saved");
+        tag.getWordRenderer().setSaveKey("saved");
         tag.getWordRenderer().execute();
 
-        tag.getWordRenderer().setRhyme("saved");
+        tag.getWordRenderer().setRhymeKey("saved");
         assertEquals("noun", tag.getWordRenderer().execute());
+    }
+
+    @Test
+    public void checkAttributesSetThrough() {
+        TestJspContext jspContext = new TestJspContext();
+        NounTag tag = new NounTag();
+
+        tag.setJspContext(jspContext);
+        tag.setRhyme("rhyme");
+        assertEquals("rhyme", tag.wordRenderer.getRhymeKey());
+        tag.setSave("mySaveKey");
+        assertEquals("mySaveKey", tag.wordRenderer.getSaveKey());
+        tag.setLoad("myLoadKey");
+        assertEquals("myLoadKey", tag.wordRenderer.getLoadKey());
+        tag.setForm("Plural");
+        assertEquals("plural", tag.wordRenderer.getForm());
+        tag.setCapMode("ALL");
+        assertEquals("all", tag.wordRenderer.getCapMode());
+        tag.setArticle("tHE");
+        assertEquals("the", tag.wordRenderer.getArticle());
+        tag.setSyllables("6");
+        assertEquals(6, tag.wordRenderer.getSyllablesDesired());
     }
 
 }

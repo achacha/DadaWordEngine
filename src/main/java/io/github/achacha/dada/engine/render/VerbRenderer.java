@@ -17,7 +17,7 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
      * Extended constructor
      * @param article article prefix
      * @param capMode capitalization mode: first, words, all
-     * @param form specific to the word
+     * @param form "infinitive", "past", "singular", "present", "pastparticiple"
      */
     public VerbRenderer(String article, String capMode, String form) {
         this();

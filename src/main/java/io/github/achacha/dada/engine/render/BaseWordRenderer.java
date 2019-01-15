@@ -92,73 +92,99 @@ public class BaseWordRenderer<T extends Word> {
     }
 
     /**
-     * If word is preceded by article 'a'
-     * Called by Jasper
-     * @param value true/false
+     * Set type of article to prepend to the work
+     * @param article String "a" or "the"
      */
-    public void setArticle(String value) {
-        value = value.toLowerCase();
-        if (!value.equals("a") && !value.equals("the"))
+    public void setArticle(String article) {
+        String value = article.toLowerCase();
+        if (!"a".equals(value) && !"the".equals(value))
             LOGGER.warn("article can only be 'a' or 'the' in tag={}", this);
-        article = value;
+        else
+            this.article = value;
     }
 
     /**
-     * Form of the word (specific to the Word type being used
-     * @param value String name of the form of the word
-     *
+     * Capitalization mode
+     * first - only first word is capitalized
+     * words - all words are capitalized
+     * all - all letters capitalized
+     * @param capMode "first", "words", "all"
      */
-    public void setForm(String value) {
-        form = value.toLowerCase();
-    }
-
-    /**
-     *
-     * Called by Jasper
-     * @param value String "first", "words", "all"
-     */
-    public void setCapMode(String value) {
-        value = value.toLowerCase();
-        if (!value.equals("first") && !value.equals("words") && !value.equals("all"))
+    public void setCapMode(String capMode) {
+        String value = capMode.toLowerCase();
+        if (!"first".equals(value) && !"words".equals(value) && !"all".equals(value))
             LOGGER.warn("capMode can only be 'first', 'words' or 'all' in tag={}");
-        this.capMode = value;
+        else
+            this.capMode = value;
     }
 
     /**
-     * Called by Jasper
-     * @param value String
+     * Word is loaded from the provided key (must have been saved previously)
+     * @param loadKey keyword to load from
      */
-    @SuppressWarnings("unused")
-    public void setLoad(String value) {
-        loadKey = value;
+    public void setLoadKey(String loadKey) {
+        this.loadKey = loadKey;
     }
 
     /**
-     * Called by Jasper
-     * @param value String
+     * Save word based on this key (to be loaded later)
+     * @param saveKey keyword to save to
      */
-    @SuppressWarnings("unused")
-    public void setSave(String value) {
-        saveKey = value;
+    public void setSaveKey(String saveKey) {
+        this.saveKey = saveKey;
     }
 
     /**
-     * Called by Jasper
-     * @param value String
+     * Rhyme this word with one saved at the provided keyword
+     * @param rhymeKey keyword where saved word is to be used to rhyme to this one
+     * @see #setSaveKey(String)
      */
-    @SuppressWarnings("unused")
-    public void setRhyme(String value) {
-        rhymeKey = value;
+    public void setRhymeKey(String rhymeKey) {
+        this.rhymeKey = rhymeKey;
     }
 
+    /**
+     * Form of the word to use
+     * @param form Form specific to the word type
+     */
+    public void setForm(String form) {
+        this.form = form.toLowerCase();
+    }
 
     /**
-     * Called by Jasper
-     * @param value String converted to int
+     * Set how many syllables this word should have
+     * @param syllablesDesired int syllable count
      */
-    @SuppressWarnings("unused")
-    public void setSyllables(String value) {
-        this.syllablesDesired = Integer.valueOf(value);
+    public void setSyllablesDesired(int syllablesDesired) {
+        this.syllablesDesired = syllablesDesired;
+    }
+
+    public String getArticle() {
+        return article;
+    }
+
+    public String getCapMode() {
+        return capMode;
+    }
+
+    public String getLoadKey() {
+        return loadKey;
+    }
+
+    public String getSaveKey() {
+        return saveKey;
+    }
+
+    public String getRhymeKey() {
+        return rhymeKey;
+    }
+
+    public String getForm() {
+        return form;
+    }
+
+    public int getSyllablesDesired() {
+        return syllablesDesired;
     }
 
     /**
