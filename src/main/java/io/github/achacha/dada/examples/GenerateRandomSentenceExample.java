@@ -1,6 +1,7 @@
 package io.github.achacha.dada.examples;
 
 import io.github.achacha.dada.engine.builder.SentenceRandomBuilder;
+import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.CapsMode;
 import io.github.achacha.dada.integration.tags.TagSingleton;
 
@@ -24,7 +25,7 @@ public class GenerateRandomSentenceExample {
                     .text(" ")
                     .noun()
                     .text(" for ")
-                    .noun("", CapsMode.none, "plural")
+                    .noun(ArticleMode.none, CapsMode.none, "plural")
                     .randomize());
         }
     }

@@ -14,13 +14,13 @@ public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
 
     /**
      * Extended constructor
-     * @param article article prefix
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      * @param form specific to the word
      */
-    public PrepositionRenderer(String article, CapsMode capsMode, String form) {
+    public PrepositionRenderer(ArticleMode articleMode, CapsMode capsMode, String form) {
         this();
-        this.article = article;
+        this.articleMode = articleMode;
         this.capsMode = capsMode;
         this.form = form;
     }

@@ -14,12 +14,12 @@ public class AdverbRenderer extends BaseWordRenderer<Adverb> {
 
     /**
      * Extended constructor
-     * @param article article prefix
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      */
-    public AdverbRenderer(String article, CapsMode capsMode) {
+    public AdverbRenderer(ArticleMode articleMode, CapsMode capsMode) {
         this();
-        this.article = article;
+        this.articleMode = articleMode;
         this.capsMode = capsMode;
         this.form = "";
     }

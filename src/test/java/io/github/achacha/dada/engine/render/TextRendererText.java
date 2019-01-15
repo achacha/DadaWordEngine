@@ -25,14 +25,14 @@ public class TextRendererText {
         assertEquals("constant", tag.generateWord().getWord());
         assertEquals("constant", tag.execute());
 
-        tag.setArticle("the");
+        tag.setArticle(ArticleMode.the);
         tag.setCapsMode(CapsMode.words);
         assertEquals("The Constant", tag.execute());
     }
 
     @Test
     public void testExtendedConstructor() {
-        TextRenderer tag = new TextRenderer("constant", "a", CapsMode.all, "");
+        TextRenderer tag = new TextRenderer("constant", ArticleMode.a, CapsMode.all, "");
         assertEquals("A CONSTANT", tag.execute());
     }
 }

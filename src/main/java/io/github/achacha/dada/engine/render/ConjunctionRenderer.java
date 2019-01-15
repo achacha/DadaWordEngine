@@ -14,12 +14,12 @@ public class ConjunctionRenderer extends BaseWordRenderer<Conjunction> {
 
     /**
      * Extended constructor
-     * @param article article prefix
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      */
-    public ConjunctionRenderer(String article, CapsMode capsMode) {
+    public ConjunctionRenderer(ArticleMode articleMode, CapsMode capsMode) {
         this();
-        this.article = article;
+        this.articleMode = articleMode;
         this.capsMode = capsMode;
         this.form = "";
     }

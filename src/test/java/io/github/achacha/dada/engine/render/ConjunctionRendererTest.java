@@ -31,7 +31,7 @@ public class ConjunctionRendererTest {
 
     @Test
     public void testExtendedConstructor() {
-        ConjunctionRenderer tag = new ConjunctionRenderer("the", CapsMode.first);
+        ConjunctionRenderer tag = new ConjunctionRenderer(ArticleMode.the, CapsMode.first);
         assertEquals("The &", tag.execute());
     }
 }

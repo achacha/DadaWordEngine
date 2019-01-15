@@ -1,6 +1,7 @@
 package io.github.achacha.dada.integration.tags;
 
 import io.github.achacha.dada.engine.data.Word;
+import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.BaseWordRenderer;
 import io.github.achacha.dada.engine.render.CapsMode;
 import org.apache.commons.lang3.StringUtils;
@@ -66,11 +67,17 @@ public abstract class BaseWordTag<T extends Word> implements SimpleTag {
 
     /**
      * Called by Jasper
-     * If word is preceded by article 'a' or 'the'
-     * @param value "a" or "the"
+     * If word is preceded by article 'a' or 'the' or 'none' for no  article
+     * @param value String of ArticleMode
+     * @see io.github.achacha.dada.engine.render.ArticleMode
      */
     public void setArticle(String value) {
-        wordRenderer.setArticle(value);
+        try {
+            wordRenderer.setArticle(ArticleMode.valueOf(StringUtils.trim(value.toLowerCase())));
+        }
+        catch(IllegalArgumentException e) {
+            LOGGER.warn("Invalid ArticleMode is ignored, value="+value);
+        }
     }
 
     /**
@@ -84,6 +91,7 @@ public abstract class BaseWordTag<T extends Word> implements SimpleTag {
 
     /**
      * Called by Jasper
+     * Capitalization mode
      * @param value String of CapsMode
      * @see io.github.achacha.dada.engine.render.CapsMode
      */

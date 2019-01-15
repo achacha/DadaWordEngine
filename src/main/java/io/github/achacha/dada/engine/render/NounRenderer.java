@@ -15,13 +15,13 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
 
     /**
      * Extended constructor
-     * @param article "a" or "the"
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      * @param form "singular" or "plural"
      */
-    public NounRenderer(String article, CapsMode capsMode, String form) {
+    public NounRenderer(ArticleMode articleMode, CapsMode capsMode, String form) {
         this();
-        this.article = article;
+        this.articleMode = articleMode;
         this.capsMode = capsMode;
         this.form = form;
     }

@@ -30,7 +30,7 @@ public class NounRendererTest {
         NounRenderer tag = new NounRenderer();
         assertEquals("noun", tag.execute());
 
-        tag.setArticle("a");
+        tag.setArticle(ArticleMode.a);
         assertEquals("a noun", tag.execute());
 
         tag.setForm("plural");
@@ -46,23 +46,20 @@ public class NounRendererTest {
         assertEquals("A NOUNS", tag.execute());
 
         tag.setForm("normal");
-        tag.setArticle("the");
+        tag.setArticle(ArticleMode.the);
         tag.setCapsMode(CapsMode.words);
         assertEquals("The Noun", tag.execute());
     }
 
     @Test
     public void testExtendedConstructor() {
-        NounRenderer tag = new NounRenderer("the", CapsMode.words, "normal");
+        NounRenderer tag = new NounRenderer(ArticleMode.the, CapsMode.words, "normal");
         assertEquals("The Noun", tag.execute());
     }
 
     @Test
     public void testInvalidInput() {
         NounRenderer tag = new NounRenderer();
-        assertEquals("noun", tag.execute());
-
-        tag.setArticle("invalid");
         assertEquals("noun", tag.execute());
 
         tag.setForm("invalid");
@@ -96,10 +93,10 @@ public class NounRendererTest {
     public void testArticleAn() {
         NounRenderer tag = new NounRenderer();
 
-        tag.setArticle("a");
+        tag.setArticle(ArticleMode.a);
         assertEquals("an anvil", tag.execute(TestWords.makeNoun("anvil")));
 
-        tag.setArticle("a");
+        tag.setArticle(ArticleMode.a);
         assertEquals("an hour", tag.execute(TestWords.makeNoun("hour")));
     }
 }

@@ -15,13 +15,13 @@ public class AdjectiveRenderer extends BaseWordRenderer<Adjective> {
 
     /**
      * Extended constructor
-     * @param article article prefix
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      * @param form "", "er", "est"
      */
-    public AdjectiveRenderer(String article, CapsMode capsMode, String form) {
+    public AdjectiveRenderer(ArticleMode articleMode, CapsMode capsMode, String form) {
         this();
-        this.article = article;
+        this.articleMode = articleMode;
         this.capsMode = capsMode;
         this.form = form;
     }

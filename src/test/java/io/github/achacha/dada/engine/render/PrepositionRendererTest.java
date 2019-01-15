@@ -30,7 +30,7 @@ public class PrepositionRendererTest {
 
     @Test
     public void testExtendedConstructor() {
-        PrepositionRenderer tag = new PrepositionRenderer("", CapsMode.first, "");
+        PrepositionRenderer tag = new PrepositionRenderer(ArticleMode.none, CapsMode.first, "");
         assertEquals("On", tag.execute());
     }
 }

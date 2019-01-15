@@ -10,6 +10,7 @@ import org.apache.commons.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BaseWordRenderer<T extends Word> {
@@ -20,8 +21,8 @@ public class BaseWordRenderer<T extends Word> {
      */
     protected RenderContext<T> rendererContext;
 
-    /** Article to use a (will adjust to an if needed) or the */
-    protected String article;
+    /** Article prefix to use */
+    protected ArticleMode articleMode = ArticleMode.none;
 
     /**
      * Capitalization mode, applied as the last thing
@@ -79,7 +80,7 @@ public class BaseWordRenderer<T extends Word> {
     @Override
     public String toString() {
         return "BaseWordTag{" +
-                "article='" + article + '\'' +
+                "articleMode='" + articleMode + '\'' +
                 ", capsMode='" + capsMode + '\'' +
                 ", loadKey='" + loadKey + '\'' +
                 ", saveKey='" + saveKey + '\'' +
@@ -89,22 +90,18 @@ public class BaseWordRenderer<T extends Word> {
     }
 
     /**
-     * Set type of article to prepend to the work
-     * @param article String "a" or "the"
+     * Set type of article to prepend to the word
+     * @param articleMode ArticleMode
      */
-    public void setArticle(String article) {
-        String value = article.toLowerCase();
-        if (!"a".equals(value) && !"the".equals(value))
-            LOGGER.warn("article can only be 'a' or 'the' in tag={}", this);
-        else
-            this.article = value;
+    public void setArticle(@Nonnull ArticleMode articleMode) {
+        this.articleMode = articleMode;
     }
 
     /**
      * Capitalization mode
      * @param capsMode CapsMode
      */
-    public void setCapsMode(CapsMode capsMode) {
+    public void setCapsMode(@Nonnull CapsMode capsMode) {
         this.capsMode = capsMode;
     }
 
@@ -149,10 +146,12 @@ public class BaseWordRenderer<T extends Word> {
         this.syllablesDesired = syllablesDesired;
     }
 
-    public String getArticle() {
-        return article;
+    @Nonnull
+    public ArticleMode getArticle() {
+        return articleMode;
     }
 
+    @Nonnull
     public CapsMode getCapsMode() {
         return capsMode;
     }
@@ -319,22 +318,17 @@ public class BaseWordRenderer<T extends Word> {
 
     protected String postProcess(String word) {
         // Articles
-        if (article != null) {
-            switch(article) {
-                case "a":
-                    if (WordHelper.isVowelOrH(word.charAt(0)))
-                        word = "an " + word;
-                    else
-                        word = "a " + word;
-                    break;
+        switch(articleMode) {
+            case a:
+                if (WordHelper.isVowelOrH(word.charAt(0)))
+                    word = "an " + word;
+                else
+                    word = "a " + word;
+                break;
 
-                case "the":
-                    word = "the " + word;
-                    break;
-
-                default:
-                    LOGGER.warn("Invalid article={} for this={}, ignored", article, this);
-            }
+            case the:
+                word = "the " + word;
+                break;
         }
 
         // Capitalize

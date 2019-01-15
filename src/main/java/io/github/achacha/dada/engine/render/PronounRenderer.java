@@ -21,14 +21,14 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
 
     /**
      * Extended constructor
-     * @param article "a" or "the"
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      * @param form "personal", "subjective", "objective", "possessive", "demonstrative", "interrogative", "relative", "reflexive", "reciprocal", "indefinite"
      * @see Pronoun.Form
      */
-    public PronounRenderer(String article, CapsMode capsMode, String form) {
+    public PronounRenderer(ArticleMode articleMode, CapsMode capsMode, String form) {
         this();
-        this.article = article;
+        this.articleMode = articleMode;
         this.capsMode = capsMode;
         this.form = form;
     }

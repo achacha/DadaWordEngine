@@ -2,6 +2,7 @@ package io.github.achacha.dada.engine.builder;
 
 import io.github.achacha.dada.engine.render.AdjectiveRenderer;
 import io.github.achacha.dada.engine.render.AdverbRenderer;
+import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.BaseWordRenderer;
 import io.github.achacha.dada.engine.render.CapsMode;
 import io.github.achacha.dada.engine.render.ConjunctionRenderer;
@@ -53,13 +54,13 @@ public class SentenceRandomBuilder {
 
     /**
      * Add adjective
-     * @param article ""=(none), "a", "the"
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      * @param form ""=(default), "er", "est"
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder adjective(String article, CapsMode capsMode, String form) {
-        words.add(new AdjectiveRenderer(article, capsMode, form));
+    public SentenceRandomBuilder adjective(ArticleMode articleMode, CapsMode capsMode, String form) {
+        words.add(new AdjectiveRenderer(articleMode, capsMode, form));
         return this;
     }
 
@@ -74,12 +75,12 @@ public class SentenceRandomBuilder {
 
     /**
      * Add adverb
-     * @param article ""=(none), "a", "the"
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder adverb(String article, CapsMode capsMode) {
-        words.add(new AdverbRenderer(article, capsMode));
+    public SentenceRandomBuilder adverb(ArticleMode articleMode, CapsMode capsMode) {
+        words.add(new AdverbRenderer(articleMode, capsMode));
         return this;
     }
 
@@ -94,12 +95,12 @@ public class SentenceRandomBuilder {
 
     /**
      * Add conjunction
-     * @param article ""=(none), "a", "the"
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder conjunction(String article, CapsMode capsMode) {
-        words.add(new ConjunctionRenderer(article, capsMode));
+    public SentenceRandomBuilder conjunction(ArticleMode articleMode, CapsMode capsMode) {
+        words.add(new ConjunctionRenderer(articleMode, capsMode));
         return this;
     }
 
@@ -114,13 +115,13 @@ public class SentenceRandomBuilder {
 
     /**
      * Add noun
-     * @param article ""=(none), "a", "the"
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      * @param form ""=(singular), "singular", "plural"
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder noun(String article, CapsMode capsMode, String form) {
-        words.add(new NounRenderer(article, capsMode, form));
+    public SentenceRandomBuilder noun(ArticleMode articleMode, CapsMode capsMode, String form) {
+        words.add(new NounRenderer(articleMode, capsMode, form));
         return this;
     }
 
@@ -135,15 +136,15 @@ public class SentenceRandomBuilder {
 
     /**
      * Add pronoun
-     * @param article ""=(none), "a", "the"
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      * @param form "personal", "subjective", "objective", "possessive", "demonstrative", "interrogative", "relative", "reflexive", "reciprocal", "indefinite"
      * @return SentenceRandomBuilder this
      *
      * see pronouns.csv
      */
-    public SentenceRandomBuilder pronoun(String article, CapsMode capsMode, String form) {
-        words.add(new PronounRenderer(article, capsMode, form));
+    public SentenceRandomBuilder pronoun(ArticleMode articleMode, CapsMode capsMode, String form) {
+        words.add(new PronounRenderer(articleMode, capsMode, form));
         return this;
     }
 
@@ -158,13 +159,13 @@ public class SentenceRandomBuilder {
 
     /**
      * Add verb
-     * @param article ""=(none), "a", "the"
+     * @param articleMode ArticleMode
      * @param capsMode CapsMode
      * @param form ""=(default), "infinitive", "past", "singular", "present", "pastparticiple"
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder verb(String article, CapsMode capsMode, String form) {
-        words.add(new VerbRenderer(article, capsMode, form));
+    public SentenceRandomBuilder verb(ArticleMode articleMode, CapsMode capsMode, String form) {
+        words.add(new VerbRenderer(articleMode, capsMode, form));
         return this;
     }
 
