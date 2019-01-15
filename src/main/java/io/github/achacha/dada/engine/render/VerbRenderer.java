@@ -15,14 +15,14 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
 
     /**
      * Extended constructor
-     * @param article article prefix
-     * @param capMode capitalization mode: first, words, all
+     * @param article "a" or "the"
+     * @param capsMode CapsMode
      * @param form "infinitive", "past", "singular", "present", "pastparticiple"
      */
-    public VerbRenderer(String article, String capMode, String form) {
+    public VerbRenderer(String article, CapsMode capsMode, String form) {
         this();
         this.article = article;
-        this.capMode = capMode;
+        this.capsMode = capsMode;
         this.form = form;
     }
 

@@ -15,13 +15,12 @@ public class AdverbRenderer extends BaseWordRenderer<Adverb> {
     /**
      * Extended constructor
      * @param article article prefix
-     * @param capMode capitalization mode: first, words, all
-     * @param form specific to the word
+     * @param capsMode CapsMode
      */
-    public AdverbRenderer(String article, String capMode, String form) {
+    public AdverbRenderer(String article, CapsMode capsMode) {
         this();
         this.article = article;
-        this.capMode = capMode;
-        this.form = form;
+        this.capsMode = capsMode;
+        this.form = "";
     }
 }

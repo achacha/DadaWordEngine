@@ -30,7 +30,7 @@ public class AdverbRendererTest {
 
     @Test
     public void testExtendedConstructor() {
-        AdverbRenderer tag = new AdverbRenderer("the", "first", "");
+        AdverbRenderer tag = new AdverbRenderer("the", CapsMode.first);
         assertEquals("The ADVERBLY", tag.execute());
     }
 }

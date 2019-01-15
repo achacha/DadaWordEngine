@@ -3,7 +3,6 @@ package io.github.achacha.dada.engine.builder;
 import io.github.achacha.dada.engine.data.Text;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.data.WordData;
-import io.github.achacha.dada.engine.data.WordsByType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class Sentence {
 
-    protected static final Logger LOGGER = LogManager.getLogger(WordsByType.class);
+    protected static final Logger LOGGER = LogManager.getLogger(Sentence.class);
 
     protected List<Word> words = new ArrayList<>();
 
@@ -129,6 +128,23 @@ public class Sentence {
             }
         }
         return this;
+    }
+
+    /**
+     * Build new sentence with using random words based on types
+     * Unlike {@link #toString()} which will preserve the words parsed
+     * NOTE: This does not change the internal structure, only randomized during rendering
+     * @return Sentence string randomized by their types
+     */
+    public String randomize() {
+        List<Word> sentence = new ArrayList<>(words.size());
+        for (Word word : words) {
+            if (word.getType() == Word.Type.Unknown)
+                sentence.add(word);
+            else
+                sentence.add(wordData.getRandomWordByType(word.getType()));
+        }
+        return sentence.stream().map(Word::getWord).collect(Collectors.joining());
     }
 
     /**

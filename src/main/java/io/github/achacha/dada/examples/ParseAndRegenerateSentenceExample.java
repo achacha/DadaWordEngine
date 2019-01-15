@@ -1,6 +1,6 @@
 package io.github.achacha.dada.examples;
 
-import io.github.achacha.dada.engine.builder.SentenceRandomBuilder;
+import io.github.achacha.dada.engine.builder.Sentence;
 import io.github.achacha.dada.engine.data.WordData;
 
 import java.util.Scanner;
@@ -12,10 +12,10 @@ public class ParseAndRegenerateSentenceExample {
     public static void main(String[] args) {
         WordData wordData = new WordData("resource:/data/extended2018");
 
-        System.out.println("\nEnter sentence to parse and randomize\n>");
+        System.out.print("\nEnter sentence to parse and randomize\n>");
         Scanner scanner = new Scanner(System.in);
         if (scanner.hasNextLine()) {
-            SentenceRandomBuilder sentence = new SentenceRandomBuilder(wordData, true);
+            Sentence sentence = new Sentence(wordData, true);
             sentence.parse(scanner.nextLine());
 
             System.out.println("Parsed: "+sentence);

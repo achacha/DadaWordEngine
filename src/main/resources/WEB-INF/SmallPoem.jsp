@@ -1,8 +1,8 @@
 <%@ page contentType="text/plain;charset=UTF-8" %>
 <%@ taglib prefix="d" uri="/taglib/dada" %>
-<d:noun capMode="first" save="subject" article="the"/> (a small poem)
+<d:noun capsMode="first" save="subject" article="the"/> (a small poem)
 -----
-<d:adjective capMode="first" article="a"/> <d:noun load="subject"/> is sometimes <d:adjective save="rhyme0"/>,
+<d:adjective capsMode="first" article="a"/> <d:noun load="subject"/> is sometimes <d:adjective save="rhyme0"/>,
  but it is not too <d:adjective save="rhyme1"/>.
 And <d:adjective article="a"/> <d:noun load="subject"/> is often <d:adjective/>,
  while it is seldom <d:adjective/>.

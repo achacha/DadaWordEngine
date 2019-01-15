@@ -15,13 +15,13 @@ public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
     /**
      * Extended constructor
      * @param article article prefix
-     * @param capMode capitalization mode: first, words, all
+     * @param capsMode CapsMode
      * @param form specific to the word
      */
-    public PrepositionRenderer(String article, String capMode, String form) {
+    public PrepositionRenderer(String article, CapsMode capsMode, String form) {
         this();
         this.article = article;
-        this.capMode = capMode;
+        this.capsMode = capsMode;
         this.form = form;
     }
 }

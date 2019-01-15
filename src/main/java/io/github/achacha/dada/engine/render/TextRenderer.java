@@ -27,13 +27,13 @@ public class TextRenderer extends BaseWordRenderer<Text> {
      * Extended constructor
      * @param text constant string
      * @param article article prefix
-     * @param capMode capitalization mode: first, words, all
+     * @param capsMode CapsMode
      * @param form specific to the word
      */
-    public TextRenderer(String text, String article, String capMode, String form) {
+    public TextRenderer(String text, String article, CapsMode capsMode, String form) {
         this(text);
         this.article = article;
-        this.capMode = capMode;
+        this.capsMode = capsMode;
         this.form = form;
     }
 

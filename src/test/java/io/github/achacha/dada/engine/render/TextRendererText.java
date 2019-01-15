@@ -26,13 +26,13 @@ public class TextRendererText {
         assertEquals("constant", tag.execute());
 
         tag.setArticle("the");
-        tag.setCapMode("words");
+        tag.setCapsMode(CapsMode.words);
         assertEquals("The Constant", tag.execute());
     }
 
     @Test
     public void testExtendedConstructor() {
-        TextRenderer tag = new TextRenderer("constant", "a", "all", "");
+        TextRenderer tag = new TextRenderer("constant", "a", CapsMode.all, "");
         assertEquals("A CONSTANT", tag.execute());
     }
 }

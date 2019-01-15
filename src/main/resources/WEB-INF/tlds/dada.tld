@@ -30,7 +30,7 @@
             <description>One of ["none","a","the"], default "none"</description>
         </attribute>
         <attribute>
-            <name>capMode</name>
+            <name>capsMode</name>
             <description>One of ["none","first","words","all"], default "none"</description>
         </attribute>
 
@@ -73,7 +73,7 @@
             <description>One of ["none","a","the"], default "none"</description>
         </attribute>
         <attribute>
-            <name>capMode</name>
+            <name>capsMode</name>
             <description>One of ["none","first","words","all"], default "none"</description>
         </attribute>
 
@@ -116,7 +116,7 @@
             <description>One of ["none","a","the"], default "none"</description>
         </attribute>
         <attribute>
-            <name>capMode</name>
+            <name>capsMode</name>
             <description>One of ["none","first","words","all"], default "none"</description>
         </attribute>
 
@@ -157,7 +157,7 @@
             <description>One of ["none","a","the"], default "none"</description>
         </attribute>
         <attribute>
-            <name>capMode</name>
+            <name>capsMode</name>
             <description>One of ["none","first","words","all"], default "none"</description>
         </attribute>
 
@@ -198,7 +198,7 @@
             <description>One of ["none","a","the"], default "none"</description>
         </attribute>
         <attribute>
-            <name>capMode</name>
+            <name>capsMode</name>
             <description>One of ["none","first","words","all"], default "none"</description>
         </attribute>
 
@@ -239,7 +239,7 @@
             <description>One of ["none","a","the"], default "none"</description>
         </attribute>
         <attribute>
-            <name>capMode</name>
+            <name>capsMode</name>
             <description>One of ["none","first","words","all"], default "none"</description>
         </attribute>
 
@@ -281,7 +281,7 @@
             <description>One of ["none","a","the"], default "none"</description>
         </attribute>
         <attribute>
-            <name>capMode</name>
+            <name>capsMode</name>
             <description>One of ["none","first","words","all"], default "none"</description>
         </attribute>
 

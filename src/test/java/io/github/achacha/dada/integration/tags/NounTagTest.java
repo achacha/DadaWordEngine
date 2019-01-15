@@ -3,6 +3,7 @@ package io.github.achacha.dada.integration.tags;
 import io.github.achacha.dada.engine.data.SavedWord;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
+import io.github.achacha.dada.engine.render.CapsMode;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -122,8 +123,8 @@ public class NounTagTest {
         assertEquals("myLoadKey", tag.wordRenderer.getLoadKey());
         tag.setForm("Plural");
         assertEquals("plural", tag.wordRenderer.getForm());
-        tag.setCapMode("ALL");
-        assertEquals("all", tag.wordRenderer.getCapMode());
+        tag.setCapsMode("ALL");
+        assertEquals(CapsMode.all, tag.wordRenderer.getCapsMode());
         tag.setArticle("tHE");
         assertEquals("the", tag.wordRenderer.getArticle());
         tag.setSyllables("6");

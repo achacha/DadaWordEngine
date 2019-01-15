@@ -2,6 +2,8 @@ package io.github.achacha.dada.integration.tags;
 
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.render.BaseWordRenderer;
+import io.github.achacha.dada.engine.render.CapsMode;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -81,12 +83,17 @@ public abstract class BaseWordTag<T extends Word> implements SimpleTag {
     }
 
     /**
-     *
      * Called by Jasper
-     * @param value String "first", "words", "all"
+     * @param value String of CapsMode
+     * @see io.github.achacha.dada.engine.render.CapsMode
      */
-    public void setCapMode(String value) {
-        wordRenderer.setCapMode(value);
+    public void setCapsMode(String value) {
+        try {
+            wordRenderer.setCapsMode(CapsMode.valueOf(StringUtils.trim(value.toLowerCase())));
+        }
+        catch(IllegalArgumentException e) {
+            LOGGER.warn("Invalid CapsMode is ignored, value="+value);
+        }
     }
 
     /**

@@ -25,11 +25,8 @@ public class BaseWordRenderer<T extends Word> {
 
     /**
      * Capitalization mode, applied as the last thing
-     * first - only first letter
-     * words - every word capitalized
-     * all - all letters are capitalized
      */
-    protected String capMode;
+    protected CapsMode capsMode = CapsMode.none;
 
     /**
      * load="[key]" to load the current Word from saved pool, if not set random used
@@ -83,7 +80,7 @@ public class BaseWordRenderer<T extends Word> {
     public String toString() {
         return "BaseWordTag{" +
                 "article='" + article + '\'' +
-                ", capMode='" + capMode + '\'' +
+                ", capsMode='" + capsMode + '\'' +
                 ", loadKey='" + loadKey + '\'' +
                 ", saveKey='" + saveKey + '\'' +
                 ", rhymeKey=" + rhymeKey + '\'' +
@@ -105,17 +102,10 @@ public class BaseWordRenderer<T extends Word> {
 
     /**
      * Capitalization mode
-     * first - only first word is capitalized
-     * words - all words are capitalized
-     * all - all letters capitalized
-     * @param capMode "first", "words", "all"
+     * @param capsMode CapsMode
      */
-    public void setCapMode(String capMode) {
-        String value = capMode.toLowerCase();
-        if (!"first".equals(value) && !"words".equals(value) && !"all".equals(value))
-            LOGGER.warn("capMode can only be 'first', 'words' or 'all' in tag={}");
-        else
-            this.capMode = value;
+    public void setCapsMode(CapsMode capsMode) {
+        this.capsMode = capsMode;
     }
 
     /**
@@ -163,8 +153,8 @@ public class BaseWordRenderer<T extends Word> {
         return article;
     }
 
-    public String getCapMode() {
-        return capMode;
+    public CapsMode getCapsMode() {
+        return capsMode;
     }
 
     public String getLoadKey() {
@@ -348,23 +338,18 @@ public class BaseWordRenderer<T extends Word> {
         }
 
         // Capitalize
-        if (capMode != null) {
-            switch(capMode) {
-                case "first":
-                    word = WordHelper.capitalizeFirstLetter(word);
-                    break;
+        switch(capsMode) {
+            case first:
+                word = WordHelper.capitalizeFirstLetter(word);
+                break;
 
-                case "words":
-                    word = WordUtils.capitalizeFully(word);
-                    break;
+            case words:
+                word = WordUtils.capitalizeFully(word);
+                break;
 
-                case "all":
-                    word = word.toUpperCase();
-                    break;
-
-                default:
-                    LOGGER.warn("Invalid capMode={} for this={}, ignored", capMode, this);
-            }
+            case all:
+                word = word.toUpperCase();
+                break;
         }
 
         return word;

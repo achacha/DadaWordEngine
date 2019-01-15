@@ -1,42 +1,35 @@
 package io.github.achacha.dada.engine.builder;
 
-import io.github.achacha.dada.engine.data.Text;
-import io.github.achacha.dada.engine.data.Word;
-import io.github.achacha.dada.engine.data.WordData;
+import io.github.achacha.dada.engine.render.AdjectiveRenderer;
+import io.github.achacha.dada.engine.render.AdverbRenderer;
+import io.github.achacha.dada.engine.render.BaseWordRenderer;
+import io.github.achacha.dada.engine.render.CapsMode;
+import io.github.achacha.dada.engine.render.ConjunctionRenderer;
+import io.github.achacha.dada.engine.render.NounRenderer;
+import io.github.achacha.dada.engine.render.PronounRenderer;
+import io.github.achacha.dada.engine.render.TextRenderer;
+import io.github.achacha.dada.engine.render.VerbRenderer;
+import io.github.achacha.dada.integration.tags.TagSingleton;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Allows building a Sentence using random words and parsing
+ * Allows building a Sentence using words by type
  */
-public class SentenceRandomBuilder extends Sentence {
-    /**
-     * @param baseResourceDir Base resource directory to load WordData
-     * @see Sentence
-     */
-    public SentenceRandomBuilder(String baseResourceDir) {
-        super(baseResourceDir);
-    }
+public class SentenceRandomBuilder {
+    protected static final Logger LOGGER = LogManager.getLogger(Sentence.class);
+
+    protected List<BaseWordRenderer> words = new ArrayList<>();
 
     /**
-     * @param wordData WordData to use
-     * @see Sentence
+     * Use TagSingleton data
+     * @see TagSingleton#init()
      */
-    public SentenceRandomBuilder(WordData wordData) {
-        super(wordData);
-    }
-
-    /**
-     * @param wordData WordData to use
-     * @param unknownAddedAsText if unknown words should be added as {@link Text} or discarded
-     * NOTE: default is add as Text
-     *
-     * @see Sentence
-     */
-    public SentenceRandomBuilder(WordData wordData, boolean unknownAddedAsText) {
-        super(wordData, unknownAddedAsText);
+    public SentenceRandomBuilder() {
     }
 
     /**
@@ -45,79 +38,150 @@ public class SentenceRandomBuilder extends Sentence {
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder text(String str) {
-        words.add(new Text(str));
+        words.add(new TextRenderer(str));
         return this;
     }
 
     /**
-     * Add random adjective
+     * Add adjective
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder adjective() {
-        words.add(wordData.getAdjectives().getRandomWord());
+        words.add(new AdjectiveRenderer());
         return this;
     }
 
     /**
-     * Add random adverb
+     * Add adjective
+     * @param article ""=(none), "a", "the"
+     * @param capsMode CapsMode
+     * @param form ""=(default), "er", "est"
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder adjective(String article, CapsMode capsMode, String form) {
+        words.add(new AdjectiveRenderer(article, capsMode, form));
+        return this;
+    }
+
+    /**
+     * Add adverb
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder adverb() {
-        words.add(wordData.getAdverbs().getRandomWord());
+        words.add(new AdverbRenderer());
         return this;
     }
 
     /**
-     * Add random conjunction
+     * Add adverb
+     * @param article ""=(none), "a", "the"
+     * @param capsMode CapsMode
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder adverb(String article, CapsMode capsMode) {
+        words.add(new AdverbRenderer(article, capsMode));
+        return this;
+    }
+
+    /**
+     * Add conjunction
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder conjunction() {
-        words.add(wordData.getConjunctions().getRandomWord());
+        words.add(new ConjunctionRenderer());
         return this;
     }
 
     /**
-     * Add random noun
+     * Add conjunction
+     * @param article ""=(none), "a", "the"
+     * @param capsMode CapsMode
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder conjunction(String article, CapsMode capsMode) {
+        words.add(new ConjunctionRenderer(article, capsMode));
+        return this;
+    }
+
+    /**
+     * Add noun
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder noun() {
-        words.add(wordData.getNouns().getRandomWord());
+        words.add(new NounRenderer());
         return this;
     }
 
     /**
-     * Add random pronoun
+     * Add noun
+     * @param article ""=(none), "a", "the"
+     * @param capsMode CapsMode
+     * @param form ""=(singular), "singular", "plural"
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder noun(String article, CapsMode capsMode, String form) {
+        words.add(new NounRenderer(article, capsMode, form));
+        return this;
+    }
+
+    /**
+     * Add pronoun
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder pronoun() {
-        words.add(wordData.getPronouns().getRandomWord());
+        words.add(new PronounRenderer());
         return this;
     }
 
     /**
-     * Add random verb
+     * Add pronoun
+     * @param article ""=(none), "a", "the"
+     * @param capsMode CapsMode
+     * @param form "personal", "subjective", "objective", "possessive", "demonstrative", "interrogative", "relative", "reflexive", "reciprocal", "indefinite"
+     * @return SentenceRandomBuilder this
+     *
+     * see pronouns.csv
+     */
+    public SentenceRandomBuilder pronoun(String article, CapsMode capsMode, String form) {
+        words.add(new PronounRenderer(article, capsMode, form));
+        return this;
+    }
+
+    /**
+     * Add verb
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder verb() {
-        words.add(wordData.getVerbs().getRandomWord());
+        words.add(new VerbRenderer());
+        return this;
+    }
+
+    /**
+     * Add verb
+     * @param article ""=(none), "a", "the"
+     * @param capsMode CapsMode
+     * @param form ""=(default), "infinitive", "past", "singular", "present", "pastparticiple"
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder verb(String article, CapsMode capsMode, String form) {
+        words.add(new VerbRenderer(article, capsMode, form));
         return this;
     }
 
     /**
      * Build new sentence with using random words based on types
-     * Unlike {@link #toString()} which will preserve the words parsed
-     * NOTE: This does not change the internal structure, only randomized during rendering
      * @return Sentence string randomized by their types
      */
     public String randomize() {
-        List<Word> sentence = new ArrayList<>(words.size());
-        for (Word word : words) {
-            if (word.getType() == Word.Type.Unknown)
-                sentence.add(word);
-            else
-                sentence.add(wordData.getRandomWordByType(word.getType()));
-        }
-        return sentence.stream().map(Word::getWord).collect(Collectors.joining());
+        return words.stream().map(BaseWordRenderer::execute).collect(Collectors.joining());
+    }
+
+    /**
+     * Display structure
+     * @return String
+     */
+    public String toStringStructure() {
+        return words.stream().map(BaseWordRenderer::toString).collect(Collectors.joining("\n  ", "  ", ""));
     }
 
 }

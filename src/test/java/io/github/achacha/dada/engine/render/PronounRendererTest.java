@@ -34,7 +34,7 @@ public class PronounRendererTest {
 
     @Test
     public void testExtendedConstructor() {
-        PronounRenderer tag = new PronounRenderer("", "first", "subjective");
+        PronounRenderer tag = new PronounRenderer("", CapsMode.first, "subjective");
         assertEquals("Who", tag.execute());
     }
 

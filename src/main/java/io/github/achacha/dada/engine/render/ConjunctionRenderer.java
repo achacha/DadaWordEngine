@@ -15,13 +15,12 @@ public class ConjunctionRenderer extends BaseWordRenderer<Conjunction> {
     /**
      * Extended constructor
      * @param article article prefix
-     * @param capMode capitalization mode: first, words, all
-     * @param form specific to the word
+     * @param capsMode CapsMode
      */
-    public ConjunctionRenderer(String article, String capMode, String form) {
+    public ConjunctionRenderer(String article, CapsMode capsMode) {
         this();
         this.article = article;
-        this.capMode = capMode;
-        this.form = form;
+        this.capsMode = capsMode;
+        this.form = "";
     }
 }

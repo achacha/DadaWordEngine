@@ -36,24 +36,24 @@ public class NounRendererTest {
         tag.setForm("plural");
         assertEquals("a nouns", tag.execute());
 
-        tag.setCapMode("first");
+        tag.setCapsMode(CapsMode.first);
         assertEquals("A nouns", tag.execute());
 
-        tag.setCapMode("words");
+        tag.setCapsMode(CapsMode.words);
         assertEquals("A Nouns", tag.execute());
 
-        tag.setCapMode("all");
+        tag.setCapsMode(CapsMode.all);
         assertEquals("A NOUNS", tag.execute());
 
         tag.setForm("normal");
         tag.setArticle("the");
-        tag.setCapMode("words");
+        tag.setCapsMode(CapsMode.words);
         assertEquals("The Noun", tag.execute());
     }
 
     @Test
     public void testExtendedConstructor() {
-        NounRenderer tag = new NounRenderer("the", "words", "normal");
+        NounRenderer tag = new NounRenderer("the", CapsMode.words, "normal");
         assertEquals("The Noun", tag.execute());
     }
 
@@ -66,9 +66,6 @@ public class NounRendererTest {
         assertEquals("noun", tag.execute());
 
         tag.setForm("invalid");
-        assertEquals("noun", tag.execute());
-
-        tag.setCapMode("invalid");
         assertEquals("noun", tag.execute());
     }
 
