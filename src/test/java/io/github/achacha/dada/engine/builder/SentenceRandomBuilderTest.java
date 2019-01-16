@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.builder;
 
+import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.Verb;
 import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.CapsMode;
@@ -7,6 +8,7 @@ import io.github.achacha.dada.integration.tags.TagSingleton;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SentenceRandomBuilderTest {
@@ -17,16 +19,27 @@ class SentenceRandomBuilderTest {
     }
 
     @Test
-    void randomize() {
-        SentenceRandomBuilder rs = new SentenceRandomBuilder();
-        rs
+    void simpleRandomSentence() {
+        SentenceRandomBuilder rs = new SentenceRandomBuilder()
                 .noun()
                 .conjunction()
                 .noun()
                 .verb(ArticleMode.none, CapsMode.none, Verb.Form.infinitive);
 
-        // TODO: Better test needed
+        assertEquals(4, rs.getWords().size());
         assertTrue(!rs.randomize().isEmpty());
+
+    }
+
+    @Test
+    void extendedRandomSentence() {
+        SentenceRandomBuilder rs = new SentenceRandomBuilder()
+                .text("shoe", ArticleMode.the, CapsMode.first)
+                .verb(ArticleMode.none, CapsMode.none, Verb.Form.singular)
+                .noun(ArticleMode.a, CapsMode.none, Noun.Form.plural);
+
+        assertEquals(3, rs.getWords().size());
+        assertTrue(rs.randomize().startsWith("The shoe"));
 
     }
 }

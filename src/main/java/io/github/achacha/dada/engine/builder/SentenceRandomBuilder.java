@@ -38,6 +38,13 @@ public class SentenceRandomBuilder {
     }
 
     /**
+     * @return List of wond renderers
+     */
+    public List<BaseWordRenderer> getWords() {
+        return words;
+    }
+
+    /**
      * Add text
      * @param text Fixed text
      * @return SentenceRandomBuilder this
