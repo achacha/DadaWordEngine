@@ -8,6 +8,9 @@ import java.util.ArrayList;
  * Conjunction
  */
 public class Conjunction extends Word {
+    public enum Form {
+        none   // conjunction has one form
+    }
 
     protected Conjunction(ArrayList<String> attrs) {
         super(attrs.get(0));

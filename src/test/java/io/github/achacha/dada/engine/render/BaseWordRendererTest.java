@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.data.Adjective;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.integration.tags.TagSingleton;
@@ -19,7 +20,7 @@ public class BaseWordRendererTest {
     public void testRenderingList() {
         SentenceRenderer tagsToRender = new SentenceRenderer();
         tagsToRender.add(new TextRenderer("with"));
-        tagsToRender.add(new AdjectiveRenderer(ArticleMode.a, CapsMode.none, ""));
+        tagsToRender.add(new AdjectiveRenderer(ArticleMode.a, CapsMode.none, Adjective.Form.positive));
         tagsToRender.add(new NounRenderer());
 
         assertEquals("with a subtle noun", tagsToRender.execute());

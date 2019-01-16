@@ -8,6 +8,9 @@ import java.util.ArrayList;
  * Adverb
  */
 public class Adverb extends Word {
+    public enum Form {
+        none   // adverb has one form
+    }
 
     protected Adverb(ArrayList<String> attrs) {
         super(attrs.get(0));

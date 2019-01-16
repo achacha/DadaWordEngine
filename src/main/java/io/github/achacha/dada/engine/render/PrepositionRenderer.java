@@ -16,12 +16,20 @@ public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
      * Extended constructor
      * @param articleMode ArticleMode
      * @param capsMode CapsMode
-     * @param form specific to the word
      */
-    public PrepositionRenderer(ArticleMode articleMode, CapsMode capsMode, String form) {
+    public PrepositionRenderer(ArticleMode articleMode, CapsMode capsMode) {
         this();
         this.articleMode = articleMode;
         this.capsMode = capsMode;
-        this.form = form;
+    }
+
+    @Override
+    public String getFormName() {
+        return Preposition.Form.none.name();
+    }
+
+    @Override
+    public void setForm(String formName) {
+        LOGGER.error("Unexpected form name for this={} formName={}", this, formName);
     }
 }

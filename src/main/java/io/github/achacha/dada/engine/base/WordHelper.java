@@ -1,13 +1,8 @@
 package io.github.achacha.dada.engine.base;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.annotation.Nonnull;
 
 public final class WordHelper {
-    private static final Logger LOGGER = LogManager.getLogger(WordHelper.class);
-
     /**
      * @param c Character assumed lower case
      * @return true if aeiou

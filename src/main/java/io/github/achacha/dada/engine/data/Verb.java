@@ -13,6 +13,14 @@ import java.util.Collection;
  * Verb
  */
 public class Verb extends Word {
+    public enum Form {
+        base,
+        past,
+        pastparticiple,
+        singular,
+        present,
+        infinitive
+    }
 
     protected final String past;
     protected final String pastParticiple;
@@ -38,7 +46,7 @@ public class Verb extends Word {
                 ", pastParticiple='" + pastParticiple + '\'' +
                 ", singular='" + singular + '\'' +
                 ", present='" + present + '\'' +
-                ", word='" + word + '\'' +
+                ", base='" + word + '\'' +
                 '}';
     }
 
@@ -103,7 +111,7 @@ public class Verb extends Word {
     @Override
     public Collection<Pair<String,String>> getAllForms() {
         return Sets.newHashSet(
-                Pair.of("", this.word),
+                Pair.of("base", this.word),
                 Pair.of("past", this.past),
                 Pair.of("pastParticiple", this.pastParticiple),
                 Pair.of("singular", this.singular),

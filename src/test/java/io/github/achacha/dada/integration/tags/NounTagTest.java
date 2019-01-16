@@ -1,5 +1,6 @@
 package io.github.achacha.dada.integration.tags;
 
+import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.SavedWord;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
@@ -88,7 +89,7 @@ public class NounTagTest {
         // Output will only take into account the current form of the tag not the saved one
         // Test loading
         tag.getWordRenderer().setLoadKey("saved");
-        tag.getWordRenderer().setForm("");
+        tag.getWordRenderer().setForm(Noun.Form.singular);
         assertEquals("noun", tag.getWordRenderer().execute());
 
         // Test output
@@ -123,7 +124,8 @@ public class NounTagTest {
         tag.setLoad("myLoadKey");
         assertEquals("myLoadKey", tag.wordRenderer.getLoadKey());
         tag.setForm("Plural");
-        assertEquals("plural", tag.wordRenderer.getForm());
+        assertEquals("plural", tag.wordRenderer.getFormName());
+        assertEquals(Noun.Form.plural, tag.wordRenderer.getForm());
         tag.setCapsMode("ALL");
         assertEquals(CapsMode.all, tag.wordRenderer.getCapsMode());
         tag.setArticle("tHE");
@@ -132,4 +134,23 @@ public class NounTagTest {
         assertEquals(6, tag.wordRenderer.getSyllablesDesired());
     }
 
+    @Test
+    public void invalidArticleMode() {
+        NounTag tag = new NounTag();
+
+        tag.setArticle(" A ");
+        assertEquals(ArticleMode.a, tag.getWordRenderer().getArticle());
+        tag.setArticle("INVALID");
+        assertEquals(ArticleMode.a, tag.getWordRenderer().getArticle());  // Should remain unchanged, invalid ignored
+    }
+
+    @Test
+    public void invalidCapsMode() {
+        NounTag tag = new NounTag();
+
+        tag.setCapsMode("   wOrDs ");
+        assertEquals(CapsMode.words, tag.wordRenderer.getCapsMode());
+        tag.setCapsMode("INVALID");
+        assertEquals(CapsMode.words, tag.wordRenderer.getCapsMode());  // Invalid ignored
+    }
 }

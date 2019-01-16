@@ -15,6 +15,12 @@ import java.util.Collection;
  */
 public class Noun extends Word {
 
+    public enum Form {
+        singular,
+        plural
+    }
+
+    /** plural form of this word */
     protected final String plural;
 
     protected Noun(ArrayList<String> attrs) {
@@ -38,8 +44,8 @@ public class Noun extends Word {
     @Override
     public String toString() {
         return "Noun{" +
-                "singular='" + word + '\'' +
-                ", plural='" + plural + '\'' +
+                Form.singular.name() + "='" + word + '\'' +
+                ", " + Form.plural.name() + "='" + plural + '\'' +
                 '}';
     }
 
@@ -73,8 +79,8 @@ public class Noun extends Word {
     @Override
     public Collection<Pair<String,String>> getAllForms() {
         return Lists.newArrayList(
-                Pair.of("", this.word),
-                Pair.of("plural", this.plural)
+                Pair.of(Form.singular.name(), this.word),
+                Pair.of(Form.plural.name(), this.plural)
         );
     }
 

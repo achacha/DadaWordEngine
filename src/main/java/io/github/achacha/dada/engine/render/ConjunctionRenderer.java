@@ -21,6 +21,15 @@ public class ConjunctionRenderer extends BaseWordRenderer<Conjunction> {
         this();
         this.articleMode = articleMode;
         this.capsMode = capsMode;
-        this.form = "";
+    }
+
+    @Override
+    public String getFormName() {
+        return Conjunction.Form.none.name();
+    }
+
+    @Override
+    public void setForm(String formName) {
+        LOGGER.error("Unexpected form name for this={} formName={}", this, formName);
     }
 }

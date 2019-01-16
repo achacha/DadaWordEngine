@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.builder;
 
+import io.github.achacha.dada.engine.data.Verb;
 import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.CapsMode;
 import io.github.achacha.dada.integration.tags.TagSingleton;
@@ -22,7 +23,7 @@ class SentenceRandomBuilderTest {
                 .noun()
                 .conjunction()
                 .noun()
-                .verb(ArticleMode.none, CapsMode.none, "infinitive");
+                .verb(ArticleMode.none, CapsMode.none, Verb.Form.infinitive);
 
         // TODO: Better test needed
         assertTrue(!rs.randomize().isEmpty());

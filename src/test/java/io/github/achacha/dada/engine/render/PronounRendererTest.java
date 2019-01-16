@@ -34,7 +34,7 @@ public class PronounRendererTest {
 
     @Test
     public void testExtendedConstructor() {
-        PronounRenderer tag = new PronounRenderer(ArticleMode.none, CapsMode.first, "subjective");
+        PronounRenderer tag = new PronounRenderer(ArticleMode.none, CapsMode.first, Pronoun.Form.subjective);
         assertEquals("Who", tag.execute());
     }
 
@@ -51,12 +51,15 @@ public class PronounRendererTest {
         assertFalse(pronoun.isEmpty());
 
         tag.setForm(Pronoun.Form.personal.name());
+        assertEquals(Pronoun.Form.personal, tag.getForm());
         assertEquals("me", tag.execute());
 
         tag.setForm(Pronoun.Form.subjective.name());
+        assertEquals(Pronoun.Form.subjective, tag.getForm());
         assertEquals("who", tag.execute());
 
-        tag.setForm(Pronoun.Form.interrogative.name());
+        tag.setForm(Pronoun.Form.interrogative);
+        assertEquals("interrogative", tag.getFormName());
         assertEquals("who", tag.execute());
 
         tag.setForm(Pronoun.Form.relative.name());

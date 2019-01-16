@@ -32,7 +32,7 @@ public class TextRendererText {
 
     @Test
     public void testExtendedConstructor() {
-        TextRenderer tag = new TextRenderer("constant", ArticleMode.a, CapsMode.all, "");
+        TextRenderer tag = new TextRenderer("constant", ArticleMode.a, CapsMode.all);
         assertEquals("A CONSTANT", tag.execute());
     }
 }

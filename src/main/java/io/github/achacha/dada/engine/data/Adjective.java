@@ -14,6 +14,12 @@ import java.util.Collection;
  */
 public class Adjective extends Word {
 
+    public enum Form {
+        positive,       // Base form
+        comparative,    // -er
+        superlative     // -est
+    }
+
     protected final String comparative;
     protected final String superlative;
 
@@ -24,7 +30,7 @@ public class Adjective extends Word {
         comparative = attrs.get(1);
         superlative = attrs.get(2);
 
-        LOGGER.trace("Adding adjective=`{}` comparative=`{}` superlative=`{}`", this.word, comparative, superlative);
+        LOGGER.trace("Adding positive=`{}` comparative=`{}` superlative=`{}`", this.word, comparative, superlative);
     }
 
     @Override
@@ -54,9 +60,9 @@ public class Adjective extends Word {
     @Override
     public String toString() {
         return "Adjective{" +
-                "word='" + word + '\'' +
-                ", comparative='" + comparative + '\'' +
-                ", superlative='" + superlative + '\'' +
+                Form.positive.name() + "='" + word + '\'' +
+                ", " + Form.comparative.name() + "='" + comparative + '\'' +
+                ", " + Form.superlative.name() + "='" + superlative + '\'' +
                 '}';
     }
 
@@ -78,9 +84,9 @@ public class Adjective extends Word {
     @Override
     public Collection<Pair<String,String>> getAllForms() {
         return Lists.newArrayList(
-                Pair.of("", this.word),
-                Pair.of("er", this.comparative),
-                Pair.of("est", this.superlative)
+                Pair.of(Form.positive.name(), this.word),
+                Pair.of(Form.comparative.name(), this.comparative),
+                Pair.of(Form.superlative.name(), this.superlative)
         );
     }
 

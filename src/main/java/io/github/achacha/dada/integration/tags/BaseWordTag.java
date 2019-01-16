@@ -14,13 +14,13 @@ import javax.servlet.jsp.tagext.JspTag;
 import javax.servlet.jsp.tagext.SimpleTag;
 import java.io.IOException;
 
-public abstract class BaseWordTag<T extends Word> implements SimpleTag {
+public abstract class BaseWordTag<T extends Word, R extends BaseWordRenderer<T>> implements SimpleTag {
     protected static final Logger LOGGER = LogManager.getLogger(BaseWordTag.class);
 
     /** Renderer used by the word type specific tag */
-    protected final BaseWordRenderer<T> wordRenderer;
+    protected final R wordRenderer;
 
-    BaseWordTag(BaseWordRenderer<T> wordRenderer) {
+    BaseWordTag(R wordRenderer) {
         this.wordRenderer = wordRenderer;
     }
 
@@ -61,7 +61,10 @@ public abstract class BaseWordTag<T extends Word> implements SimpleTag {
         // If this changes the body can be contained in the context
     }
 
-    public BaseWordRenderer<T> getWordRenderer() {
+    /**
+     * @return Renderer for the word
+     */
+    public R getWordRenderer() {
         return wordRenderer;
     }
 

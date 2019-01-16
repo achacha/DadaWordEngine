@@ -7,7 +7,7 @@ import io.github.achacha.dada.engine.render.TextRenderer;
 /**
  * Tag that represents constant text string
  */
-public class TextTag extends BaseWordTag<Text> {
+public class TextTag extends BaseWordTag<Text, TextRenderer> {
     /**
      * @param text constant string
      */

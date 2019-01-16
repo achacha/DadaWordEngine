@@ -1,5 +1,9 @@
 package io.github.achacha.dada.engine.builder;
 
+import io.github.achacha.dada.engine.data.Adjective;
+import io.github.achacha.dada.engine.data.Noun;
+import io.github.achacha.dada.engine.data.Pronoun;
+import io.github.achacha.dada.engine.data.Verb;
 import io.github.achacha.dada.engine.render.AdjectiveRenderer;
 import io.github.achacha.dada.engine.render.AdverbRenderer;
 import io.github.achacha.dada.engine.render.ArticleMode;
@@ -35,11 +39,23 @@ public class SentenceRandomBuilder {
 
     /**
      * Add text
-     * @param str Fixed text
+     * @param text Fixed text
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder text(String str) {
-        words.add(new TextRenderer(str));
+    public SentenceRandomBuilder text(String text) {
+        words.add(new TextRenderer(text));
+        return this;
+    }
+
+    /**
+     * Add text
+     * @param text Fixed text
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder text(String text, ArticleMode articleMode, CapsMode capsMode) {
+        words.add(new TextRenderer(text, articleMode, capsMode));
         return this;
     }
 
@@ -54,12 +70,12 @@ public class SentenceRandomBuilder {
 
     /**
      * Add adjective
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
-     * @param form ""=(default), "er", "est"
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
+     * @param form {@link Adjective.Form}
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder adjective(ArticleMode articleMode, CapsMode capsMode, String form) {
+    public SentenceRandomBuilder adjective(ArticleMode articleMode, CapsMode capsMode, Adjective.Form form) {
         words.add(new AdjectiveRenderer(articleMode, capsMode, form));
         return this;
     }
@@ -75,8 +91,8 @@ public class SentenceRandomBuilder {
 
     /**
      * Add adverb
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder adverb(ArticleMode articleMode, CapsMode capsMode) {
@@ -95,8 +111,8 @@ public class SentenceRandomBuilder {
 
     /**
      * Add conjunction
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder conjunction(ArticleMode articleMode, CapsMode capsMode) {
@@ -115,12 +131,12 @@ public class SentenceRandomBuilder {
 
     /**
      * Add noun
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
-     * @param form ""=(singular), "singular", "plural"
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
+     * @param form {@link Noun.Form}
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder noun(ArticleMode articleMode, CapsMode capsMode, String form) {
+    public SentenceRandomBuilder noun(ArticleMode articleMode, CapsMode capsMode, Noun.Form form) {
         words.add(new NounRenderer(articleMode, capsMode, form));
         return this;
     }
@@ -136,14 +152,14 @@ public class SentenceRandomBuilder {
 
     /**
      * Add pronoun
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
-     * @param form "personal", "subjective", "objective", "possessive", "demonstrative", "interrogative", "relative", "reflexive", "reciprocal", "indefinite"
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
+     * @param form {@link Pronoun.Form}
      * @return SentenceRandomBuilder this
      *
      * see pronouns.csv
      */
-    public SentenceRandomBuilder pronoun(ArticleMode articleMode, CapsMode capsMode, String form) {
+    public SentenceRandomBuilder pronoun(ArticleMode articleMode, CapsMode capsMode, Pronoun.Form form) {
         words.add(new PronounRenderer(articleMode, capsMode, form));
         return this;
     }
@@ -159,12 +175,12 @@ public class SentenceRandomBuilder {
 
     /**
      * Add verb
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
-     * @param form ""=(default), "infinitive", "past", "singular", "present", "pastparticiple"
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
+     * @param form {@link Verb.Form}
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder verb(ArticleMode articleMode, CapsMode capsMode, String form) {
+    public SentenceRandomBuilder verb(ArticleMode articleMode, CapsMode capsMode, Verb.Form form) {
         words.add(new VerbRenderer(articleMode, capsMode, form));
         return this;
     }

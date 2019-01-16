@@ -28,13 +28,21 @@ public class TextRenderer extends BaseWordRenderer<Text> {
      * @param text constant string
      * @param articleMode ArticleMode
      * @param capsMode CapsMode
-     * @param form specific to the word
      */
-    public TextRenderer(String text, ArticleMode articleMode, CapsMode capsMode, String form) {
+    public TextRenderer(String text, ArticleMode articleMode, CapsMode capsMode) {
         this(text);
         this.articleMode = articleMode;
         this.capsMode = capsMode;
-        this.form = form;
+    }
+
+    @Override
+    public String getFormName() {
+        return Text.Form.none.name();
+    }
+
+    @Override
+    public void setForm(String formName) {
+        LOGGER.error("Unexpected form name for this={} formName={}", this, formName);
     }
 
     @Override

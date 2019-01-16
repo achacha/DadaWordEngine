@@ -8,6 +8,9 @@ import java.util.ArrayList;
  * Preposition
  */
 public class Preposition extends Word {
+    public enum Form {
+        none   // preposition has one form
+    }
 
     protected Preposition(ArrayList<String> attrs) {
         super(attrs.get(0));

@@ -6,6 +6,10 @@ import java.util.ArrayList;
  * Constant text that is not one of the other words
  */
 public class Text extends Word {
+    public enum Form {
+        none
+    }
+
     public Text(String word) {
         super(word);
     }

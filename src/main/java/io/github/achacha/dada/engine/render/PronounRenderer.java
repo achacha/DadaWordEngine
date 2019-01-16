@@ -4,8 +4,11 @@ import io.github.achacha.dada.engine.data.Pronoun;
 import io.github.achacha.dada.engine.data.Pronouns;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.integration.tags.TagSingleton;
+import org.apache.commons.lang3.StringUtils;
 
 public class PronounRenderer extends BaseWordRenderer<Pronoun> {
+    protected Pronoun.Form form = Pronoun.Form.personal;
+
     public PronounRenderer() {
         super(new RenderContextToString<>(TagSingleton.getWordData().getPronouns()));
     }
@@ -23,10 +26,9 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
      * Extended constructor
      * @param articleMode ArticleMode
      * @param capsMode CapsMode
-     * @param form "personal", "subjective", "objective", "possessive", "demonstrative", "interrogative", "relative", "reflexive", "reciprocal", "indefinite"
-     * @see Pronoun.Form
+     * @param form {@link Pronoun.Form}
      */
-    public PronounRenderer(ArticleMode articleMode, CapsMode capsMode, String form) {
+    public PronounRenderer(ArticleMode articleMode, CapsMode capsMode, Pronoun.Form form) {
         this();
         this.articleMode = articleMode;
         this.capsMode = capsMode;
@@ -35,18 +37,38 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
 
     @Override
     protected Word generateWord() {
-        if (!form.isEmpty()) {
-            Pronouns pronouns = (Pronouns) rendererContext.getWords();
-            try {
-                Pronoun.Form pronounForm = Pronoun.Form.valueOf(form.toLowerCase());
-                Word word = pronouns.getRandomPronounByForm(pronounForm);
-                LOGGER.debug("Generated pronoun={} form={}", word, pronounForm);
-                return word;
-            }
-            catch(IllegalArgumentException e) {
-                LOGGER.debug("Skipping unknown form `{}` in {}", form, this);
-            }
+        Pronouns pronouns = (Pronouns) rendererContext.getWords();
+        try {
+            Word word = pronouns.getRandomPronounByForm(form);
+            LOGGER.debug("Generated pronoun={} form={}", word, form.name());
+            return word;
+        }
+        catch(IllegalArgumentException e) {
+            LOGGER.debug("Skipping unknown form `{}` in {}", form, this);
         }
         return super.generateWord();
+    }
+
+    public Pronoun.Form getForm() {
+        return form;
+    }
+
+    public void setForm(Pronoun.Form form) {
+        this.form = form;
+    }
+
+    @Override
+    public String getFormName() {
+        return form.name();
+    }
+
+    @Override
+    public void setForm(String formName) {
+        try {
+            this.form = Pronoun.Form.valueOf(StringUtils.trim(formName).toLowerCase());
+        }
+        catch(IllegalArgumentException e) {
+            LOGGER.error("Invalid form name for this={} formName={}", this, formName);
+        }
     }
 }

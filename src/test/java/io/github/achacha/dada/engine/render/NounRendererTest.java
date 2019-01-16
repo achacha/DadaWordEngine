@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.TestWords;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
@@ -45,15 +46,18 @@ public class NounRendererTest {
         tag.setCapsMode(CapsMode.all);
         assertEquals("A NOUNS", tag.execute());
 
-        tag.setForm("normal");
+        tag.setForm("singular");
         tag.setArticle(ArticleMode.the);
         tag.setCapsMode(CapsMode.words);
         assertEquals("The Noun", tag.execute());
+
+        tag.setForm(Noun.Form.plural);
+        assertEquals("The Nouns", tag.execute());
     }
 
     @Test
     public void testExtendedConstructor() {
-        NounRenderer tag = new NounRenderer(ArticleMode.the, CapsMode.words, "normal");
+        NounRenderer tag = new NounRenderer(ArticleMode.the, CapsMode.words, Noun.Form.singular);
         assertEquals("The Noun", tag.execute());
     }
 

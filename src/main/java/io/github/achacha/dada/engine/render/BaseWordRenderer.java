@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class BaseWordRenderer<T extends Word> {
+public abstract class BaseWordRenderer<T extends Word> {
     protected static final Logger LOGGER = LogManager.getLogger(BaseWordRenderer.class);
 
     /**
@@ -45,9 +45,6 @@ public class BaseWordRenderer<T extends Word> {
      */
     protected String rhymeKey;
 
-    /** Form of the word to use */
-    protected String form = "";
-
     /**
      * Syllables desired count
      * When 0 we don't care about syllables
@@ -66,6 +63,10 @@ public class BaseWordRenderer<T extends Word> {
         this.rendererContext = rendererContext;
     }
 
+    /**
+     * Set new rendering context for the specific word
+     * @param rendererContext RenderContext
+     */
     public void setRendererContext(RenderContext<T> rendererContext) {
         this.rendererContext = rendererContext;
     }
@@ -85,7 +86,6 @@ public class BaseWordRenderer<T extends Word> {
                 ", loadKey='" + loadKey + '\'' +
                 ", saveKey='" + saveKey + '\'' +
                 ", rhymeKey=" + rhymeKey + '\'' +
-                ", form='" + form + '\'' +
                 '}';
     }
 
@@ -131,14 +131,6 @@ public class BaseWordRenderer<T extends Word> {
     }
 
     /**
-     * Form of the word to use
-     * @param form Form specific to the word type
-     */
-    public void setForm(String form) {
-        this.form = form.toLowerCase();
-    }
-
-    /**
      * Set how many syllables this word should have
      * @param syllablesDesired int syllable count
      */
@@ -168,13 +160,22 @@ public class BaseWordRenderer<T extends Word> {
         return rhymeKey;
     }
 
-    public String getForm() {
-        return form;
-    }
-
     public int getSyllablesDesired() {
         return syllablesDesired;
     }
+
+    /**
+     * This is word type specific
+     * @return String version of the form name
+     */
+    public abstract String getFormName();
+
+    /**
+     * Use form name to set the form
+     * Invalid form name for a given word is ignored
+     * @param formName Name of a form
+     */
+    public abstract void setForm(String formName);
 
     /**
      * Execute tag
@@ -290,7 +291,7 @@ public class BaseWordRenderer<T extends Word> {
      */
     protected void saveWord(Word word) {
         if (saveKey != null) {
-            SavedWord sw = new SavedWord(word, form);
+            SavedWord sw = new SavedWord(word, getFormName());
             rendererContext.setAttribute(saveKey, sw);
         }
     }
