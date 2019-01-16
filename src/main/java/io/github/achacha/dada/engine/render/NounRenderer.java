@@ -18,14 +18,12 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
 
     /**
      * Extended constructor
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
      * @param form {@link Noun.Form}
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
      */
-    public NounRenderer(ArticleMode articleMode, CapsMode capsMode, Noun.Form form) {
-        this();
-        this.articleMode = articleMode;
-        this.capsMode = capsMode;
+    public NounRenderer(Noun.Form form, ArticleMode articleMode, CapsMode capsMode) {
+        super(new RenderContextToString<>(TagSingleton.getWordData().getNouns()), articleMode, capsMode);
         this.form = form;
     }
 

@@ -9,24 +9,30 @@ public class AdjectiveRenderer extends BaseWordRenderer<Adjective> {
 
     protected Adjective.Form form = Adjective.Form.positive;
 
+    /**
+     * Build renderer with string based context
+     * @see RenderContextToString
+     */
     public AdjectiveRenderer() {
         super(new RenderContextToString<>(TagSingleton.getWordData().getAdjectives()));
     }
 
+    /**
+     * Build renderer with custom context
+     * @param renderData {@link RenderContext}
+     */
     public AdjectiveRenderer(RenderContext<Adjective> renderData) {
         super(renderData);
     }
 
     /**
      * Extended constructor
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
      * @param form {@link Adjective.Form)
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
      */
-    public AdjectiveRenderer(ArticleMode articleMode, CapsMode capsMode, Adjective.Form form) {
-        this();
-        this.articleMode = articleMode;
-        this.capsMode = capsMode;
+    public AdjectiveRenderer(Adjective.Form form, ArticleMode articleMode, CapsMode capsMode) {
+        super(new RenderContextToString<>(TagSingleton.getWordData().getAdjectives()), articleMode, capsMode);
         this.form = form;
     }
 

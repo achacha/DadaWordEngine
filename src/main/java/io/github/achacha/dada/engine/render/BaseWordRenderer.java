@@ -55,12 +55,29 @@ public abstract class BaseWordRenderer<T extends Word> {
     protected final static int TRIES_TO_GET_SYLLABLES = 10;
 
     /**
-     * Construct renderer with rendering context
-     * @param rendererContext RenderingContext
+     * Construct renderer for the word with rendering context with no capitalization and no article
+     * NOTE: Form of the word is handled by each specific word class
+     *
+     * @param renderContext {@link RenderContext}
      * @see RenderContextToString
      */
-    public BaseWordRenderer(RenderContext<T> rendererContext) {
-        this.rendererContext = rendererContext;
+    public BaseWordRenderer(RenderContext<T> renderContext) {
+        this.rendererContext = renderContext;
+    }
+
+    /**
+     * Construct renderer for the word with rendering context
+     * NOTE: Form of the word is handled by each specific word class
+     *
+     * @param renderContext {@link RenderContext}
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
+     * @see RenderContextToString
+     */
+    public BaseWordRenderer(RenderContext<T> renderContext, ArticleMode articleMode, CapsMode capsMode) {
+        this.rendererContext = renderContext;
+        this.articleMode = articleMode;
+        this.capsMode = capsMode;
     }
 
     /**

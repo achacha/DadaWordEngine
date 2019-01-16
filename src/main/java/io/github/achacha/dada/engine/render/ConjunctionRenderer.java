@@ -14,13 +14,11 @@ public class ConjunctionRenderer extends BaseWordRenderer<Conjunction> {
 
     /**
      * Extended constructor
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
      */
     public ConjunctionRenderer(ArticleMode articleMode, CapsMode capsMode) {
-        this();
-        this.articleMode = articleMode;
-        this.capsMode = capsMode;
+        super(new RenderContextToString<>(TagSingleton.getWordData().getConjunctions()), articleMode, capsMode);
     }
 
     @Override

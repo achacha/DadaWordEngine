@@ -18,14 +18,12 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
 
     /**
      * Extended constructor
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
      * @param form {@link Verb.Form}
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
      */
-    public VerbRenderer(ArticleMode articleMode, CapsMode capsMode, Verb.Form form) {
-        this();
-        this.articleMode = articleMode;
-        this.capsMode = capsMode;
+    public VerbRenderer(Verb.Form form, ArticleMode articleMode, CapsMode capsMode) {
+        super(new RenderContextToString<>(TagSingleton.getWordData().getVerbs()), articleMode, capsMode);
         this.form = form;
     }
 

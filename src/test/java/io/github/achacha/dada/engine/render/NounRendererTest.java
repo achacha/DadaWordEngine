@@ -57,7 +57,7 @@ public class NounRendererTest {
 
     @Test
     public void testExtendedConstructor() {
-        NounRenderer tag = new NounRenderer(ArticleMode.the, CapsMode.words, Noun.Form.singular);
+        NounRenderer tag = new NounRenderer(Noun.Form.singular, ArticleMode.the, CapsMode.words);
         assertEquals("The Noun", tag.execute());
     }
 

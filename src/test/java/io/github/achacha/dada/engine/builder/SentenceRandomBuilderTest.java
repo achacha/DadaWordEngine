@@ -24,7 +24,7 @@ class SentenceRandomBuilderTest {
                 .noun()
                 .conjunction()
                 .noun()
-                .verb(ArticleMode.none, CapsMode.none, Verb.Form.infinitive);
+                .verb(Verb.Form.infinitive);
 
         assertEquals(4, rs.getWords().size());
         assertTrue(!rs.randomize().isEmpty());
@@ -35,8 +35,8 @@ class SentenceRandomBuilderTest {
     void extendedRandomSentence() {
         SentenceRandomBuilder rs = new SentenceRandomBuilder()
                 .text("shoe", ArticleMode.the, CapsMode.first)
-                .verb(ArticleMode.none, CapsMode.none, Verb.Form.singular)
-                .noun(ArticleMode.a, CapsMode.none, Noun.Form.plural);
+                .verb(Verb.Form.singular)
+                .noun(Noun.Form.plural, ArticleMode.a, CapsMode.none);
 
         assertEquals(3, rs.getWords().size());
         assertTrue(rs.randomize().startsWith("The shoe"));

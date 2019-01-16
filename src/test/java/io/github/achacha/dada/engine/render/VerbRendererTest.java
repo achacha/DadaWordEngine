@@ -58,7 +58,7 @@ public class VerbRendererTest {
 
     @Test
     public void testExtendedConstructor() {
-        VerbRenderer tag = new VerbRenderer(ArticleMode.the, CapsMode.first, Verb.Form.present);
+        VerbRenderer tag = new VerbRenderer(Verb.Form.present, ArticleMode.the, CapsMode.first);
         assertEquals("The swimming", tag.execute());
     }
 }

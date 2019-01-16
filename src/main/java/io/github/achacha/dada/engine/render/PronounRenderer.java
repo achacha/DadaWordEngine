@@ -13,6 +13,10 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
         super(new RenderContextToString<>(TagSingleton.getWordData().getPronouns()));
     }
 
+    /**
+     * Custom render context
+     * @param renderData {@link RenderContext}
+     */
     public PronounRenderer(RenderContext<Pronoun> renderData) {
         super(renderData);
     }
@@ -24,14 +28,12 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
 
     /**
      * Extended constructor
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
      * @param form {@link Pronoun.Form}
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
      */
-    public PronounRenderer(ArticleMode articleMode, CapsMode capsMode, Pronoun.Form form) {
-        this();
-        this.articleMode = articleMode;
-        this.capsMode = capsMode;
+    public PronounRenderer(Pronoun.Form form, ArticleMode articleMode, CapsMode capsMode) {
+        super(new RenderContextToString<>(TagSingleton.getWordData().getPronouns()), articleMode, capsMode);
         this.form = form;
     }
 

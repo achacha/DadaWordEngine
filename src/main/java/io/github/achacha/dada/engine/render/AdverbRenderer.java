@@ -14,13 +14,11 @@ public class AdverbRenderer extends BaseWordRenderer<Adverb> {
 
     /**
      * Extended constructor
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
      */
     public AdverbRenderer(ArticleMode articleMode, CapsMode capsMode) {
-        this();
-        this.articleMode = articleMode;
-        this.capsMode = capsMode;
+        super(new RenderContextToString<>(TagSingleton.getWordData().getAdverbs()), articleMode, capsMode);
     }
 
     @Override

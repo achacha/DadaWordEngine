@@ -11,13 +11,19 @@ public class TextRenderer extends BaseWordRenderer<Text> {
     private final Text text;
 
     /**
-     * @param text constant string
+     * Text renderer without article or capitalization
+     * @param text String constant
      */
     public TextRenderer(String text) {
         super(new RenderContextToString<>(WordsByType.empty()));
         this.text = Text.of(text);
     }
 
+    /**
+     * Custom renderer for text
+     * @param text String constant
+     * @param renderData {@link RenderContext}
+     */
     public TextRenderer(String text, RenderContext<Text> renderData) {
         super(renderData);
         this.text = Text.of(text);
@@ -25,14 +31,13 @@ public class TextRenderer extends BaseWordRenderer<Text> {
 
     /**
      * Extended constructor
-     * @param text constant string
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
+     * @param text String constant
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
      */
     public TextRenderer(String text, ArticleMode articleMode, CapsMode capsMode) {
-        this(text);
-        this.articleMode = articleMode;
-        this.capsMode = capsMode;
+        super(new RenderContextToString<>(WordsByType.empty()), articleMode, capsMode);
+        this.text = Text.of(text);
     }
 
     @Override

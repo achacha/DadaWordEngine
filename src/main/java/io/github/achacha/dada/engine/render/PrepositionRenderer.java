@@ -8,19 +8,21 @@ public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
         super(new RenderContextToString<>(TagSingleton.getWordData().getPrepositions()));
     }
 
+    /**
+     * Custom renderer context
+     * @param renderData {@link RenderContext}
+     */
     public PrepositionRenderer(RenderContext<Preposition> renderData) {
         super(renderData);
     }
 
     /**
      * Extended constructor
-     * @param articleMode ArticleMode
-     * @param capsMode CapsMode
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
      */
     public PrepositionRenderer(ArticleMode articleMode, CapsMode capsMode) {
-        this();
-        this.articleMode = articleMode;
-        this.capsMode = capsMode;
+        super(new RenderContextToString<>(TagSingleton.getWordData().getPrepositions()), articleMode, capsMode);
     }
 
     @Override

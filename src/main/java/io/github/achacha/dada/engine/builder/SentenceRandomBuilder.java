@@ -38,7 +38,7 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * @return List of wond renderers
+     * @return List of word renderers
      */
     public List<BaseWordRenderer> getWords() {
         return words;
@@ -46,7 +46,7 @@ public class SentenceRandomBuilder {
 
     /**
      * Add text
-     * @param text Fixed text
+     * @param text String text
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder text(String text) {
@@ -55,8 +55,8 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * Add text
-     * @param text Fixed text
+     * Add text with given article and capitalization
+     * @param text String text
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
      * @return SentenceRandomBuilder this
@@ -67,7 +67,7 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * Add adjective
+     * Add adjective with positive (base) form and no article and no capitalization
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder adjective() {
@@ -76,19 +76,29 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * Add adjective
-     * @param articleMode {@link ArticleMode}
-     * @param capsMode {@link CapsMode}
+     * Add adjective with given form and no article and no capitalization
      * @param form {@link Adjective.Form}
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder adjective(ArticleMode articleMode, CapsMode capsMode, Adjective.Form form) {
-        words.add(new AdjectiveRenderer(articleMode, capsMode, form));
+    public SentenceRandomBuilder adjective(Adjective.Form form) {
+        words.add(new AdjectiveRenderer(form, ArticleMode.none, CapsMode.none));
         return this;
     }
 
     /**
-     * Add adverb
+     * Add adjective with given article and capitalization
+     * @param form {@link Adjective.Form}
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder adjective(Adjective.Form form, ArticleMode articleMode, CapsMode capsMode) {
+        words.add(new AdjectiveRenderer(form, articleMode, capsMode));
+        return this;
+    }
+
+    /**
+     * Add adverb with no article and no capitalization
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder adverb() {
@@ -97,7 +107,7 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * Add adverb
+     * Add adverb with given article and capitalization
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
      * @return SentenceRandomBuilder this
@@ -108,7 +118,7 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * Add conjunction
+     * Add conjunction with no article and no capitalization
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder conjunction() {
@@ -117,7 +127,7 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * Add conjunction
+     * Add conjunction with given article and capitalization
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
      * @return SentenceRandomBuilder this
@@ -128,7 +138,7 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * Add noun
+     * Add noun with no article and no capitalization
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder noun() {
@@ -137,14 +147,24 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * Add noun
-     * @param articleMode {@link ArticleMode}
-     * @param capsMode {@link CapsMode}
+     * Add noun of given form with no article and no capitalization
      * @param form {@link Noun.Form}
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder noun(ArticleMode articleMode, CapsMode capsMode, Noun.Form form) {
-        words.add(new NounRenderer(articleMode, capsMode, form));
+    public SentenceRandomBuilder noun(Noun.Form form) {
+        words.add(new NounRenderer(form, ArticleMode.none, CapsMode.none));
+        return this;
+    }
+
+    /**
+     * Add noun with given form, article and capitalization
+     * @param form {@link Noun.Form}
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder noun(Noun.Form form, ArticleMode articleMode, CapsMode capsMode) {
+        words.add(new NounRenderer(form, articleMode, capsMode));
         return this;
     }
 
@@ -158,21 +178,21 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * Add pronoun
+     * Add pronoun of given form, article and capitalization
+     * @param form {@link Pronoun.Form}
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
-     * @param form {@link Pronoun.Form}
      * @return SentenceRandomBuilder this
      *
      * see pronouns.csv
      */
-    public SentenceRandomBuilder pronoun(ArticleMode articleMode, CapsMode capsMode, Pronoun.Form form) {
-        words.add(new PronounRenderer(articleMode, capsMode, form));
+    public SentenceRandomBuilder pronoun(Pronoun.Form form, ArticleMode articleMode, CapsMode capsMode) {
+        words.add(new PronounRenderer(form, articleMode, capsMode));
         return this;
     }
 
     /**
-     * Add verb
+     * Add verb with base form, no article and no capitalization
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder verb() {
@@ -181,14 +201,24 @@ public class SentenceRandomBuilder {
     }
 
     /**
-     * Add verb
-     * @param articleMode {@link ArticleMode}
-     * @param capsMode {@link CapsMode}
+     * Add verb with given form and no article and no capitalization
      * @param form {@link Verb.Form}
      * @return SentenceRandomBuilder this
      */
-    public SentenceRandomBuilder verb(ArticleMode articleMode, CapsMode capsMode, Verb.Form form) {
-        words.add(new VerbRenderer(articleMode, capsMode, form));
+    public SentenceRandomBuilder verb(Verb.Form form) {
+        words.add(new VerbRenderer(form, ArticleMode.none, CapsMode.none));
+        return this;
+    }
+
+    /**
+     * Add verb with given form, article and capitalization
+     * @param form {@link Verb.Form}
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder verb(Verb.Form form, ArticleMode articleMode, CapsMode capsMode) {
+        words.add(new VerbRenderer(form, articleMode, capsMode));
         return this;
     }
 

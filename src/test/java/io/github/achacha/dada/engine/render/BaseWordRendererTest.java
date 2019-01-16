@@ -20,7 +20,7 @@ public class BaseWordRendererTest {
     public void testRenderingList() {
         SentenceRenderer tagsToRender = new SentenceRenderer();
         tagsToRender.add(new TextRenderer("with"));
-        tagsToRender.add(new AdjectiveRenderer(ArticleMode.a, CapsMode.none, Adjective.Form.positive));
+        tagsToRender.add(new AdjectiveRenderer(Adjective.Form.positive, ArticleMode.a, CapsMode.none));
         tagsToRender.add(new NounRenderer());
 
         assertEquals("with a subtle noun", tagsToRender.execute());
