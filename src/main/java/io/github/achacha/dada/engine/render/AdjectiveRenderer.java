@@ -27,7 +27,7 @@ public class AdjectiveRenderer extends BaseWordRenderer<Adjective> {
 
     /**
      * Extended constructor
-     * @param form {@link Adjective.Form)
+     * @param form {@link Adjective.Form}
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
      */
