@@ -6,7 +6,7 @@ import io.github.achacha.dada.engine.data.WordData;
 import java.util.Scanner;
 
 /**
- * Read line from input, parse, display structure and randomize known words
+ * Read line from input, parse, display structure and execute known words
  */
 public class ParseAndRegenerateSentenceExample {
     public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class ParseAndRegenerateSentenceExample {
             System.out.println("Structure\n---------\n"+sentence.toStringStructure());
             System.out.println("\nRandomized\n---------");
             for (int i=0; i<5; ++i)
-                System.out.println(sentence.randomize());
+                System.out.println(sentence.execute());
         }
     }
 }

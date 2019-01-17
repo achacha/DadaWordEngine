@@ -16,7 +16,9 @@ import java.util.Collection;
 public class Noun extends Word {
 
     public enum Form {
+        /** base */
         singular,
+        /** --s, -es, etc */
         plural
     }
 

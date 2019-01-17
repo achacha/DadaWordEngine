@@ -13,6 +13,7 @@ public class NounTest {
     public void testInternals() {
         Noun noun = TestWords.makeNoun("noun");
         assertNotNull(noun.toString());
+        assertEquals(Word.Type.Noun, noun.getType());
     }
 
     @Test

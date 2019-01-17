@@ -1,10 +1,13 @@
 package io.github.achacha.dada.engine.builder;
 
+import io.github.achacha.dada.engine.data.Adjective;
 import io.github.achacha.dada.engine.data.Noun;
+import io.github.achacha.dada.engine.data.Pronoun;
 import io.github.achacha.dada.engine.data.Verb;
 import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.CapsMode;
 import io.github.achacha.dada.integration.tags.TagSingleton;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -23,11 +26,15 @@ class SentenceRandomBuilderTest {
         SentenceRandomBuilder rs = new SentenceRandomBuilder()
                 .noun()
                 .conjunction()
+                .pronoun()
+                .adjective()
                 .noun()
-                .verb(Verb.Form.infinitive);
+                .preposition()
+                .adverb()
+                .verb();
 
-        assertEquals(4, rs.getWords().size());
-        assertTrue(!rs.randomize().isEmpty());
+        assertEquals(8, rs.getWords().size());
+        assertTrue(!rs.execute().isEmpty());
 
     }
 
@@ -35,11 +42,22 @@ class SentenceRandomBuilderTest {
     void extendedRandomSentence() {
         SentenceRandomBuilder rs = new SentenceRandomBuilder()
                 .text("shoe", ArticleMode.the, CapsMode.first)
-                .verb(Verb.Form.singular)
-                .noun(Noun.Form.plural, ArticleMode.a, CapsMode.none);
+                .pronoun(Pronoun.Form.personal, ArticleMode.none, CapsMode.first)
+                .adverb(ArticleMode.none, CapsMode.none)
+                .verb(Verb.Form.singular, ArticleMode.none, CapsMode.none)
+                .adjective(Adjective.Form.positive, ArticleMode.a, CapsMode.none)
+                .noun(Noun.Form.plural, ArticleMode.a, CapsMode.none)
+                .conjunction(ArticleMode.a, CapsMode.all)
+                .pronoun(Pronoun.Form.possessive)
+                .adjective(Adjective.Form.comparative)
+                .noun(Noun.Form.plural)
+                .preposition(ArticleMode.none, CapsMode.none)
+                .adjective(Adjective.Form.superlative)
+                .verb(Verb.Form.infinitive)
+                .text(", and so it ends.");
 
-        assertEquals(3, rs.getWords().size());
-        assertTrue(rs.randomize().startsWith("The shoe"));
-
+        assertEquals(14, rs.getWords().size());
+        assertTrue(StringUtils.isNotEmpty(rs.execute()));
+        assertTrue(StringUtils.isNotEmpty(rs.toStringStructure()));
     }
 }

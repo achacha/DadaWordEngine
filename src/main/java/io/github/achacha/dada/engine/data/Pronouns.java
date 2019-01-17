@@ -12,6 +12,9 @@ import java.util.Map;
 
 /**
  * Extends the default collection of words with additional indexes
+ *
+ * see Pronouns.md
+ * see pronouns.csv
  */
 public class Pronouns extends WordsByType<Pronoun> {
 

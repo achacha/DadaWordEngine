@@ -21,6 +21,7 @@ public class AdjectiveRendererTest {
     public void testInternals() {
         AdjectiveRenderer tag = new AdjectiveRenderer();
         assertNotNull(tag.toString());
+        assertEquals(Adjective.Form.positive.name(), tag.getFormName());
     }
 
     @Test

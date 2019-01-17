@@ -11,6 +11,7 @@ import io.github.achacha.dada.engine.render.BaseWordRenderer;
 import io.github.achacha.dada.engine.render.CapsMode;
 import io.github.achacha.dada.engine.render.ConjunctionRenderer;
 import io.github.achacha.dada.engine.render.NounRenderer;
+import io.github.achacha.dada.engine.render.PrepositionRenderer;
 import io.github.achacha.dada.engine.render.PronounRenderer;
 import io.github.achacha.dada.engine.render.TextRenderer;
 import io.github.achacha.dada.engine.render.VerbRenderer;
@@ -169,11 +170,43 @@ public class SentenceRandomBuilder {
     }
 
     /**
+     * Add preposition
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder preposition() {
+        words.add(new PrepositionRenderer());
+        return this;
+    }
+
+    /**
+     * Add preposition with given article and capitalization
+     * @param articleMode {@link ArticleMode}
+     * @param capsMode {@link CapsMode}
+     * @return SentenceRandomBuilder this
+     */
+    public SentenceRandomBuilder preposition(ArticleMode articleMode, CapsMode capsMode) {
+        words.add(new PrepositionRenderer(articleMode, capsMode));
+        return this;
+    }
+
+    /**
      * Add pronoun
      * @return SentenceRandomBuilder this
      */
     public SentenceRandomBuilder pronoun() {
         words.add(new PronounRenderer());
+        return this;
+    }
+
+    /**
+     * Add pronoun of given form with no article and no capitalization
+     * @param form {@link Pronoun.Form}
+     * @return SentenceRandomBuilder this
+     *
+     * see pronouns.csv
+     */
+    public SentenceRandomBuilder pronoun(Pronoun.Form form) {
+        words.add(new PronounRenderer(form, ArticleMode.none, CapsMode.none));
         return this;
     }
 
@@ -226,8 +259,8 @@ public class SentenceRandomBuilder {
      * Build new sentence with using random words based on types
      * @return Sentence string randomized by their types
      */
-    public String randomize() {
-        return words.stream().map(BaseWordRenderer::execute).collect(Collectors.joining());
+    public String execute() {
+        return words.stream().map(BaseWordRenderer::execute).collect(Collectors.joining(" "));
     }
 
     /**

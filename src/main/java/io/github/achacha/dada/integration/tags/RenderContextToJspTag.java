@@ -21,10 +21,6 @@ public class RenderContextToJspTag<T extends Word> extends RenderContext<T> {
         super(words);
     }
 
-    public JspContext getJspContext() {
-        return jspContext;
-    }
-
     public void setJspContext(JspContext jspContext) {
         this.jspContext = jspContext;
     }

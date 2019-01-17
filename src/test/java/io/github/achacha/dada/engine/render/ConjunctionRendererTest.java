@@ -1,8 +1,8 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.data.Conjunction;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
-import io.github.achacha.dada.integration.tags.ConjunctionTag;
 import io.github.achacha.dada.integration.tags.TagSingleton;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,8 +19,15 @@ public class ConjunctionRendererTest {
 
     @Test
     public void testInternals() {
-        ConjunctionTag tag = new ConjunctionTag();
+        ConjunctionRenderer tag = new ConjunctionRenderer();
         assertNotNull(tag.toString());
+        assertEquals(Conjunction.Form.none.name(), tag.getFormName());
+
+        tag.setForm("none");
+        assertEquals(Conjunction.Form.none.name(), tag.getFormName());
+
+        tag.setForm("invalid");
+        assertEquals(Conjunction.Form.none.name(), tag.getFormName());
     }
 
     @Test

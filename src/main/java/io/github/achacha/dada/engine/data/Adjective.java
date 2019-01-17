@@ -11,13 +11,18 @@ import java.util.Collection;
 
 /**
  * Adjective
+ *     er (comparative) - bigger, better, more
+ *     est (superlative) - biggest, best, most
  */
 public class Adjective extends Word {
 
     public enum Form {
-        positive,       // Base form
-        comparative,    // -er
-        superlative     // -est
+        /** base */
+        positive,
+        /** -er */
+        comparative,
+        /** -est */
+        superlative
     }
 
     protected final String comparative;

@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.data.Preposition;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.integration.tags.TagSingleton;
@@ -20,6 +21,13 @@ public class PrepositionRendererTest {
     public void testInternals() {
         PrepositionRenderer tag = new PrepositionRenderer();
         assertNotNull(tag.toString());
+        assertEquals(Preposition.Form.none.name(), tag.getFormName());
+
+        tag.setForm("none");
+        assertEquals(Preposition.Form.none.name(), tag.getFormName());
+
+        tag.setForm("invalid");
+        assertEquals(Preposition.Form.none.name(), tag.getFormName());
     }
 
     @Test

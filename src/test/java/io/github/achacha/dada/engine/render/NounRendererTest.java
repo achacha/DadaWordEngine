@@ -24,6 +24,7 @@ public class NounRendererTest {
         assertNotNull(tag.execute());
         assertNotNull(tag.getRendererContext().getWriter());
         assertNotNull(tag.getRendererContext().getWriter().toString());
+        assertEquals(Noun.Form.singular.name(), tag.getFormName());
     }
 
     @Test

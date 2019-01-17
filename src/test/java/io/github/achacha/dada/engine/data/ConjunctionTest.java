@@ -2,6 +2,7 @@ package io.github.achacha.dada.engine.data;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ConjunctionTest {
@@ -9,5 +10,6 @@ public class ConjunctionTest {
     public void testInternals() {
         Conjunction conjunction = TestWords.makeConjunction("and");
         assertNotNull(conjunction.toString());
+        assertEquals(Word.Type.Conjunction, conjunction.getType());
     }
 }

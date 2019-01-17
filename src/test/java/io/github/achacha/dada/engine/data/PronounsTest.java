@@ -18,6 +18,8 @@ public class PronounsTest {
         // Check individual pronoun forms for correctly indexing
         Pronoun us = pronouns.getWordByBase("us");
         assertNotNull(us);
+        assertNotNull(us.toString());
+        assertEquals(Pronoun.Type.Pronoun, us.getType());
         assertEquals("us", us.getWord());
         assertTrue(us.isA(Pronoun.Form.personal));
         assertTrue(us.isA(Pronoun.Form.objective));

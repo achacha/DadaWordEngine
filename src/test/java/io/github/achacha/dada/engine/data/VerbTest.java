@@ -10,6 +10,7 @@ public class VerbTest {
     public void testInternals() {
         Verb verb = TestWords.makeVerb("know", "knew", "known", "knows", "knowing");
         assertNotNull(verb.toString());
+        assertEquals(Word.Type.Verb, verb.getType());
     }
 
     @Test

@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.data.Text;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.integration.tags.TagSingleton;
@@ -34,5 +35,6 @@ public class TextRendererText {
     public void testExtendedConstructor() {
         TextRenderer tag = new TextRenderer("constant", ArticleMode.a, CapsMode.all);
         assertEquals("A CONSTANT", tag.execute());
+        assertEquals(Text.Form.none.name(), tag.getFormName());
     }
 }

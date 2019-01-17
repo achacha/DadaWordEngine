@@ -22,6 +22,7 @@ public class VerbRendererTest {
     public void testInternals() {
         VerbRenderer tag = new VerbRenderer();
         assertNotNull(tag.toString());
+        assertEquals(Verb.Form.base.name(), tag.getFormName());
     }
 
     @Test

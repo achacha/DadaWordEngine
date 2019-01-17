@@ -11,6 +11,7 @@ public class AdjectiveTest {
     public void testInternals() {
         Adjective adjective = TestWords.makeAdjective("good", "better", "best");
         assertNotNull(adjective.toString());
+        assertEquals(Word.Type.Adjective, adjective.getType());
     }
 
     @Test

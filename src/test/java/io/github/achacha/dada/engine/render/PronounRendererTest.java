@@ -39,6 +39,18 @@ public class PronounRendererTest {
     }
 
     @Test
+    public void testPossessiveRenderer() {
+        PronounRenderer tag = new PronounRenderer(Pronoun.Form.possessive, ArticleMode.none, CapsMode.none);
+        assertEquals("these", tag.execute());
+    }
+
+    @Test
+    public void testPersonalRenderer() {
+        PronounRenderer tag = new PronounRenderer(Pronoun.Form.personal, ArticleMode.none, CapsMode.all);
+        assertEquals("ME", tag.execute());
+    }
+
+    @Test
     public void testPronounRenderer() {
         Pronouns pronouns = new Pronouns(
                 "resource:/data/test/pronoun.csv",

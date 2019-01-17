@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.data.Adverb;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.integration.tags.TagSingleton;
@@ -20,6 +21,13 @@ public class AdverbRendererTest {
     public void testInternals() {
         AdverbRenderer tag = new AdverbRenderer();
         assertNotNull(tag.toString());
+        assertEquals(Adverb.Form.none.name(), tag.getFormName());
+
+        tag.setForm("none");
+        assertEquals(Adverb.Form.none.name(), tag.getFormName());
+
+        tag.setForm("invalid");
+        assertEquals(Adverb.Form.none.name(), tag.getFormName());
     }
 
     @Test

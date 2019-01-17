@@ -24,7 +24,7 @@ public class Sentence {
     protected final WordData wordData;
 
     /** Unknown words added as text */
-    private boolean addText = true;
+    private boolean addUnknownAsText = true;
 
     /**
      * Sentence builder loading words by path
@@ -53,7 +53,7 @@ public class Sentence {
      */
     public Sentence(WordData wordData, boolean unknownAddedAsText) {
         this.wordData = wordData;
-        this.addText = unknownAddedAsText;
+        this.addUnknownAsText = unknownAddedAsText;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Sentence {
      * @see #parse(String)
      */
     public Sentence ignoreUnknown() {
-        this.addText = false;
+        this.addUnknownAsText = false;
         return this;
     }
 
@@ -78,8 +78,8 @@ public class Sentence {
      * @return Sentence this
      * @see #parse(String)
      */
-    public Sentence addUnknown() {
-        this.addText = true;
+    public Sentence addUnknownAsText() {
+        this.addUnknownAsText = true;
         return this;
     }
 
@@ -108,7 +108,7 @@ public class Sentence {
                         words.add(lastAddedWord);
                     } else {
                         LOGGER.debug("Failed to find a Word for `{}`, adding as Text", subtext);
-                        if (addText) {
+                        if (addUnknownAsText) {
                             if (lastAddedWord instanceof Text) {
                                 // Replace last Text added with new text to avoid creating sequential Text blocks
                                 lastAddedWord = new Text(lastAddedWord.getWord()+subtext);
@@ -131,12 +131,12 @@ public class Sentence {
     }
 
     /**
-     * Build new sentence with using random words based on types
+     * Build new sentence with using random words based on types that were parsed/added
      * Unlike {@link #toString()} which will preserve the words parsed
      * NOTE: This does not change the internal structure, only randomized during rendering
      * @return Sentence string randomized by their types
      */
-    public String randomize() {
+    public String execute() {
         List<Word> sentence = new ArrayList<>(words.size());
         for (Word word : words) {
             if (word.getType() == Word.Type.Unknown)
@@ -167,7 +167,7 @@ public class Sentence {
     /**
      * @return true if parser is adding unknown words as {@link Text}
      */
-    public boolean isAddText() {
-        return addText;
+    public boolean isAddUnknownAsText() {
+        return addUnknownAsText;
     }
 }

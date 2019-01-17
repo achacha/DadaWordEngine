@@ -11,14 +11,24 @@ import java.util.Collection;
 
 /**
  * Verb
+ *    past - sat, ate, drank, ran
+ *    pastParticiple (has/had) - sat, ate, drunk, ran
+ *    singular - sits, eats, drinks, runs
+ *    present - sitting, eating, drinking, running
+ *    infinitive - to sit, to eat, to drink, to run
  */
 public class Verb extends Word {
     public enum Form {
         base,
+        /** -ed */
         past,
+        /** (has) - */
         pastparticiple,
+        /** -s */
         singular,
+        /** -ing */
         present,
+        /** to - */
         infinitive
     }
 
