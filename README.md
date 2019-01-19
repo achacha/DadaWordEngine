@@ -14,10 +14,9 @@ Source maintained at: https://github.com/AlexChachanashviliOss/DadaWordEngine
 
 Releases at Maven Repository:
 
-`
-<groupId>io.github.achacha</groupId>
-<artifactId>DadaWordEngine</artifactId>
-`
+    <groupId>io.github.achacha</groupId>
+    <artifactId>DadaWordEngine</artifactId>
+    <version>[latest version]</version>
 
 
 Features
@@ -26,6 +25,7 @@ Features
 - Parsing will detect word and its possible type (Sentence) 
 - Word hyphenation (HyphenData)
 - Transformation to phonetic form useful for search and match based on what it sounds like (PhoneticTransformer)
+- Integrated as custom JSP tags for easier dynamic content generation 
 
 
 Examples
@@ -34,7 +34,7 @@ See /src/main/java/org/achacha/dada/examples
 
 Running examples:
 
-`mvn exec:java -Dexec.mainClass="io.github.achacha.dada.examples.PhonemixExample"` 
+    mvn exec:java -Dexec.mainClass="io.github.achacha.dada.examples.PhonemixExample" 
 
 Available examples:
 
