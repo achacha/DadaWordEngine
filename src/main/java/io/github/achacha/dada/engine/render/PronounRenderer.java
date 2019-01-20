@@ -3,14 +3,14 @@ package io.github.achacha.dada.engine.render;
 import io.github.achacha.dada.engine.data.Pronoun;
 import io.github.achacha.dada.engine.data.Pronouns;
 import io.github.achacha.dada.engine.data.Word;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.apache.commons.lang3.StringUtils;
 
 public class PronounRenderer extends BaseWordRenderer<Pronoun> {
     protected Pronoun.Form form = Pronoun.Form.personal;
 
     public PronounRenderer() {
-        super(new RenderContextToString<>(TagSingleton.getWordData().getPronouns()));
+        super(new RenderContextToString<>(GlobalData.getWordData().getPronouns()));
     }
 
     /**
@@ -31,9 +31,14 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
      * @param form {@link Pronoun.Form}
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
+     * @param renderData {@link RenderContext} or null to use {@link RenderContextToString} with GlobalData
      */
-    public PronounRenderer(Pronoun.Form form, ArticleMode articleMode, CapsMode capsMode) {
-        super(new RenderContextToString<>(TagSingleton.getWordData().getPronouns()), articleMode, capsMode);
+    public PronounRenderer(Pronoun.Form form, ArticleMode articleMode, CapsMode capsMode, RenderContext<Pronoun> renderData) {
+        super(
+                renderData == null ? new RenderContextToString<>(GlobalData.getWordData().getPronouns()) : renderData,
+                articleMode,
+                capsMode
+        );
         this.form = form;
     }
 

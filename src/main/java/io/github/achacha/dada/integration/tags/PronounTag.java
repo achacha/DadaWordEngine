@@ -5,6 +5,6 @@ import io.github.achacha.dada.engine.render.PronounRenderer;
 
 public class PronounTag extends BaseWordTag<Pronoun, PronounRenderer> {
     public PronounTag() {
-        super(new PronounRenderer(new RenderContextToJspTag<>(TagSingleton.getWordData().getPronouns())));
+        super(new PronounRenderer(new RenderContextToJspTag<>(GlobalData.getWordData().getPronouns())));
     }
 }

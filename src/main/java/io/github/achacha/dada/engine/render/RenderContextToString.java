@@ -20,7 +20,7 @@ public class RenderContextToString<T extends Word> extends RenderContext<T> {
     /** Writer */
     private Writer writer = new StringWriter();
 
-    RenderContextToString(WordsByType<T> words) {
+    public RenderContextToString(WordsByType<T> words) {
         super(words);
     }
 

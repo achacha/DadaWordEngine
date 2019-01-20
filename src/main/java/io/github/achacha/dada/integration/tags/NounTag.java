@@ -5,6 +5,6 @@ import io.github.achacha.dada.engine.render.NounRenderer;
 
 public class NounTag extends BaseWordTag<Noun, NounRenderer> {
     public NounTag() {
-        super(new NounRenderer(new RenderContextToJspTag<>(TagSingleton.getWordData().getNouns())));
+        super(new NounRenderer(new RenderContextToJspTag<>(GlobalData.getWordData().getNouns())));
     }
 }

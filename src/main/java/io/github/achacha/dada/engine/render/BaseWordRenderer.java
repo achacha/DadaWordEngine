@@ -4,8 +4,10 @@ import com.google.common.base.Preconditions;
 import io.github.achacha.dada.engine.base.WordHelper;
 import io.github.achacha.dada.engine.data.SavedWord;
 import io.github.achacha.dada.engine.data.Word;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +46,12 @@ public abstract class BaseWordRenderer<T extends Word> {
      * If loadKey is also used, this does nothing
      */
     protected String rhymeKey;
+
+    /**
+     * If provided try to rhyme word with this one
+     * Cannot be used in combination with rhymeKey
+     */
+    protected String rhymeWith;
 
     /**
      * Syllables desired count
@@ -97,13 +105,16 @@ public abstract class BaseWordRenderer<T extends Word> {
 
     @Override
     public String toString() {
-        return "BaseWordTag{" +
-                "articleMode='" + articleMode + '\'' +
-                ", capsMode='" + capsMode + '\'' +
-                ", loadKey='" + loadKey + '\'' +
-                ", saveKey='" + saveKey + '\'' +
-                ", rhymeKey=" + rhymeKey + '\'' +
-                '}';
+        return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
+                .append("class", getClass().getSimpleName())
+                .append("articleMode", articleMode)
+                .append("capsMode", capsMode)
+                .append("loadKey", loadKey)
+                .append("saveKey", saveKey)
+                .append("rhymeKey", rhymeKey)
+                .append("rhymeWith", rhymeWith)
+                .append("syllablesDesired", syllablesDesired)
+                .toString();
     }
 
     /**
@@ -145,6 +156,14 @@ public abstract class BaseWordRenderer<T extends Word> {
      */
     public void setRhymeKey(String rhymeKey) {
         this.rhymeKey = rhymeKey;
+    }
+
+    /**
+     * Word to rhyme with
+     * @param rhymeWith String
+     */
+    public void setRhymeWith(String rhymeWith) {
+        this.rhymeWith = rhymeWith;
     }
 
     /**
@@ -228,9 +247,19 @@ public abstract class BaseWordRenderer<T extends Word> {
             List<SavedWord> rhymedWords = rendererContext.getWords().findRhymes(word.getWord());
             if (rhymedWords.size() > 0) {
                 word = rhymedWords.get(RandomUtils.nextInt(0, rhymedWords.size())).getWord();
-                LOGGER.debug("Rhyme word selected, word={}", word);
+                LOGGER.debug("rhymeKey: Rhyme word selected, word={}", word);
             } else {
-                LOGGER.debug("No rhyming word found for word={}, will use it", word);
+                LOGGER.debug("rhymeKey: No rhyming word found for word={}, will use it", word);
+            }
+        }
+        else if (word == null && rhymeWith != null) {
+            // Rhyme this word with another
+            List<SavedWord> rhymedWords = rendererContext.getWords().findRhymes(rhymeWith);
+            if (rhymedWords.size() > 0) {
+                word = rhymedWords.get(RandomUtils.nextInt(0, rhymedWords.size())).getWord();
+                LOGGER.debug("rhymeWith: Rhyme word selected, word={}", word);
+            } else {
+                LOGGER.debug("rhymeWith: No rhyming word found for word={}, will use it", word);
             }
         }
 
@@ -257,14 +286,14 @@ public abstract class BaseWordRenderer<T extends Word> {
 
             // Syllable check
             if (syllablesDesired > 0) {
-                int syllables = TagSingleton.getHypenData().countSyllables(bestSelectedWord);
+                int syllables = GlobalData.getHyphenData().countSyllables(bestSelectedWord);
                 int bestDiff = Math.abs(syllablesDesired - syllables);
 
                 int tries = TRIES_TO_GET_SYLLABLES;
                 while (bestDiff != 0 && tries-- > 0) {
                     Word possibleWord = generateWord();
                     String possibleSelectedWord = selectWord(possibleWord);
-                    int possibleSyllables = TagSingleton.getHypenData().countSyllables(possibleSelectedWord);
+                    int possibleSyllables = GlobalData.getHyphenData().countSyllables(possibleSelectedWord);
                     int possibleDiff = Math.abs(syllablesDesired - possibleSyllables);
                     if (possibleDiff < bestDiff) {
                         // Found a better word

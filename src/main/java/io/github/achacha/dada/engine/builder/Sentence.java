@@ -14,6 +14,20 @@ import java.util.stream.Collectors;
 
 /**
  * Parse text sentence into a collection of known Word objects
+ * Sentence unlike SentenceRendererBuilder is a collection of known words split by type
+ *   any word that is unknown (based on WordData) is treated as Text
+ *
+ * Example:
+ *    "See spot run!" will become:
+ *           Verb{past='saw', pastParticiple='seen', singular='sees', present='seeing', base='see'}
+ *           Text{word=' '}
+ *           Noun{singular='spot', plural='spots'}
+ *           Text{word=' '}
+ *           Noun{singular='run', plural='runs'}
+ *           Text{word='!'}
+ *
+ * To randomize you can either use Senetence.execute() - this will do a one time generation of a String or random words based on Sentence
+ * Or new SentenceRendererBuilder(senetence).execute() - this will build a collection or renderers
  */
 public class Sentence {
 

@@ -2,14 +2,14 @@ package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.Word;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.apache.commons.lang3.StringUtils;
 
 public class NounRenderer extends BaseWordRenderer<Noun>{
     protected Noun.Form form = Noun.Form.singular;
 
     public NounRenderer() {
-        super(new RenderContextToString<>(TagSingleton.getWordData().getNouns()));
+        super(new RenderContextToString<>(GlobalData.getWordData().getNouns()));
     }
 
     public NounRenderer(RenderContext<Noun> renderData) {
@@ -21,9 +21,14 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
      * @param form {@link Noun.Form}
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
+     * @param renderData {@link RenderContext} or null to use {@link RenderContextToString} with GlobalData
      */
-    public NounRenderer(Noun.Form form, ArticleMode articleMode, CapsMode capsMode) {
-        super(new RenderContextToString<>(TagSingleton.getWordData().getNouns()), articleMode, capsMode);
+    public NounRenderer(Noun.Form form, ArticleMode articleMode, CapsMode capsMode, RenderContext<Noun> renderData) {
+        super(
+                renderData == null ? new RenderContextToString<>(GlobalData.getWordData().getNouns()) : renderData,
+                articleMode,
+                capsMode
+        );
         this.form = form;
     }
 

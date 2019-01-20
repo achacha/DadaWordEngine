@@ -5,6 +5,6 @@ import io.github.achacha.dada.engine.render.AdjectiveRenderer;
 
 public class AdjectiveTag extends BaseWordTag<Adjective, AdjectiveRenderer> {
     public AdjectiveTag() {
-        super(new AdjectiveRenderer(new RenderContextToJspTag<>(TagSingleton.getWordData().getAdjectives())));
+        super(new AdjectiveRenderer(new RenderContextToJspTag<>(GlobalData.getWordData().getAdjectives())));
     }
 }

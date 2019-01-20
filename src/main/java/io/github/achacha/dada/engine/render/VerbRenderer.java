@@ -2,14 +2,14 @@ package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.data.Verb;
 import io.github.achacha.dada.engine.data.Word;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.apache.commons.lang3.StringUtils;
 
 public class VerbRenderer extends BaseWordRenderer<Verb> {
     protected Verb.Form form = Verb.Form.base;
 
     public VerbRenderer() {
-        super(new RenderContextToString<>(TagSingleton.getWordData().getVerbs()));
+        super(new RenderContextToString<>(GlobalData.getWordData().getVerbs()));
     }
 
     public VerbRenderer(RenderContext<Verb> renderData) {
@@ -21,9 +21,14 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
      * @param form {@link Verb.Form}
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
+     * @param renderData {@link RenderContext} or null to use {@link RenderContextToString} with GlobalData
      */
-    public VerbRenderer(Verb.Form form, ArticleMode articleMode, CapsMode capsMode) {
-        super(new RenderContextToString<>(TagSingleton.getWordData().getVerbs()), articleMode, capsMode);
+    public VerbRenderer(Verb.Form form, ArticleMode articleMode, CapsMode capsMode, RenderContext<Verb> renderData) {
+        super(
+                renderData == null ? new RenderContextToString<>(GlobalData.getWordData().getVerbs()) : renderData,
+                articleMode,
+                capsMode
+        );
         this.form = form;
     }
 

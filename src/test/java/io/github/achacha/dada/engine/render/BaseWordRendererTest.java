@@ -1,9 +1,10 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Adjective;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -12,16 +13,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BaseWordRendererTest {
     @BeforeAll
     public static void beforeClass() {
-        TagSingleton.setWordData(new WordData("resource:/data/test"));
-        TagSingleton.setHypenData(new HyphenData());
+        GlobalData.setWordData(new WordData("resource:/data/test"));
+        GlobalData.setHypenData(new HyphenData());
     }
 
     @Test
     public void testRenderingList() {
-        SentenceRenderer tagsToRender = new SentenceRenderer();
-        tagsToRender.add(new TextRenderer("with"));
-        tagsToRender.add(new AdjectiveRenderer(Adjective.Form.positive, ArticleMode.a, CapsMode.none));
-        tagsToRender.add(new NounRenderer());
+        SentenceRendererBuilder tagsToRender = new SentenceRendererBuilder();
+        tagsToRender.getRenderers().add(new TextRenderer("with"));
+        tagsToRender.getRenderers().add(new AdjectiveRenderer(Adjective.Form.positive, ArticleMode.a, CapsMode.none, null));
+        tagsToRender.getRenderers().add(new NounRenderer());
 
         assertEquals("with a subtle noun", tagsToRender.execute());
     }

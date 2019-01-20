@@ -5,7 +5,7 @@ import io.github.achacha.dada.engine.data.Pronouns;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.engine.phonemix.PhoneticTransformerBuilder;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class PronounRendererTest {
     @BeforeAll
     public static void beforeClass() {
-        TagSingleton.setWordData(new WordData("resource:/data/test"));
-        TagSingleton.setHypenData(new HyphenData());
+        GlobalData.setWordData(new WordData("resource:/data/test"));
+        GlobalData.setHypenData(new HyphenData());
     }
 
     @Test
@@ -34,19 +34,19 @@ public class PronounRendererTest {
 
     @Test
     public void testExtendedConstructor() {
-        PronounRenderer tag = new PronounRenderer(Pronoun.Form.subjective, ArticleMode.none, CapsMode.first);
+        PronounRenderer tag = new PronounRenderer(Pronoun.Form.subjective, ArticleMode.none, CapsMode.first, null);
         assertEquals("Who", tag.execute());
     }
 
     @Test
     public void testPossessiveRenderer() {
-        PronounRenderer tag = new PronounRenderer(Pronoun.Form.possessive, ArticleMode.none, CapsMode.none);
+        PronounRenderer tag = new PronounRenderer(Pronoun.Form.possessive, ArticleMode.none, CapsMode.none, null);
         assertEquals("these", tag.execute());
     }
 
     @Test
     public void testPersonalRenderer() {
-        PronounRenderer tag = new PronounRenderer(Pronoun.Form.personal, ArticleMode.none, CapsMode.all);
+        PronounRenderer tag = new PronounRenderer(Pronoun.Form.personal, ArticleMode.none, CapsMode.all, null);
         assertEquals("ME", tag.execute());
     }
 

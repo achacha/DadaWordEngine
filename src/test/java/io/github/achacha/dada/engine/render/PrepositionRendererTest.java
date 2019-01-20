@@ -3,7 +3,7 @@ package io.github.achacha.dada.engine.render;
 import io.github.achacha.dada.engine.data.Preposition;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class PrepositionRendererTest {
     @BeforeAll
     public static void beforeClass() {
-        TagSingleton.setWordData(new WordData("resource:/data/test"));
-        TagSingleton.setHypenData(new HyphenData());
+        GlobalData.setWordData(new WordData("resource:/data/test"));
+        GlobalData.setHypenData(new HyphenData());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class PrepositionRendererTest {
 
     @Test
     public void testExtendedConstructor() {
-        PrepositionRenderer tag = new PrepositionRenderer(ArticleMode.none, CapsMode.first);
+        PrepositionRenderer tag = new PrepositionRenderer(ArticleMode.none, CapsMode.first, null);
         assertEquals("On", tag.execute());
     }
 }

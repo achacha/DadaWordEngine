@@ -1,11 +1,11 @@
 package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.data.Preposition;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 
 public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
     public PrepositionRenderer() {
-        super(new RenderContextToString<>(TagSingleton.getWordData().getPrepositions()));
+        super(new RenderContextToString<>(GlobalData.getWordData().getPrepositions()));
     }
 
     /**
@@ -20,9 +20,14 @@ public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
      * Extended constructor
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
+     * @param renderData {@link RenderContext} or null to use {@link RenderContextToString} with GlobalData
      */
-    public PrepositionRenderer(ArticleMode articleMode, CapsMode capsMode) {
-        super(new RenderContextToString<>(TagSingleton.getWordData().getPrepositions()), articleMode, capsMode);
+    public PrepositionRenderer(ArticleMode articleMode, CapsMode capsMode, RenderContext<Preposition> renderData) {
+        super(
+                renderData == null ? new RenderContextToString<>(GlobalData.getWordData().getPrepositions()) : renderData,
+                articleMode,
+                capsMode
+        );
     }
 
     @Override

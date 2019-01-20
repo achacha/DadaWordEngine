@@ -2,7 +2,7 @@ package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.data.Adjective;
 import io.github.achacha.dada.engine.data.Word;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.apache.commons.lang3.StringUtils;
 
 public class AdjectiveRenderer extends BaseWordRenderer<Adjective> {
@@ -14,7 +14,7 @@ public class AdjectiveRenderer extends BaseWordRenderer<Adjective> {
      * @see RenderContextToString
      */
     public AdjectiveRenderer() {
-        super(new RenderContextToString<>(TagSingleton.getWordData().getAdjectives()));
+        super(new RenderContextToString<>(GlobalData.getWordData().getAdjectives()));
     }
 
     /**
@@ -30,9 +30,14 @@ public class AdjectiveRenderer extends BaseWordRenderer<Adjective> {
      * @param form {@link Adjective.Form}
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
+     * @param renderData {@link RenderContext} or null to use {@link RenderContextToString} with GlobalData
      */
-    public AdjectiveRenderer(Adjective.Form form, ArticleMode articleMode, CapsMode capsMode) {
-        super(new RenderContextToString<>(TagSingleton.getWordData().getAdjectives()), articleMode, capsMode);
+    public AdjectiveRenderer(Adjective.Form form, ArticleMode articleMode, CapsMode capsMode, RenderContext<Adjective> renderData) {
+        super(
+                renderData == null ? new RenderContextToString<>(GlobalData.getWordData().getAdjectives()) : renderData,
+                articleMode,
+                capsMode
+        );
         this.form = form;
     }
 

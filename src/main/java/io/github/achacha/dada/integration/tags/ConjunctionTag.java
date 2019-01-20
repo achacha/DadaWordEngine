@@ -5,6 +5,6 @@ import io.github.achacha.dada.engine.render.ConjunctionRenderer;
 
 public class ConjunctionTag extends BaseWordTag<Conjunction, ConjunctionRenderer> {
     public ConjunctionTag() {
-        super(new ConjunctionRenderer(new RenderContextToJspTag<>(TagSingleton.getWordData().getConjunctions())));
+        super(new ConjunctionRenderer(new RenderContextToJspTag<>(GlobalData.getWordData().getConjunctions())));
     }
 }

@@ -10,7 +10,9 @@ on word types and generating random output using the parsed structure.
 
 Where is it?
 ---
-Source maintained at: https://github.com/AlexChachanashviliOss/DadaWordEngine
+**Source maintained at:** https://github.com/AlexChachanashviliOss/DadaWordEngine
+
+**Maven Repository:** https://mvnrepository.com/artifact/io.github.achacha/DadaWordEngine
 
 Releases at Maven Repository:
 
@@ -43,6 +45,7 @@ Available examples:
 - io.github.achacha.dada.examples.HyphenateExample
 - io.github.achacha.dada.examples.PhonemixExample
 - io.github.achacha.dada.examples.FindWordsThatRhymeExample
+- io.github.achacha.dada.examples.RhymeWithSentenceExample
 
 
 JSP integration

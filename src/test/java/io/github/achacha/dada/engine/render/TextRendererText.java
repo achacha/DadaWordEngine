@@ -3,7 +3,7 @@ package io.github.achacha.dada.engine.render;
 import io.github.achacha.dada.engine.data.Text;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TextRendererText {
     @BeforeAll
     public static void beforeClass() {
-        TagSingleton.setWordData(new WordData("resource:/data/test"));
-        TagSingleton.setHypenData(new HyphenData());
+        GlobalData.setWordData(new WordData("resource:/data/test"));
+        GlobalData.setHypenData(new HyphenData());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class TextRendererText {
 
     @Test
     public void testExtendedConstructor() {
-        TextRenderer tag = new TextRenderer("constant", ArticleMode.a, CapsMode.all);
+        TextRenderer tag = new TextRenderer("constant", ArticleMode.a, CapsMode.all, null);
         assertEquals("A CONSTANT", tag.execute());
         assertEquals(Text.Form.none.name(), tag.getFormName());
     }

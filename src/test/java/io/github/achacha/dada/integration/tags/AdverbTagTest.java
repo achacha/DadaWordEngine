@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class AdverbTagTest {
     @BeforeAll
     public static void beforeClass() {
-        TagSingleton.setWordData(new WordData("resource:/data/test"));
-        TagSingleton.setHypenData(new HyphenData());
+        GlobalData.setWordData(new WordData("resource:/data/test"));
+        GlobalData.setHypenData(new HyphenData());
     }
 
     @Test

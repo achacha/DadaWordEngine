@@ -4,7 +4,7 @@ import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.TestWords;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
-import io.github.achacha.dada.integration.tags.TagSingleton;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class NounRendererTest {
     @BeforeAll
     public static void beforeClass() {
-        TagSingleton.setWordData(new WordData("resource:/data/test"));
-        TagSingleton.setHypenData(new HyphenData());
+        GlobalData.setWordData(new WordData("resource:/data/test"));
+        GlobalData.setHypenData(new HyphenData());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class NounRendererTest {
 
     @Test
     public void testExtendedConstructor() {
-        NounRenderer tag = new NounRenderer(Noun.Form.singular, ArticleMode.the, CapsMode.words);
+        NounRenderer tag = new NounRenderer(Noun.Form.singular, ArticleMode.the, CapsMode.words, null);
         assertEquals("The Noun", tag.execute());
     }
 
@@ -103,5 +103,13 @@ public class NounRendererTest {
 
         tag.setArticle(ArticleMode.a);
         assertEquals("an hour", tag.execute(TestWords.makeNoun("hour")));
+    }
+
+    @Test
+    public void testRhymeWith() {
+        NounRenderer tag = new NounRenderer();
+
+        tag.setRhymeWith("down");   // Since the only word we have is 'noun', this should rhyme with it
+        assertEquals("noun", tag.execute());
     }
 }
