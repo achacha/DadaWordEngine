@@ -36,6 +36,22 @@ public class WordsByTypeTest {
     }
 
     @Test
+    public void testLoadingAdverb() {
+        WordsByType<Adverb> adverbs = new WordsByType<>(
+                Word.Type.Adverb,
+                "resource:/data/test/"+ Word.Type.Adverb.getTypeName()+".csv",
+                PhoneticTransformerBuilder.builder().build(),
+                PhoneticTransformerBuilder.builder().withReverse().build());
+
+        assertEquals("resource:/data/test/"+ Word.Type.Adverb.getTypeName()+".csv", adverbs.getResourcePath());
+        assertEquals(Word.Type.Verb, verbs.getType());
+        assertEquals(1, adverbs.getWordsData().size());
+
+        Adverb adverb = adverbs.getWordsData().get(0);
+        assertEquals("adverbly", adverb.getWord());
+    }
+
+    @Test
     public void testAllForms() {
         // There are 5 forms to swim (excluding infinitive)
         assertEquals(5, verbs.wordsByText.size());

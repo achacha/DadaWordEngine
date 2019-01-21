@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.TestWords;
 import io.github.achacha.dada.engine.data.WordData;
@@ -111,5 +112,34 @@ public class NounRendererTest {
 
         tag.setRhymeWith("down");   // Since the only word we have is 'noun', this should rhyme with it
         assertEquals("noun", tag.execute());
+    }
+
+    @Test
+    public void testBuilder() {
+        SentenceRendererBuilder renderers = new SentenceRendererBuilder();
+
+        String sentence = renderers
+                .nounBuilder()
+                    .withForm(Noun.Form.plural)
+                    .withArticleMode(ArticleMode.the)
+                    .withCapsMode(CapsMode.first)
+                    .withRhymeWith("fly")
+                    .withSyllablesDesired(3)
+                    .withSaveKey("rhymes_with_fly")
+                    .build()
+                .nounBuilder()
+                    .withLoadKey("rhymes_with_fly")
+                    .withCapsMode(CapsMode.first)
+                    .withArticleMode(ArticleMode.none)
+                    .build()
+                .nounBuilder()
+                    .withRhymeKey("rhymes_with_fly")
+                    .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getNouns()))
+                    .withForm(Noun.Form.singular)
+                    .withCapsMode(CapsMode.all)
+                    .build()
+                .execute();
+
+        assertEquals("The nouns Noun NOUN", sentence);
     }
 }

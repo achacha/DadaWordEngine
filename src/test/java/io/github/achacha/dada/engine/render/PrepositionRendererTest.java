@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Preposition;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
@@ -40,5 +41,16 @@ public class PrepositionRendererTest {
     public void testExtendedConstructor() {
         PrepositionRenderer tag = new PrepositionRenderer(ArticleMode.none, CapsMode.first, null);
         assertEquals("On", tag.execute());
+    }
+
+    @Test
+    public void testBuilder() {
+        SentenceRendererBuilder renderers = new SentenceRendererBuilder();
+
+        String sentence = renderers
+                .prepositionBuilder().withArticleMode(ArticleMode.a).withCapsMode(CapsMode.first).withRhymeWith("with").withSaveKey("saved").withSyllablesDesired(2).build()
+                .prepositionBuilder().withCapsMode(CapsMode.all).withLoadKey("saved").withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getPrepositions())).withRhymeKey("saved").build()
+                .execute();
+        assertEquals("An on ON", sentence);
     }
 }

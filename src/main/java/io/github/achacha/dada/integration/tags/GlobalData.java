@@ -15,8 +15,18 @@ import io.github.achacha.dada.engine.hyphen.HyphenData;
  * However not required since it will lazy load
  */
 public class GlobalData {
-    /** Default word data path in resource directory */
-    public static final String DEFAULT_WORDDATA_BASE_RESOURCE_PATH = "resource:/data/extended2018";
+    /** Default word data path in resource directory, minimal set used as a fallback  */
+    public static final String DEFAULT_WORDDATA_BASE_RESOURCE_PATH = "resource:/data/default";
+
+    /** Dada words from 1992-2002 poetry/art project */
+    public static final String DADA2002_WORDDATA_BASE_RESOURCE_PATH = "resource:/data/dada2002";
+
+    /** Dada words from 2018 poetry/art project */
+    public static final String DADA2018_WORDDATA_BASE_RESOURCE_PATH = "resource:/data/dada2018";
+
+    /** Extended word list from 2018 rewrite */
+    public static final String EXTENDED2018_WORDDATA_BASE_RESOURCE_PATH = "resource:/data/extended2018";
+
     /** Default hyphen data path is resource directory */
     public static final String DEFAULT_HYPHENDATA_BASE_RESOURCE_PATH = "resource:/data/hyphen";
 
@@ -38,7 +48,7 @@ public class GlobalData {
     private static synchronized void loadDefaultWordData() {
         // Double gate locking to prevent multiple loads of default data
         if (instanceWordData == null)
-            loadWordData(DEFAULT_WORDDATA_BASE_RESOURCE_PATH);
+            loadWordData(EXTENDED2018_WORDDATA_BASE_RESOURCE_PATH);
     }
 
     private static synchronized void loadDefaultHyphenData() {

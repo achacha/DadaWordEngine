@@ -179,8 +179,8 @@ public class HyphenData {
     public int countSyllables(String wordToProcess) {
         if (wordToProcess.isEmpty())
             return 0;
-        if (wordToProcess.length() == 1)
-            return 1;   // One letter word defaults to 1 syllable
+        if (wordToProcess.length() <= MIN_HYPHENATE_SIZE)
+            return 1;   // 1 syllable for words that are below threshold
 
         // Check exceptions first
         if (exceptions.containsKey(wordToProcess)) {

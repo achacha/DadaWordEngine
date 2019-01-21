@@ -76,11 +76,20 @@ public class SentenceRendererBuilder {
     }
 
     /**
-     * Change WordData used
+     * Change WordData used on all renderers
      * @param wordData WordData
      */
     public void setWordData(WordData wordData) {
         this.wordData = wordData;
+        renderers.forEach(r-> r.getRendererContext().applyWords(wordData));
+    }
+
+    /**
+     * Create builder where the build will return this instance to allow continued chain building
+     * @return {@link TextRenderer.Builder}
+     */
+    public TextRenderer.Builder textBuilder() {
+        return new TextRenderer.Builder(this);
     }
 
     /**
@@ -103,6 +112,14 @@ public class SentenceRendererBuilder {
     public SentenceRendererBuilder text(String text, ArticleMode articleMode, CapsMode capsMode) {
         renderers.add(new TextRenderer(text, articleMode, capsMode, new RenderContextToString<>(WordsByType.empty())));
         return this;
+    }
+
+    /**
+     * Create builder where the build will return this instance to allow continued chain building
+     * @return {@link AdjectiveRenderer.Builder}
+     */
+    public AdjectiveRenderer.Builder adjectiveBuilder() {
+        return new AdjectiveRenderer.Builder(this);
     }
 
     /**
@@ -137,6 +154,14 @@ public class SentenceRendererBuilder {
     }
 
     /**
+     * Create builder where the build will return this instance to allow continued chain building
+     * @return {@link AdverbRenderer.Builder}
+     */
+    public AdverbRenderer.Builder adverbBuilder() {
+        return new AdverbRenderer.Builder(this);
+    }
+
+    /**
      * Add adverb with no article and no capitalization
      * @return SentenceRendererBuilder this
      */
@@ -157,6 +182,14 @@ public class SentenceRendererBuilder {
     }
 
     /**
+     * Create builder where the build will return this instance to allow continued chain building
+     * @return {@link ConjunctionRenderer.Builder}
+     */
+    public ConjunctionRenderer.Builder conjunctionBuilder() {
+        return new ConjunctionRenderer.Builder(this);
+    }
+
+    /**
      * Add conjunction with no article and no capitalization
      * @return SentenceRendererBuilder this
      */
@@ -174,6 +207,14 @@ public class SentenceRendererBuilder {
     public SentenceRendererBuilder conjunction(ArticleMode articleMode, CapsMode capsMode) {
         renderers.add(new ConjunctionRenderer(articleMode, capsMode, new RenderContextToString<>(wordData.getConjunctions())));
         return this;
+    }
+
+    /**
+     * Create builder where the build will return this instance to allow continued chain building
+     * @return {@link NounRenderer.Builder}
+     */
+    public NounRenderer.Builder nounBuilder() {
+        return new NounRenderer.Builder(this);
     }
 
     /**
@@ -208,6 +249,14 @@ public class SentenceRendererBuilder {
     }
 
     /**
+     * Create builder where the build will return this instance to allow continued chain building
+     * @return {@link PrepositionRenderer.Builder}
+     */
+    public PrepositionRenderer.Builder prepositionBuilder() {
+        return new PrepositionRenderer.Builder(this);
+    }
+
+    /**
      * Add preposition
      * @return SentenceRendererBuilder this
      */
@@ -225,6 +274,14 @@ public class SentenceRendererBuilder {
     public SentenceRendererBuilder preposition(ArticleMode articleMode, CapsMode capsMode) {
         renderers.add(new PrepositionRenderer(articleMode, capsMode, new RenderContextToString<>(wordData.getPrepositions())));
         return this;
+    }
+
+    /**
+     * Create builder where the build will return this instance to allow continued chain building
+     * @return {@link PronounRenderer.Builder}
+     */
+    public PronounRenderer.Builder pronounBuilder() {
+        return new PronounRenderer.Builder(this);
     }
 
     /**
@@ -260,6 +317,14 @@ public class SentenceRendererBuilder {
     public SentenceRendererBuilder pronoun(Pronoun.Form form, ArticleMode articleMode, CapsMode capsMode) {
         renderers.add(new PronounRenderer(form, articleMode, capsMode, new RenderContextToString<>(wordData.getPronouns())));
         return this;
+    }
+
+    /**
+     * Create builder where the build will return this instance to allow continued chain building
+     * @return {@link VerbRenderer.Builder}
+     */
+    public VerbRenderer.Builder verbBuilder() {
+        return new VerbRenderer.Builder(this);
     }
 
     /**

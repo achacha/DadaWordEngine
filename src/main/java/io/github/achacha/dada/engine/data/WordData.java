@@ -231,7 +231,7 @@ public class WordData {
      */
     @Nonnull
     public Optional<? extends Word> findFirstWordsByText(String text) {
-        String findText = text.toLowerCase();
+        String findText = text.trim().toLowerCase();
 
         return getWordsByTypeStream()
                 .flatMap(wbt->{
@@ -263,8 +263,9 @@ public class WordData {
             case Pronoun: return pronouns;
             case Conjunction: return conjunctions;
             case Preposition: return prepositions;
+            case Unknown: return WordsByType.empty();
 
-            default: throw new RuntimeException("Unknown type: "+type);
+            default: throw new RuntimeException("Not a known type: "+type);
         }
     }
 

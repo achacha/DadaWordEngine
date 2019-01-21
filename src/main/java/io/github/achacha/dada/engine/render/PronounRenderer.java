@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Pronoun;
 import io.github.achacha.dada.engine.data.Pronouns;
 import io.github.achacha.dada.engine.data.Word;
@@ -15,10 +16,10 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
 
     /**
      * Custom render context
-     * @param renderData {@link RenderContext}
+     * @param renderContext {@link RenderContext}
      */
-    public PronounRenderer(RenderContext<Pronoun> renderData) {
-        super(renderData);
+    public PronounRenderer(RenderContext<Pronoun> renderContext) {
+        super(renderContext);
     }
 
     /** Used in testing */
@@ -31,15 +32,103 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
      * @param form {@link Pronoun.Form}
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
-     * @param renderData {@link RenderContext} or null to use {@link RenderContextToString} with GlobalData
+     * @param renderContext {@link RenderContext} or null to use {@link RenderContextToString} with GlobalData
      */
-    public PronounRenderer(Pronoun.Form form, ArticleMode articleMode, CapsMode capsMode, RenderContext<Pronoun> renderData) {
+    public PronounRenderer(Pronoun.Form form, ArticleMode articleMode, CapsMode capsMode, RenderContext<Pronoun> renderContext) {
         super(
-                renderData == null ? new RenderContextToString<>(GlobalData.getWordData().getPronouns()) : renderData,
+                renderContext == null ? new RenderContextToString<>(GlobalData.getWordData().getPronouns()) : renderContext,
                 articleMode,
                 capsMode
         );
         this.form = form;
+    }
+
+    /**
+     * Builder to be used with SentenceRendererBuilder
+     * @param sentenceBuilder SentenceRendererBuilder
+     * @return Builder
+     */
+    public static Builder builder(SentenceRendererBuilder sentenceBuilder) {
+        return new Builder(sentenceBuilder);
+    }
+
+    public static class Builder {
+        private final SentenceRendererBuilder sentenceBuilder;
+        private Pronoun.Form form = Pronoun.Form.personal;
+        private ArticleMode articleMode = ArticleMode.none;
+        private CapsMode capsMode = CapsMode.none;
+        private RenderContext<Pronoun> renderContext;
+        private String loadKey;
+        private String saveKey;
+        private String rhymeKey;
+        private String rhymeWith;
+        private int syllablesDesired;
+
+        public Builder(SentenceRendererBuilder sentenceBuilder) {
+            this.sentenceBuilder = sentenceBuilder;
+        }
+
+        /**
+         * Add to provided SentenceRendererBuilder
+         * @return {@link SentenceRendererBuilder} provided in constructor
+         */
+        public SentenceRendererBuilder build() {
+            PronounRenderer renderer = new PronounRenderer(form, articleMode, capsMode, renderContext);
+            renderer.loadKey = loadKey;
+            renderer.saveKey = saveKey;
+            renderer.rhymeKey = rhymeKey;
+            renderer.rhymeWith = rhymeWith;
+            renderer.syllablesDesired = syllablesDesired;
+
+            sentenceBuilder.getRenderers().add(renderer);
+
+            return sentenceBuilder;
+        }
+
+        public Builder withForm(Pronoun.Form form) {
+            this.form = form;
+            return this;
+        }
+
+        public Builder withArticleMode(ArticleMode articleMode) {
+            this.articleMode = articleMode;
+            return this;
+        }
+
+        public Builder withCapsMode(CapsMode capsMode) {
+            this.capsMode = capsMode;
+            return this;
+        }
+
+        public Builder withRenderContext(RenderContext<Pronoun> renderContext) {
+            this.renderContext = renderContext;
+            return this;
+        }
+
+        public Builder withLoadKey(String loadKey) {
+            this.loadKey = loadKey;
+            return this;
+        }
+
+        public Builder withSaveKey(String saveKey) {
+            this.saveKey = saveKey;
+            return this;
+        }
+
+        public Builder withRhymeKey(String rhymeKey) {
+            this.rhymeKey = rhymeKey;
+            return this;
+        }
+
+        public Builder withRhymeWith(String rhymeWith) {
+            this.rhymeWith = rhymeWith;
+            return this;
+        }
+
+        public Builder withSyllablesDesired(int syllablesDesired) {
+            this.syllablesDesired = syllablesDesired;
+            return this;
+        }
     }
 
     @Override

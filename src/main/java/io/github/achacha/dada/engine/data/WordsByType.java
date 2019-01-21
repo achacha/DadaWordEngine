@@ -154,7 +154,7 @@ public class WordsByType<T extends Word> {
                     // Parse lines
                     Set<T> uniqueCheck = new HashSet<>();
                     while (it.hasNext()) {
-                        String line = it.nextLine();
+                        String line = it.nextLine().toLowerCase();
                         if (line.startsWith("#")) {
                             LOGGER.debug("Skipping comment: {}", line);
                             continue;

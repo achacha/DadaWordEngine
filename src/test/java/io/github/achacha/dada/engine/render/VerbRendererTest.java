@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.TestWords;
 import io.github.achacha.dada.engine.data.Verb;
 import io.github.achacha.dada.engine.data.WordData;
@@ -62,4 +63,35 @@ public class VerbRendererTest {
         VerbRenderer tag = new VerbRenderer(Verb.Form.present, ArticleMode.the, CapsMode.first, null);
         assertEquals("The swimming", tag.execute());
     }
+
+    @Test
+    public void testBuilder() {
+        SentenceRendererBuilder renderers = new SentenceRendererBuilder();
+
+        String sentence = renderers
+                .verbBuilder()
+                    .withForm(Verb.Form.past)
+                    .withArticleMode(ArticleMode.the)
+                    .withCapsMode(CapsMode.first)
+                    .withRhymeWith("fly")
+                    .withSyllablesDesired(3)
+                    .withSaveKey("rhymes_with_fly")
+                    .build()
+                .verbBuilder()
+                    .withForm(Verb.Form.infinitive)
+                    .withLoadKey("rhymes_with_fly")
+                    .withCapsMode(CapsMode.first)
+                    .withArticleMode(ArticleMode.none)
+                    .build()
+                .verbBuilder()
+                    .withForm(Verb.Form.pastparticiple)
+                    .withRhymeKey("rhymes_with_fly")
+                    .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getVerbs()))
+                    .withCapsMode(CapsMode.all)
+                    .build()
+                .execute();
+
+        assertEquals("The swam To swim SWUM", sentence);
+    }
+
 }

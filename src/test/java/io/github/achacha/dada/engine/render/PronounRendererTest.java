@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Pronoun;
 import io.github.achacha.dada.engine.data.Pronouns;
 import io.github.achacha.dada.engine.data.WordData;
@@ -97,5 +98,16 @@ public class PronounRendererTest {
 
         tag.setForm(Pronoun.Form.indefinite.name());
         assertEquals("anybody", tag.execute());
+    }
+
+    @Test
+    public void testBuilder() {
+        SentenceRendererBuilder renderers = new SentenceRendererBuilder();
+
+        String sentence = renderers
+                .pronounBuilder().withArticleMode(ArticleMode.the).withCapsMode(CapsMode.first).withRhymeWith("with").withSaveKey("saved").withSyllablesDesired(2).build()
+                .pronounBuilder().withCapsMode(CapsMode.none).withLoadKey("saved").withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getPronouns())).withRhymeKey("saved").build()
+                .execute();
+        assertEquals("The me me", sentence);
     }
 }

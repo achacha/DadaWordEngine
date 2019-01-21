@@ -1,7 +1,9 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Text;
 import io.github.achacha.dada.engine.data.WordData;
+import io.github.achacha.dada.engine.data.WordsByType;
 import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.integration.tags.GlobalData;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TextRendererText {
+public class TextRendererTest {
     @BeforeAll
     public static void beforeClass() {
         GlobalData.setWordData(new WordData("resource:/data/test"));
@@ -36,5 +38,16 @@ public class TextRendererText {
         TextRenderer tag = new TextRenderer("constant", ArticleMode.a, CapsMode.all, null);
         assertEquals("A CONSTANT", tag.execute());
         assertEquals(Text.Form.none.name(), tag.getFormName());
+    }
+
+    @Test
+    public void testBuilder() {
+        SentenceRendererBuilder renderers = new SentenceRendererBuilder();
+
+        String sentence = renderers
+                .textBuilder().withText("Option").withArticleMode(ArticleMode.the).withCapsMode(CapsMode.first).withRhymeWith("with").withSaveKey("saved").build()
+                .textBuilder().withText("option").withCapsMode(CapsMode.first).withLoadKey("saved").withRenderContext(new RenderContextToString<>(WordsByType.empty())).withRhymeKey("saved").build()
+                .execute();
+        assertEquals("The Option Option", sentence);
     }
 }

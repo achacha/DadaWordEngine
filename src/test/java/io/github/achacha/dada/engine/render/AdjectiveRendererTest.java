@@ -1,8 +1,8 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Adjective;
 import io.github.achacha.dada.engine.data.WordData;
-import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.integration.tags.GlobalData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,6 @@ public class AdjectiveRendererTest {
     @BeforeAll
     public static void beforeClass() {
         GlobalData.setWordData(new WordData("resource:/data/test"));
-        GlobalData.setHypenData(new HyphenData());
     }
 
     @Test
@@ -44,5 +43,33 @@ public class AdjectiveRendererTest {
         tag.setForm("superlative");
         assertEquals(Adjective.Form.superlative, tag.getForm());
         assertEquals("most subtle", tag.execute());
+    }
+
+    @Test
+    public void testBuilder() {
+        SentenceRendererBuilder renderers = new SentenceRendererBuilder();
+
+        String sentence = renderers
+                .adjectiveBuilder()
+                    .withForm(Adjective.Form.superlative)
+                    .withArticleMode(ArticleMode.none)
+                    .withCapsMode(CapsMode.all)
+                    .withRhymeWith("fly")
+                    .withSyllablesDesired(3)
+                    .withSaveKey("rhymes_with_fly")
+                    .build()
+                .adjectiveBuilder()
+                    .withLoadKey("rhymes_with_fly")
+                    .withCapsMode(CapsMode.first)
+                    .withArticleMode(ArticleMode.the)
+                    .build()
+                .adjectiveBuilder()
+                    .withRhymeKey("rhymes_with_fly")
+                    .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getAdjectives()))
+                    .withForm(Adjective.Form.comparative)
+                    .build()
+                .execute();
+
+        assertEquals("MOST SUBTLE The subtle more subtle", sentence);
     }
 }

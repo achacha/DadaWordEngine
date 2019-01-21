@@ -57,3 +57,9 @@ JSP integration
 3. Add tags to your JSP page (see provided examples in {this jar}/WEB-INF/*.jsp)
 
 
+Word Data
+---
+1. All data is converted to lower case
+2. Leader # is used as a comment
+3. Whitespace is trimmed front and back
+ 

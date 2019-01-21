@@ -1,6 +1,7 @@
 package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.data.Word;
+import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.data.WordsByType;
 
 import javax.annotation.Nullable;
@@ -47,5 +48,13 @@ public abstract class RenderContext<T extends Word> {
      */
     public WordsByType<T> getWords() {
         return words;
+    }
+
+    /**
+     * Sets appropriate WordsByType from WordData for this instance
+     * @param wordData WordData
+     */
+    public void applyWords(WordData wordData) {
+        words = (WordsByType<T>)wordData.getWordsByType(words.getType());
     }
 }

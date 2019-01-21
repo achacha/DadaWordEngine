@@ -3,6 +3,7 @@ package io.github.achacha.dada.engine.builder;
 import io.github.achacha.dada.engine.data.Text;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.data.WordData;
+import io.github.achacha.dada.integration.tags.GlobalData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -39,6 +40,13 @@ public class Sentence {
 
     /** Unknown words added as text */
     private boolean addUnknownAsText = true;
+
+    /**
+     * Initialize with default WordData
+     */
+    public Sentence() {
+        this.wordData = GlobalData.getWordData();
+    }
 
     /**
      * Sentence builder loading words by path
@@ -115,7 +123,7 @@ public class Sentence {
             if (lastIndex != BreakIterator.DONE) {
                 String subtext = text.substring(firstIndex, lastIndex);
                 if (!wordData.getIgnore().contains(subtext)) {
-                    Optional<? extends Word> ow = wordData.findFirstWordsByText(subtext.toLowerCase());
+                    Optional<? extends Word> ow = wordData.findFirstWordsByText(subtext);
                     if (ow.isPresent()) {
                         LOGGER.trace("Found word for `{}`, word={}", subtext, ow.get());
                         lastAddedWord = ow.get();
