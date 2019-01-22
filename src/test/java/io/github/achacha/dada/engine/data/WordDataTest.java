@@ -39,6 +39,7 @@ public class WordDataTest {
     @Test
     public void testLoadingTest() {
         WordData wordData = new WordData("resource:/data/test");
+        assertEquals("resource:/data/test", wordData.getBaseResourceDir());
         assertEquals("resource:/data/test/noun.csv", wordData.getNouns().getResourcePath());
         assertEquals("resource:/data/test/pronoun.csv", wordData.getPronouns().getResourcePath());
         assertEquals("resource:/data/test/verb.csv", wordData.getVerbs().getResourcePath());
@@ -51,11 +52,21 @@ public class WordDataTest {
     }
 
     @Test
-    public void testFindText() {
+    public void testFindTextAndWordByType() {
         WordData wordData = new WordData("resource/data/test_parser");
         Optional<? extends Word> pronoun = wordData.findFirstWordsByText("I");
 
         assertTrue(pronoun.isPresent());
+
+        // Make sure we get by type and it's indeed of that type
+        assertEquals(Word.Type.Adjective, wordData.getWordsByType(Word.Type.Adjective).getType());
+        assertEquals(Word.Type.Adverb, wordData.getWordsByType(Word.Type.Adverb).getType());
+        assertEquals(Word.Type.Conjunction, wordData.getWordsByType(Word.Type.Conjunction).getType());
+        assertEquals(Word.Type.Noun, wordData.getWordsByType(Word.Type.Noun).getType());
+        assertEquals(Word.Type.Preposition, wordData.getWordsByType(Word.Type.Preposition).getType());
+        assertEquals(Word.Type.Pronoun, wordData.getWordsByType(Word.Type.Pronoun).getType());
+        assertEquals(Word.Type.Verb, wordData.getWordsByType(Word.Type.Verb).getType());
+        assertTrue(wordData.getWordsByType(Word.Type.Unknown).wordsData.isEmpty());
     }
 
     /**

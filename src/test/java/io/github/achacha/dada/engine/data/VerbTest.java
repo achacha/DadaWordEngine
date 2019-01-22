@@ -11,6 +11,11 @@ public class VerbTest {
         Verb verb = TestWords.makeVerb("know", "knew", "known", "knows", "knowing");
         assertNotNull(verb.toString());
         assertEquals(Word.Type.Verb, verb.getType());
+
+        Verb verb2 = TestWords.makeVerb("know", "knew", "known", "knows", "knowing");
+        assertEquals(verb2, verb);
+        assertEquals(0, verb.compareTo(verb2));
+        assertEquals(0, verb.compareToForSave(verb2));
     }
 
     @Test

@@ -21,6 +21,16 @@ public class WordsByTypeTest {
             PhoneticTransformerBuilder.builder().withReverse().build());
 
     @Test
+    public void testInternals() {
+        assertNotNull(verbs.getXformer());
+        assertNotNull(verbs.getXformerReverse());
+        assertNotNull(verbs.getWordsByPhonetic());
+        assertNotNull(verbs.getWordBucketsByReversePhonetic());
+        assertNotNull(verbs.getWordsData());
+        assertTrue(!verbs.toString().isEmpty());
+    }
+
+    @Test
     public void testLoadingVerb() {
         assertEquals("resource:/data/test/"+ Word.Type.Verb.getTypeName()+".csv", verbs.getResourcePath());
         assertEquals(Word.Type.Verb, verbs.getType());

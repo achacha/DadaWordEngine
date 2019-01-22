@@ -12,6 +12,9 @@ public class AdjectiveTest {
         Adjective adjective = TestWords.makeAdjective("good", "better", "best");
         assertNotNull(adjective.toString());
         assertEquals(Word.Type.Adjective, adjective.getType());
+
+        Adjective adjective2 = TestWords.makeAdjective("good", "better", "best");
+        assertEquals(adjective2, adjective);
     }
 
     @Test
