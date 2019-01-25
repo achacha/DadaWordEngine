@@ -24,6 +24,8 @@ public abstract class RenderContext<T extends Word> {
 
     /**
      * Word specific attribute used in rendering
+     * Attributes are usually page/sentence global across all words
+     *
      * @param name String
      * @return Value object or null
      */
@@ -32,6 +34,8 @@ public abstract class RenderContext<T extends Word> {
 
     /**
      * Set attribute used in rendering
+     * Attributes are usually page/sentence global across all words
+     *
      * @param name String
      * @param value String
      */
@@ -48,6 +52,14 @@ public abstract class RenderContext<T extends Word> {
      */
     public WordsByType<T> getWords() {
         return words;
+    }
+
+    /**
+     * Set new WordsByType on this context
+     * @param words WordsByType
+     */
+    public void setWords(WordsByType<T> words) {
+        this.words = words;
     }
 
     /**

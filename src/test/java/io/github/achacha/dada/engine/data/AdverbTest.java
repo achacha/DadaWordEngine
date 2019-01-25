@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.data;
 
+import io.github.achacha.dada.test.GlobalTestData;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -18,12 +19,10 @@ public class AdverbTest {
 
     @Test
     public void findAdverbInAllWords() {
-        WordData wordData = new WordData("resource:/data/test");
-
         // Make sure we are able to find word without case issues
-        Optional<? extends Word> ow = wordData.findFirstWordsByText("ADVERBLY");
+        Optional<? extends Word> ow = GlobalTestData.WORD_DATA.findFirstWordsByText("ADVERBLY");
         assertTrue(ow.isPresent());
-        ow = wordData.findFirstWordsByText("adverbly");
+        ow = GlobalTestData.WORD_DATA.findFirstWordsByText("adverbly");
         assertTrue(ow.isPresent());
     }
 }

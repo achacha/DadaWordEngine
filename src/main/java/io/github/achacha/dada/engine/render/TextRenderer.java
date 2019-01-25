@@ -49,6 +49,11 @@ public class TextRenderer extends BaseWordRenderer<Text> {
         this.text = Text.of(text);
     }
 
+    @Override
+    public Word.Type getType() {
+        return Word.Type.Unknown;
+    }
+
     /**
      * Builder to be used with SentenceRendererBuilder
      * @param sentenceBuilder SentenceRendererBuilder
@@ -86,6 +91,8 @@ public class TextRenderer extends BaseWordRenderer<Text> {
             renderer.rhymeKey = rhymeKey;
             renderer.rhymeWith = rhymeWith;
 
+            // Validate and add
+            validateRenderer(renderer);
             sentenceBuilder.getRenderers().add(renderer);
 
             return sentenceBuilder;

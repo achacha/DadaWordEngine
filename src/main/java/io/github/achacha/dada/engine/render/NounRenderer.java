@@ -6,6 +6,8 @@ import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.integration.tags.GlobalData;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.function.Predicate;
+
 public class NounRenderer extends BaseWordRenderer<Noun>{
     protected Noun.Form form = Noun.Form.singular;
 
@@ -33,6 +35,11 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
         this.form = form;
     }
 
+    @Override
+    public Word.Type getType() {
+        return Word.Type.Noun;
+    }
+
     /**
      * Builder to be used with SentenceRendererBuilder
      * @param sentenceBuilder SentenceRendererBuilder
@@ -53,6 +60,8 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
         private String rhymeKey;
         private String rhymeWith;
         private int syllablesDesired;
+        private String fallback;
+        private Predicate<BaseWordRenderer> fallbackPredicate;
 
         public Builder(SentenceRendererBuilder sentenceBuilder) {
             this.sentenceBuilder = sentenceBuilder;
@@ -69,7 +78,11 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
             renderer.rhymeKey = rhymeKey;
             renderer.rhymeWith = rhymeWith;
             renderer.syllablesDesired = syllablesDesired;
+            renderer.fallback = fallback;
+            renderer.fallbackPredicate = fallbackPredicate;
 
+            // Validate and add
+            validateRenderer(renderer);
             sentenceBuilder.getRenderers().add(renderer);
 
             return sentenceBuilder;
@@ -119,6 +132,18 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
             this.syllablesDesired = syllablesDesired;
             return this;
         }
+
+        public Builder withFallback(String fallback) {
+            this.fallback = fallback;
+            return this;
+        }
+
+        public Builder withFallback(String fallback, Predicate<BaseWordRenderer> fallbackPredicate) {
+            this.fallback = fallback;
+            this.fallbackPredicate = fallbackPredicate;
+            return this;
+        }
+
     }
 
     @Override

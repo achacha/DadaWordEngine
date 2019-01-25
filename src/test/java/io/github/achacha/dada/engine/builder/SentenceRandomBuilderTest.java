@@ -4,10 +4,10 @@ import io.github.achacha.dada.engine.data.Adjective;
 import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.Pronoun;
 import io.github.achacha.dada.engine.data.Verb;
-import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.CapsMode;
 import io.github.achacha.dada.integration.tags.GlobalData;
+import io.github.achacha.dada.test.GlobalTestData;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class SentenceRandomBuilderTest {
 
     @Test
     void simpleRandomSentence() {
-        SentenceRendererBuilder rs = new SentenceRendererBuilder(new WordData("resource:/data/test"))
+        SentenceRendererBuilder rs = new SentenceRendererBuilder(GlobalTestData.WORD_DATA)
                 .noun()
                 .conjunction()
                 .pronoun()

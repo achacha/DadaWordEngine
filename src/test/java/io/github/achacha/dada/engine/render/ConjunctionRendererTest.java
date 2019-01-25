@@ -2,8 +2,8 @@ package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Conjunction;
-import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.integration.tags.GlobalData;
+import io.github.achacha.dada.test.GlobalTestData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class ConjunctionRendererTest {
     @BeforeAll
     public static void beforeClass() {
-        GlobalData.setWordData(new WordData("resource:/data/test"));
+        GlobalData.setWordData(GlobalTestData.WORD_DATA);
     }
 
     @Test
@@ -49,6 +49,6 @@ public class ConjunctionRendererTest {
                 .conjunctionBuilder().withArticleMode(ArticleMode.a).withCapsMode(CapsMode.all).withRhymeWith("with").withSaveKey("saved").withSyllablesDesired(2).build()
                 .conjunctionBuilder().withCapsMode(CapsMode.none).withLoadKey("saved").withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getConjunctions())).withRhymeKey("saved").build()
                 .execute();
-        assertEquals("A & &", sentence);
+        assertEquals("A &&", sentence);
     }
 }

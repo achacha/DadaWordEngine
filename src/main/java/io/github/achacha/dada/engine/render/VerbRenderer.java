@@ -6,6 +6,8 @@ import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.integration.tags.GlobalData;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.function.Predicate;
+
 public class VerbRenderer extends BaseWordRenderer<Verb> {
     protected Verb.Form form = Verb.Form.base;
 
@@ -33,6 +35,11 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
         this.form = form;
     }
 
+    @Override
+    public Word.Type getType() {
+        return Word.Type.Verb;
+    }
+
     /**
      * Builder to be used with SentenceRendererBuilder
      * @param sentenceBuilder SentenceRendererBuilder
@@ -53,6 +60,8 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
         private String rhymeKey;
         private String rhymeWith;
         private int syllablesDesired;
+        private String fallback;
+        private Predicate<BaseWordRenderer> fallbackPredicate;
 
         public Builder(SentenceRendererBuilder sentenceBuilder) {
             this.sentenceBuilder = sentenceBuilder;
@@ -69,7 +78,11 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
             renderer.rhymeKey = rhymeKey;
             renderer.rhymeWith = rhymeWith;
             renderer.syllablesDesired = syllablesDesired;
+            renderer.fallback = fallback;
+            renderer.fallbackPredicate = fallbackPredicate;
 
+            // Validate and add
+            validateRenderer(renderer);
             sentenceBuilder.getRenderers().add(renderer);
 
             return sentenceBuilder;
@@ -117,6 +130,17 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
 
         public Builder withSyllablesDesired(int syllablesDesired) {
             this.syllablesDesired = syllablesDesired;
+            return this;
+        }
+
+        public Builder withFallback(String fallback) {
+            this.fallback = fallback;
+            return this;
+        }
+
+        public Builder withFallback(String fallback, Predicate<BaseWordRenderer> fallbackPredicate) {
+            this.fallback = fallback;
+            this.fallbackPredicate = fallbackPredicate;
             return this;
         }
     }

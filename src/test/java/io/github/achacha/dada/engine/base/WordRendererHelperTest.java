@@ -2,7 +2,6 @@ package io.github.achacha.dada.engine.base;
 
 import io.github.achacha.dada.engine.data.TestWords;
 import io.github.achacha.dada.engine.data.Text;
-import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.render.AdjectiveRenderer;
 import io.github.achacha.dada.engine.render.AdverbRenderer;
 import io.github.achacha.dada.engine.render.BaseWordRenderer;
@@ -13,6 +12,7 @@ import io.github.achacha.dada.engine.render.PronounRenderer;
 import io.github.achacha.dada.engine.render.TextRenderer;
 import io.github.achacha.dada.engine.render.VerbRenderer;
 import io.github.achacha.dada.integration.tags.GlobalData;
+import io.github.achacha.dada.test.GlobalTestData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class WordRendererHelperTest {
     @BeforeAll
     public static void beforeClass() {
-        GlobalData.setWordData(new WordData("resource:/data/test"));
+        GlobalData.setWordData(GlobalTestData.WORD_DATA);
     }
 
     // NOTE: words passed to map method are only used to get the Type, renderer will pick from WordData

@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.data;
 
+import io.github.achacha.dada.test.GlobalTestData;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class WordDataTest {
 
     @Test
     public void testLoadingTest() {
-        WordData wordData = new WordData("resource:/data/test");
+        WordData wordData = GlobalTestData.WORD_DATA;
         assertEquals("resource:/data/test", wordData.getBaseResourceDir());
         assertEquals("resource:/data/test/noun.csv", wordData.getNouns().getResourcePath());
         assertEquals("resource:/data/test/pronoun.csv", wordData.getPronouns().getResourcePath());

@@ -38,15 +38,6 @@ Running examples:
 
     mvn exec:java -Dexec.mainClass="io.github.achacha.dada.examples.PhonemixExample" 
 
-Available examples:
-
-- io.github.achacha.dada.examples.GenerateRandomSentenceExample
-- io.github.achacha.dada.examples.ParseAndRegenerateSentenceExample
-- io.github.achacha.dada.examples.HyphenateExample
-- io.github.achacha.dada.examples.PhonemixExample
-- io.github.achacha.dada.examples.FindWordsThatRhymeExample
-- io.github.achacha.dada.examples.RhymeWithSentenceExample
-
 
 JSP integration
 ---

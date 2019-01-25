@@ -6,6 +6,7 @@ import io.github.achacha.dada.engine.data.SavedWord;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.integration.tags.GlobalData;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.text.WordUtils;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.function.Predicate;
 
 public abstract class BaseWordRenderer<T extends Word> {
     protected static final Logger LOGGER = LogManager.getLogger(BaseWordRenderer.class);
@@ -59,6 +61,16 @@ public abstract class BaseWordRenderer<T extends Word> {
      */
     protected int syllablesDesired;
 
+    /**
+     * Fallback word, if randomization is not used, this is the word that will be used
+     */
+    protected String fallback;
+
+    /**
+     * Function that determines if the fallback should be used
+     */
+    protected Predicate<BaseWordRenderer> fallbackPredicate;
+
     /** How many words to try to get syllables desired before using the closest one */
     protected final static int TRIES_TO_GET_SYLLABLES = 10;
 
@@ -101,6 +113,18 @@ public abstract class BaseWordRenderer<T extends Word> {
      */
     public RenderContext<T> getRendererContext() {
         return rendererContext;
+    }
+
+    /**
+     * @return {@link Word.Type of the renderer}
+     */
+    public abstract Word.Type getType();
+
+    /**
+     * @return Fallback word when unable to generate/select a word
+     */
+    public String getFallback() {
+        return fallback;
     }
 
     @Override
@@ -235,7 +259,7 @@ public abstract class BaseWordRenderer<T extends Word> {
         if (word == null && rhymeKey != null) {
             SavedWord savedWord = (SavedWord) rendererContext.getAttribute(rhymeKey);
             if (savedWord == null) {
-                LOGGER.error("There is no saved key={} to rhyme={}, using random word", loadKey, rhymeKey);
+                LOGGER.error("There is no saved rhyme key={}, using random word", rhymeKey);
                 word = generateWord();  // Use first word since we don't care about syllables
             }
             else {
@@ -265,6 +289,7 @@ public abstract class BaseWordRenderer<T extends Word> {
 
         // Execute on word picked based on load/rhyme
         // Rest of selection will happen there if word is not picked
+        // If execute returns nothing we use fallback
         return execute(word);
     }
 
@@ -279,40 +304,47 @@ public abstract class BaseWordRenderer<T extends Word> {
     protected String execute(Word word) {
         // No load or rhyme
         String selectedWord;
-        if (word == null) {
-            // Generate word and select form of the word
-            Word bestWord = generateWord();
-            String bestSelectedWord = selectWord(bestWord);
-
-            // Syllable check
-            if (syllablesDesired > 0) {
-                int syllables = GlobalData.getHyphenData().countSyllables(bestSelectedWord);
-                int bestDiff = Math.abs(syllablesDesired - syllables);
-
-                int tries = TRIES_TO_GET_SYLLABLES;
-                while (bestDiff != 0 && tries-- > 0) {
-                    Word possibleWord = generateWord();
-                    String possibleSelectedWord = selectWord(possibleWord);
-                    int possibleSyllables = GlobalData.getHyphenData().countSyllables(possibleSelectedWord);
-                    int possibleDiff = Math.abs(syllablesDesired - possibleSyllables);
-                    if (possibleDiff < bestDiff) {
-                        // Found a better word
-                        bestWord = possibleWord;
-                        bestSelectedWord = possibleSelectedWord;
-                        bestDiff = possibleDiff;
-                    }
-                }
-                LOGGER.debug("Syllables desired={} bestDiff={} bestSelectedWord={}", syllablesDesired, bestDiff, bestSelectedWord);
-            }
-
-            word = bestWord;
-            selectedWord = bestSelectedWord;
+        if (fallbackPredicate != null && StringUtils.isNotEmpty(fallback) && fallbackPredicate.test(this)) {
+            // Fallback test passed, use it as Text
+            LOGGER.debug("Fallback predicate passed, selecting fallback={}", fallback);
+            word = null;
+            selectedWord = fallback;
         }
         else {
-            // Pick form of the word
-            selectedWord = selectWord(word);
+            if (word == null) {
+                // Generate word and select form of the word
+                Word bestWord = generateWord();
+                String bestSelectedWord = selectWord(bestWord);
+
+                // Syllable check
+                if (syllablesDesired > 0) {
+                    int syllables = GlobalData.getHyphenData().countSyllables(bestSelectedWord);
+                    int bestDiff = Math.abs(syllablesDesired - syllables);
+
+                    int tries = TRIES_TO_GET_SYLLABLES;
+                    while (bestDiff != 0 && tries-- > 0) {
+                        Word possibleWord = generateWord();
+                        String possibleSelectedWord = selectWord(possibleWord);
+                        int possibleSyllables = GlobalData.getHyphenData().countSyllables(possibleSelectedWord);
+                        int possibleDiff = Math.abs(syllablesDesired - possibleSyllables);
+                        if (possibleDiff < bestDiff) {
+                            // Found a better word
+                            bestWord = possibleWord;
+                            bestSelectedWord = possibleSelectedWord;
+                            bestDiff = possibleDiff;
+                        }
+                    }
+                    LOGGER.debug("Syllables desired={} bestDiff={} bestSelectedWord={}", syllablesDesired, bestDiff, bestSelectedWord);
+                }
+
+                word = bestWord;
+                selectedWord = bestSelectedWord;
+            } else {
+                // Pick form of the word
+                selectedWord = selectWord(word);
+            }
+            Preconditions.checkNotNull(word);
         }
-        Preconditions.checkNotNull(word);
         Preconditions.checkNotNull(selectedWord);
 
         // Do pre processing
@@ -332,13 +364,22 @@ public abstract class BaseWordRenderer<T extends Word> {
     }
 
     /**
-     * Save word
+     * Save word unless fallback was used
      * @param word Word
      */
     protected void saveWord(Word word) {
         if (saveKey != null) {
-            SavedWord sw = new SavedWord(word, getFormName());
-            rendererContext.setAttribute(saveKey, sw);
+            if (word != null) {
+                Preconditions.checkNotNull(word);
+                String formName = getFormName();
+                Preconditions.checkNotNull(formName);
+                SavedWord sw = new SavedWord(word, formName);
+                LOGGER.debug("Saving key={} value={}", saveKey, sw);
+                rendererContext.setAttribute(saveKey, sw);
+            }
+            else {
+                LOGGER.debug("Not saving key={} since fallback was used", saveKey);
+            }
         }
     }
 
@@ -394,5 +435,12 @@ public abstract class BaseWordRenderer<T extends Word> {
         }
 
         return word;
+    }
+
+    static void validateRenderer(BaseWordRenderer renderer) {
+        if (renderer.fallback != null && renderer.saveKey != null)
+            throw new RuntimeException("Renderer cannot have both saveKey and fallback, renderer="+renderer);
+        if (renderer.loadKey != null && renderer.saveKey != null)
+            throw new RuntimeException("Renderer cannot have both loadKey and saveKey, renderer="+renderer);
     }
 }

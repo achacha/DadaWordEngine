@@ -2,9 +2,8 @@ package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Preposition;
-import io.github.achacha.dada.engine.data.WordData;
-import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.integration.tags.GlobalData;
+import io.github.achacha.dada.test.GlobalTestData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class PrepositionRendererTest {
     @BeforeAll
     public static void beforeClass() {
-        GlobalData.setWordData(new WordData("resource:/data/test"));
-        GlobalData.setHypenData(new HyphenData());
+        GlobalData.setWordData(GlobalTestData.WORD_DATA);
     }
 
     @Test
@@ -49,8 +47,10 @@ public class PrepositionRendererTest {
 
         String sentence = renderers
                 .prepositionBuilder().withArticleMode(ArticleMode.a).withCapsMode(CapsMode.first).withRhymeWith("with").withSaveKey("saved").withSyllablesDesired(2).build()
+                .text(" ")
                 .prepositionBuilder().withCapsMode(CapsMode.all).withLoadKey("saved").withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getPrepositions())).withRhymeKey("saved").build()
                 .execute();
+
         assertEquals("An on ON", sentence);
     }
 }

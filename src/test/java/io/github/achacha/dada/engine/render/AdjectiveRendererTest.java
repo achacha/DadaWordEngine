@@ -2,8 +2,8 @@ package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Adjective;
-import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.integration.tags.GlobalData;
+import io.github.achacha.dada.test.GlobalTestData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class AdjectiveRendererTest {
     @BeforeAll
     public static void beforeClass() {
-        GlobalData.setWordData(new WordData("resource:/data/test"));
+        GlobalData.setWordData(GlobalTestData.WORD_DATA);
     }
 
     @Test
@@ -58,11 +58,13 @@ public class AdjectiveRendererTest {
                     .withSyllablesDesired(3)
                     .withSaveKey("rhymes_with_fly")
                     .build()
+                .text(" ")
                 .adjectiveBuilder()
                     .withLoadKey("rhymes_with_fly")
                     .withCapsMode(CapsMode.first)
                     .withArticleMode(ArticleMode.the)
                     .build()
+                .text(" ")
                 .adjectiveBuilder()
                     .withRhymeKey("rhymes_with_fly")
                     .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getAdjectives()))

@@ -2,7 +2,10 @@ package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Preposition;
+import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.integration.tags.GlobalData;
+
+import java.util.function.Predicate;
 
 public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
     public PrepositionRenderer() {
@@ -31,6 +34,11 @@ public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
         );
     }
 
+    @Override
+    public Word.Type getType() {
+        return Word.Type.Preposition;
+    }
+
     /**
      * Builder to be used with SentenceRendererBuilder
      * @param sentenceBuilder SentenceRendererBuilder
@@ -50,6 +58,8 @@ public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
         private String rhymeKey;
         private String rhymeWith;
         private int syllablesDesired;
+        private String fallback;
+        private Predicate<BaseWordRenderer> fallbackPredicate;
 
         public Builder(SentenceRendererBuilder sentenceBuilder) {
             this.sentenceBuilder = sentenceBuilder;
@@ -66,6 +76,8 @@ public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
             renderer.rhymeKey = rhymeKey;
             renderer.rhymeWith = rhymeWith;
             renderer.syllablesDesired = syllablesDesired;
+            renderer.fallback = fallback;
+            renderer.fallbackPredicate = fallbackPredicate;
 
             sentenceBuilder.getRenderers().add(renderer);
 
@@ -111,6 +123,18 @@ public class PrepositionRenderer extends BaseWordRenderer<Preposition> {
             this.syllablesDesired = syllablesDesired;
             return this;
         }
+
+        public Builder withFallback(String fallback) {
+            this.fallback = fallback;
+            return this;
+        }
+
+        public Builder withFallback(String fallback, Predicate<BaseWordRenderer> fallbackPredicate) {
+            this.fallback = fallback;
+            this.fallbackPredicate = fallbackPredicate;
+            return this;
+        }
+
     }
 
     @Override

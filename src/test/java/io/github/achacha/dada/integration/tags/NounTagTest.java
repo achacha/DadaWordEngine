@@ -2,10 +2,9 @@ package io.github.achacha.dada.integration.tags;
 
 import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.SavedWord;
-import io.github.achacha.dada.engine.data.WordData;
-import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.CapsMode;
+import io.github.achacha.dada.test.GlobalTestData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,8 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class NounTagTest {
     @BeforeAll
     public static void beforeClass() {
-        GlobalData.setWordData(new WordData("resource:/data/test"));
-        GlobalData.setHypenData(new HyphenData());
+        GlobalData.setWordData(GlobalTestData.WORD_DATA);
     }
 
     @Test

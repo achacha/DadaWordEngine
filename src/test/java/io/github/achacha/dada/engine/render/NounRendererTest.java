@@ -3,9 +3,8 @@ package io.github.achacha.dada.engine.render;
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.TestWords;
-import io.github.achacha.dada.engine.data.WordData;
-import io.github.achacha.dada.engine.hyphen.HyphenData;
 import io.github.achacha.dada.integration.tags.GlobalData;
+import io.github.achacha.dada.test.GlobalTestData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class NounRendererTest {
     @BeforeAll
     public static void beforeClass() {
-        GlobalData.setWordData(new WordData("resource:/data/test"));
-        GlobalData.setHypenData(new HyphenData());
+        GlobalData.setWordData(GlobalTestData.WORD_DATA);
     }
 
     @Test
@@ -127,11 +125,13 @@ public class NounRendererTest {
                     .withSyllablesDesired(3)
                     .withSaveKey("rhymes_with_fly")
                     .build()
+                .text(" ")
                 .nounBuilder()
                     .withLoadKey("rhymes_with_fly")
                     .withCapsMode(CapsMode.first)
                     .withArticleMode(ArticleMode.none)
                     .build()
+                .text(" ")
                 .nounBuilder()
                     .withRhymeKey("rhymes_with_fly")
                     .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getNouns()))
