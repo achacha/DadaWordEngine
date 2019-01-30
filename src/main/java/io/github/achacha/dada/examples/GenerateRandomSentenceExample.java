@@ -22,39 +22,40 @@ public class GenerateRandomSentenceExample {
     static {
         BUILDERS.add(()-> new SentenceRendererBuilder()
                 .adjective(Adjective.Form.superlative, ArticleMode.the, CapsMode.first)
+                .text(" ")
                 .noun()
-                .text("for")
+                .text(" for ")
                 .noun()
-                .text("is")
+                .text(" is ")
                 .adjective(Adjective.Form.comparative)
                 .noun()
-                .text("for")
+                .text(" for ")
                 .noun(Noun.Form.plural)
         );
 
         BUILDERS.add(()-> new SentenceRendererBuilder()
-                .text("nothing", ArticleMode.none, CapsMode.first)
+                .text("nothing ", ArticleMode.none, CapsMode.first)
                 .verb(Verb.Form.infinitive)
-                .text("here")
+                .text(" here")
         );
 
         BUILDERS.add(()-> new SentenceRendererBuilder()
                 .verb(Verb.Form.present, ArticleMode.none, CapsMode.first)
-                .text("and")
+                .text(" and ")
                 .verb(Verb.Form.present)
-                .text("is not allowed here")
+                .text(" is not allowed here")
         );
 
         BUILDERS.add(()-> new SentenceRendererBuilder()
                 .verb(Verb.Form.present, ArticleMode.none, CapsMode.first)
-                .text("is allowed there")
+                .text(" is allowed there")
         );
 
         BUILDERS.add(()-> new SentenceRendererBuilder()
                 .noun(Noun.Form.singular, ArticleMode.a, CapsMode.first)
-                .text("cannot")
+                .text(" cannot ")
                 .verb(Verb.Form.base)
-                .text("any")
+                .text(" any ")
                 .noun(Noun.Form.plural)
         );
     }

@@ -16,7 +16,7 @@ public class GenerateQuasiRandomSentenceExample {
                     .withCapsMode(CapsMode.first)
                     .withArticleMode(ArticleMode.a)
                     .build()
-                .text("by any other name is still")
+                .text(" by any other name is still ")
                 .nounBuilder().withFallback("rose").withArticleMode(ArticleMode.a).build();
 
         for (int i=0; i<8; ++i) {
