@@ -33,11 +33,16 @@ public class RhymeWithSentenceExample {
 
             // Parse input into a sentence and find known words, then convert to a randomized version of it
             Sentence sentence = new Sentence(GlobalData.getWordData()).parse(input);
+            System.out.println(sentence.toStringStructure());
             SentenceRendererBuilder randomizedSentence = new SentenceRendererBuilder(sentence);
+            System.out.println(randomizedSentence.toStringStructure());
 
             // Get last word and rhyme and set the rhyme with itself
             randomizedSentence.getRenderers().get(randomizedSentence.getRenderers().size() - 1).setRhymeWith(rhymeWith);
-            System.out.println("Rhymes with: " + randomizedSentence.execute());
+            System.out.println("\nRhymes with:\n");
+
+            for (int i=0; i<4; ++i)
+                System.out.println(randomizedSentence.execute());
 
             System.out.print(PROMPT);
         }

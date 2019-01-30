@@ -19,7 +19,7 @@ public class WordRendererHelper {
      * @return BaseWordRenderer for type of Word
      */
     public static BaseWordRenderer mapWordToRenderer(Word word) {
-        return mapWordToRenderer(word,true);
+        return mapWordToRenderer(word,false);
     }
 
     /**
@@ -37,7 +37,7 @@ public class WordRendererHelper {
             case Preposition: return new PrepositionRenderer();
             case Pronoun: return new PronounRenderer();
             case Verb: return new VerbRenderer();
-            case Unknown: return new TextRenderer(trimText ? word.getWord().trim() : word.getWord());
+            case Unknown: return new TextRenderer(trimText ? word.getWordString().trim() : word.getWordString());
         }
         throw new RuntimeException("Undeclared word type, cannot map to renderer");
     }

@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class RenderContextToString<T extends Word> extends RenderContext<T> {
     /** Attribute storage */
-    private Map<String, Object> attributes;
+    private Map<String, SavedWord> attributes;
 
     /** Writer */
     private Writer writer = new StringWriter();
@@ -40,7 +40,7 @@ public class RenderContextToString<T extends Word> extends RenderContext<T> {
      * @param words {@link WordsByType} of type T
      * @param attributes Map of key to Object (usually {@link SavedWord}
      */
-    public RenderContextToString(WordsByType<T> words, Map<String, Object> attributes) {
+    public RenderContextToString(WordsByType<T> words, Map<String, SavedWord> attributes) {
         super(words);
         this.attributes = attributes;
     }
@@ -51,7 +51,7 @@ public class RenderContextToString<T extends Word> extends RenderContext<T> {
      * @param attributes Map of key to Object (usually {@link SavedWord}
      * @param writer {@link Writer} to use when rendering
      */
-    public RenderContextToString(WordsByType<T> words, Map<String, Object> attributes, Writer writer) {
+    public RenderContextToString(WordsByType<T> words, Map<String, SavedWord> attributes, Writer writer) {
         super(words);
         this.attributes = attributes;
         this.writer = writer;
@@ -59,12 +59,12 @@ public class RenderContextToString<T extends Word> extends RenderContext<T> {
 
     @Override
     @Nullable
-    public Object getAttribute(String name) {
+    public SavedWord getAttribute(String name) {
         return attributes.get(name);
     }
 
     @Override
-    public void setAttribute(String name, Object value) {
+    public void setAttribute(String name, SavedWord value) {
         attributes.put(name, value);
     }
 

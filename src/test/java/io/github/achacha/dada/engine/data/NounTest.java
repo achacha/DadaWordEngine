@@ -32,9 +32,9 @@ public class NounTest {
 
         words.sort(Word::compareToForSave);
 
-        assertEquals("small", words.get(0).getWord());
-        assertEquals("small pebble", words.get(1).getWord());
-        assertEquals("small-pebble", words.get(2).getWord());
-        assertEquals("small_pebble", words.get(3).getWord());
+        assertEquals("small", words.get(0).getWordString());
+        assertEquals("small pebble", words.get(1).getWordString());
+        assertEquals("small-pebble", words.get(2).getWordString());
+        assertEquals("small_pebble", words.get(3).getWordString());
     }
 }

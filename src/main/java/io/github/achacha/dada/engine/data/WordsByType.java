@@ -60,7 +60,7 @@ public class WordsByType<T extends Word> {
     /**
      * Map all forms of the word to Word objects
      */
-    protected Map<String, T> wordsByText = new HashMap<>();
+    protected Map<String, SavedWord> wordsByText = new HashMap<>();
 
 
     /**
@@ -239,25 +239,26 @@ public class WordsByType<T extends Word> {
     protected void addWord(T word) {
         wordsData.add(word);
 
-        wordsByBaseWord.put(word.getWord(), word);
+        wordsByBaseWord.put(word.getWordString(), word);
 
         word.getAllForms().forEach(pair->{
             // Word mapped to text
-            String form = pair.getRight();
-            wordsByText.put(form, word);
+            String formOfWord = pair.getRight();
+            String formName = pair.getLeft();
+            wordsByText.put(formOfWord, new SavedWord(word, formName));  // Save the Word and it's form instance
 
             // Word mapped to phonetic
-            String phonetic = xformer.transform(form);
+            String phonetic = xformer.transform(formOfWord);
             if (phonetic.length() > 0) {
-                wordsByPhonetic.put(phonetic, new SavedWord(word, form));
+                wordsByPhonetic.put(phonetic, new SavedWord(word, formOfWord));
             }
 
             // Word mapped to withReverse phonetic
-            String reversePhonetic = xformerReverse.transform(form);
+            String reversePhonetic = xformerReverse.transform(formOfWord);
             if (reversePhonetic.length() > 0) {
                 Character last = reversePhonetic.charAt(0);
                 Multimap<String, SavedWord> bucket = wordBucketsByReversePhonetic.computeIfAbsent(last, LinkedListMultimap::create);
-                bucket.put(reversePhonetic, new SavedWord(word, form));
+                bucket.put(reversePhonetic, new SavedWord(word, formOfWord));
             }
         });
     }
@@ -288,7 +289,7 @@ public class WordsByType<T extends Word> {
      * @return Word or null
      */
     @Nullable
-    public T getWordByText(String text) {
+    public SavedWord getWordByText(String text) {
         return wordsByText.get(text);
     }
 

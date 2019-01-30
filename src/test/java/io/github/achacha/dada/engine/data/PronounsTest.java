@@ -20,7 +20,7 @@ public class PronounsTest {
         assertNotNull(us);
         assertNotNull(us.toString());
         assertEquals(Pronoun.Type.Pronoun, us.getType());
-        assertEquals("us", us.getWord());
+        assertEquals("us", us.getWordString());
         assertTrue(us.isA(Pronoun.Form.personal));
         assertTrue(us.isA(Pronoun.Form.objective));
         assertEquals(2, us.attributes.size());
@@ -29,7 +29,7 @@ public class PronounsTest {
 
         Pronoun whom = pronouns.getWordByBase("whom");
         assertNotNull(whom);
-        assertEquals("whom", whom.getWord());
+        assertEquals("whom", whom.getWordString());
         assertTrue(whom.isA(Pronoun.Form.objective));
         assertTrue(whom.isA(Pronoun.Form.interrogative));
         assertTrue(whom.isA(Pronoun.Form.relative));
@@ -39,7 +39,7 @@ public class PronounsTest {
 
         Pronoun those = pronouns.getWordByBase("those");
         assertNotNull(those);
-        assertEquals("those", those.getWord());
+        assertEquals("those", those.getWordString());
         assertTrue(those.isA(Pronoun.Form.possessive));
         assertTrue(those.isA(Pronoun.Form.demonstrative));
         assertTrue(pronouns.getPronounsByForm(Pronoun.Form.possessive).indexOf(those) >= 0);
@@ -47,7 +47,7 @@ public class PronounsTest {
 
         Pronoun such = pronouns.getWordByBase("such");
         assertNotNull(such);
-        assertEquals("such", such.getWord());
+        assertEquals("such", such.getWordString());
         assertTrue(such.isA(Pronoun.Form.indefinite));
         assertTrue(pronouns.getPronounsByForm(Pronoun.Form.indefinite).indexOf(such) >= 0);
 

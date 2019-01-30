@@ -1,6 +1,7 @@
 package io.github.achacha.dada.integration.tags;
 
 import com.google.common.base.Preconditions;
+import io.github.achacha.dada.engine.data.SavedWord;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.data.WordsByType;
 import io.github.achacha.dada.engine.render.RenderContext;
@@ -40,12 +41,12 @@ public class RenderContextToJspTag<T extends Word> extends RenderContext<T> {
 
     @Nullable
     @Override
-    public Object getAttribute(String name) {
-        return Preconditions.checkNotNull(jspContext).getAttribute(name);
+    public SavedWord getAttribute(String name) {
+        return (SavedWord)Preconditions.checkNotNull(jspContext).getAttribute(name);
     }
 
     @Override
-    public void setAttribute(String name, Object value) {
+    public void setAttribute(String name, SavedWord value) {
         Preconditions.checkNotNull(jspContext).setAttribute(name, value);
     }
 }

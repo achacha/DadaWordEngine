@@ -3,6 +3,7 @@ package io.github.achacha.dada.engine.render;
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Pronoun;
 import io.github.achacha.dada.engine.data.Pronouns;
+import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.phonemix.PhoneticTransformerBuilder;
 import io.github.achacha.dada.integration.tags.GlobalData;
 import io.github.achacha.dada.test.GlobalTestData;
@@ -108,5 +109,19 @@ public class PronounRendererTest {
                 .pronounBuilder().withCapsMode(CapsMode.none).withLoadKey("saved").withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getPronouns())).withRhymeKey("saved").build()
                 .execute();
         assertEquals("The me me", sentence);
+
+        renderers.pronounBuilder().withForm(Pronoun.Form.possessive);
+    }
+
+    @Test
+    public void testBuilderAlone() {
+        PronounRenderer.Builder builder = PronounRenderer
+                .builder(new SentenceRendererBuilder())
+                .withForm(Pronoun.Form.reciprocal);
+        SentenceRendererBuilder sr = builder.build();
+
+        assertEquals(Pronoun.Form.reciprocal.name(), sr.getRenderers().get(0).getFormName());
+        assertEquals(Word.Type.Pronoun, sr.getRenderers().get(0).getType());
+        assertEquals("each other", sr.execute());
     }
 }

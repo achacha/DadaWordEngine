@@ -1,6 +1,10 @@
 package io.github.achacha.dada.engine.data;
 
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Constant text that is not one of the other words
@@ -29,5 +33,12 @@ public class Text extends Word {
         return "Text{" +
                 "word='" + word + '\'' +
                 '}';
+    }
+
+    @Override
+    public Collection<Pair<String,String>> getAllForms() {
+        return Lists.newArrayList(
+                Pair.of(Text.Form.none.name(), this.word)
+        );
     }
 }

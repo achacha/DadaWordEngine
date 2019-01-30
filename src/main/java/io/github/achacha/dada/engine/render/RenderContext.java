@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.data.SavedWord;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.data.WordsByType;
@@ -27,19 +28,19 @@ public abstract class RenderContext<T extends Word> {
      * Attributes are usually page/sentence global across all words
      *
      * @param name String
-     * @return Value object or null
+     * @return {@link SavedWord} or null
      */
     @Nullable
-    public abstract Object getAttribute(String name);
+    public abstract SavedWord getAttribute(String name);
 
     /**
      * Set attribute used in rendering
      * Attributes are usually page/sentence global across all words
      *
      * @param name String
-     * @param value String
+     * @param value {@link SavedWord}
      */
-    public abstract void setAttribute(String name, Object value);
+    public abstract void setAttribute(String name, SavedWord value);
 
     /**
      * @return Writer to be used for rendering the word

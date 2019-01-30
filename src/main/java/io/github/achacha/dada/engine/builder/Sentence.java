@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.builder;
 
+import io.github.achacha.dada.engine.data.SavedWord;
 import io.github.achacha.dada.engine.data.Text;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.data.WordData;
@@ -34,7 +35,7 @@ public class Sentence {
 
     protected static final Logger LOGGER = LogManager.getLogger(Sentence.class);
 
-    protected List<Word> words = new ArrayList<>();
+    protected List<SavedWord> words = new ArrayList<>();
 
     protected final WordData wordData;
 
@@ -79,9 +80,9 @@ public class Sentence {
     }
 
     /**
-     * @return List of {@link Word} parsed
+     * @return List of {@link SavedWord} parsed
      */
-    public List<Word> getWords() {
+    public List<SavedWord> getWords() {
         return words;
     }
 
@@ -109,6 +110,7 @@ public class Sentence {
      * Parse sentence adding to existing words
      * All known words will become lower case to match them in WordData
      * Text blocks are unchanged
+     *
      * @param text String
      * @return Sentence this
      */
@@ -116,14 +118,14 @@ public class Sentence {
         BreakIterator bi = BreakIterator.getWordInstance();
         bi.setText(text);
         int lastIndex = bi.first();
-        Word lastAddedWord = null;
+        SavedWord lastAddedWord = null;
         while (BreakIterator.DONE != lastIndex) {
             int firstIndex = lastIndex;
             lastIndex = bi.next();
             if (lastIndex != BreakIterator.DONE) {
                 String subtext = text.substring(firstIndex, lastIndex);
                 if (!wordData.getIgnore().contains(subtext)) {
-                    Optional<? extends Word> ow = wordData.findFirstWordsByText(subtext);
+                    Optional<SavedWord> ow = wordData.findFirstWordsByText(subtext);
                     if (ow.isPresent()) {
                         LOGGER.trace("Found word for `{}`, word={}", subtext, ow.get());
                         lastAddedWord = ow.get();
@@ -131,14 +133,14 @@ public class Sentence {
                     } else {
                         LOGGER.debug("Failed to find a Word for `{}`, adding as Text", subtext);
                         if (addUnknownAsText) {
-                            if (lastAddedWord instanceof Text) {
+                            if (lastAddedWord != null && lastAddedWord.getWord() instanceof Text) {
                                 // Replace last Text added with new text to avoid creating sequential Text blocks
-                                lastAddedWord = new Text(lastAddedWord.getWord()+subtext);
+                                lastAddedWord = new SavedWord(new Text(lastAddedWord.getWordString()+subtext), "");
                                 words.set(words.size()-1, lastAddedWord);
                             }
                             else {
                                 // Add Text
-                                lastAddedWord = new Text(subtext);
+                                lastAddedWord = new SavedWord(new Text(subtext), "");
                                 words.add(lastAddedWord);
                             }
                         }
@@ -159,14 +161,19 @@ public class Sentence {
      * @return Sentence string randomized by their types
      */
     public String execute() {
-        List<Word> sentence = new ArrayList<>(words.size());
-        for (Word word : words) {
-            if (word.getType() == Word.Type.Unknown)
+        List<SavedWord> sentence = new ArrayList<>(words.size());
+        for (SavedWord word : words) {
+            if (word.getWord().getType() == Word.Type.Unknown)
                 sentence.add(word);
             else
-                sentence.add(wordData.getRandomWordByType(word.getType()));
+                sentence.add(
+                        new SavedWord(
+                                wordData.getRandomWordByType(word.getWord().getType()),
+                                word.getFormName()
+                        )
+                );
         }
-        return sentence.stream().map(Word::getWord).collect(Collectors.joining());
+        return sentence.stream().map(SavedWord::getWord).map(Word::getWordString).collect(Collectors.joining());
     }
 
     /**
@@ -175,7 +182,7 @@ public class Sentence {
      */
     @Override
     public String toString() {
-        return words.stream().map(Word::getWord).collect(Collectors.joining());
+        return words.stream().map(SavedWord::getWordString).collect(Collectors.joining());
     }
 
     /**
@@ -183,7 +190,7 @@ public class Sentence {
      * @return String
      */
     public String toStringStructure() {
-        return words.stream().map(Word::toString).collect(Collectors.joining("\n  ", "  ", ""));
+        return words.stream().map(SavedWord::getWord).map(Word::toString).collect(Collectors.joining("\n  ", "  ", ""));
     }
 
     /**

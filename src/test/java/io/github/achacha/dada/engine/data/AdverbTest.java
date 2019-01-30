@@ -20,7 +20,7 @@ public class AdverbTest {
     @Test
     public void findAdverbInAllWords() {
         // Make sure we are able to find word without case issues
-        Optional<? extends Word> ow = GlobalTestData.WORD_DATA.findFirstWordsByText("ADVERBLY");
+        Optional<SavedWord> ow = GlobalTestData.WORD_DATA.findFirstWordsByText("ADVERBLY");
         assertTrue(ow.isPresent());
         ow = GlobalTestData.WORD_DATA.findFirstWordsByText("adverbly");
         assertTrue(ow.isPresent());

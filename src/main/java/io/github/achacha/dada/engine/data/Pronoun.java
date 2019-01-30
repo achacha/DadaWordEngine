@@ -2,8 +2,10 @@ package io.github.achacha.dada.engine.data;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -80,5 +82,17 @@ public class Pronoun extends Word {
     @Override
     public Type getType() {
         return Type.Pronoun;
+    }
+
+    @Override
+    public Collection<Pair<String,String>> getAllForms() {
+        ArrayList<Pair<String,String>> forms = new ArrayList<>(attributes.size());
+
+        // Add each form
+        attributes.forEach(attribute->{
+            forms.add(Pair.of(attribute.name(), word));
+        });
+
+        return forms;
     }
 }

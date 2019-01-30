@@ -1,7 +1,7 @@
 package io.github.achacha.dada.engine.data;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.tuple.Pair;
@@ -117,15 +117,14 @@ public class Verb extends Word {
         return present;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Collection<Pair<String,String>> getAllForms() {
-        return Sets.newHashSet(
-                Pair.of("base", this.word),
-                Pair.of("past", this.past),
-                Pair.of("pastParticiple", this.pastParticiple),
-                Pair.of("singular", this.singular),
-                Pair.of("present", this.present)
+        return Lists.newArrayList(
+                Pair.of(Form.base.name(), this.word),
+                Pair.of(Form.past.name(), this.past),
+                Pair.of(Form.pastparticiple.name(), this.pastParticiple),
+                Pair.of(Form.singular.name(), this.singular),
+                Pair.of(Form.present.name(), this.present)
         );
     }
 

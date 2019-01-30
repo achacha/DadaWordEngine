@@ -1,8 +1,11 @@
 package io.github.achacha.dada.engine.data;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Adverb
@@ -29,5 +32,12 @@ public class Adverb extends Word {
     @Override
     public Type getType() {
         return Type.Adverb;
+    }
+
+    @Override
+    public Collection<Pair<String,String>> getAllForms() {
+        return Lists.newArrayList(
+                Pair.of(Adverb.Form.none.name(), this.word)
+        );
     }
 }

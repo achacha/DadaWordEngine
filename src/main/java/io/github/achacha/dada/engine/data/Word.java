@@ -1,7 +1,6 @@
 package io.github.achacha.dada.engine.data;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
@@ -118,7 +117,7 @@ public abstract class Word implements Comparable<Word> {
      * @return String
      */
     @Nonnull
-    public String getWord() {
+    public String getWordString() {
         return word;
     }
 
@@ -133,12 +132,12 @@ public abstract class Word implements Comparable<Word> {
     /**
      * Get all forms of this word
      * By default there is just one word associated with it, some types have multiple forms (such as Verb)
-     * @return Collection of pair of form and word text
-     * @see Verb
+     * @return Collection of pair of 'form name' and 'word string'
      */
-    public Collection<Pair<String,String>> getAllForms() {
-        return Lists.newArrayList(Pair.of("", this.word));
-    }
+    public abstract Collection<Pair<String,String>> getAllForms();
+//    {
+//        return Lists.newArrayList(Pair.of("", this.word));   // in sub-classes the left side is not empty if it has form
+//    }
 
     /**
      * Represent this word as a line in CSV file

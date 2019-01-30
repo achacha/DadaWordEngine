@@ -91,7 +91,7 @@ public class VerbRendererTest {
                     .build()
                 .execute();
 
-        assertEquals("The swam To swim SWUM", sentence);
+        assertEquals("The swam Swam SWUM", sentence);
     }
 
 }

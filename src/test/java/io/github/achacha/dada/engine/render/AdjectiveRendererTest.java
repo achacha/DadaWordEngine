@@ -72,6 +72,6 @@ public class AdjectiveRendererTest {
                     .build()
                 .execute();
 
-        assertEquals("MOST SUBTLE The subtle more subtle", sentence);
+        assertEquals("MOST SUBTLE The most subtle more subtle", sentence);
     }
 }

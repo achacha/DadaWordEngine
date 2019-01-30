@@ -30,7 +30,7 @@ public class AdjectiveTest {
         assertEquals(1, adjectives.getWordsData().size());
 
         Adjective adjective = adjectives.getWordsData().get(0);
-        assertEquals("subtle", adjective.getWord());
+        assertEquals("subtle", adjective.getWordString());
         assertEquals("more subtle", adjective.getComparative());
         assertEquals("most subtle", adjective.getSuperlative());
 

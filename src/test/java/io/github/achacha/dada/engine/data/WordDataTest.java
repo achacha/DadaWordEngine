@@ -55,9 +55,12 @@ public class WordDataTest {
     @Test
     public void testFindTextAndWordByType() {
         WordData wordData = new WordData("resource/data/test_parser");
-        Optional<? extends Word> pronoun = wordData.findFirstWordsByText("I");
+        Optional<SavedWord> pronoun = wordData.findFirstWordsByText("I");
 
         assertTrue(pronoun.isPresent());
+        String formName = pronoun.get().getFormName();
+        assertTrue(Pronoun.Form.subjective.name().equals(formName) || Pronoun.Form.personal.name().equals(formName));
+        assertEquals("i", pronoun.get().getWord().getWordString());
 
         // Make sure we get by type and it's indeed of that type
         assertEquals(Word.Type.Adjective, wordData.getWordsByType(Word.Type.Adjective).getType());

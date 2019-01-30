@@ -55,8 +55,8 @@ public class NounTagTest {
         tag.getWordRenderer().execute();
         SavedWord savedWord = (SavedWord)jspContext.getAttribute("saved");
         assertNotNull(savedWord);
-        assertEquals("noun", savedWord.getWord().getWord());
-        assertNotNull(savedWord.getForm());
+        assertEquals("noun", savedWord.getWord().getWordString());
+        assertNotNull(savedWord.getFormName());
         assertEquals(1, jspContext.getBackingMap().size());
 
         // Test loading
@@ -80,19 +80,19 @@ public class NounTagTest {
         tag.getWordRenderer().execute();
         SavedWord savedWord = (SavedWord)jspContext.getAttribute("saved");
         assertNotNull(savedWord);
-        assertEquals("noun", savedWord.getWord().getWord());
-        assertEquals("plural", savedWord.getForm());
+        assertEquals("noun", savedWord.getWord().getWordString());
+        assertEquals("plural", savedWord.getFormName());
         assertEquals(1, jspContext.getBackingMap().size());
 
         // Output will only take into account the current form of the tag not the saved one
         // Test loading
         tag.getWordRenderer().setLoadKey("saved");
-        tag.getWordRenderer().setForm(Noun.Form.singular);
-        assertEquals("noun", tag.getWordRenderer().execute());
+        tag.getWordRenderer().setForm(Noun.Form.singular);   // This will be ignored since we are loading a word with form
+        assertEquals("nouns", tag.getWordRenderer().execute());
 
         // Test output
         tag.doTag();
-        assertEquals("noun", jspContext.getBackingJspWriter().getBackingSw().getBuffer().toString());
+        assertEquals("nouns", jspContext.getBackingJspWriter().getBackingSw().getBuffer().toString());
     }
 
     @Test

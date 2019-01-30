@@ -1,6 +1,7 @@
 package io.github.achacha.dada.engine.builder;
 
 import io.github.achacha.dada.engine.data.Verb;
+import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.integration.tags.GlobalData;
 import io.github.achacha.dada.test.GlobalTestData;
@@ -19,7 +20,7 @@ class SentenceRendererBuilderTest {
 
         SentenceRendererBuilder renderers = new SentenceRendererBuilder(sentence);
         renderers.setWordData(new WordData(GlobalData.DADA2018_WORDDATA_BASE_RESOURCE_PATH));
-        assertEquals(7, renderers.getRenderers().size());
+        assertEquals(13, renderers.getRenderers().size());
 
         assertTrue(!renderers.execute().isEmpty());
     }
@@ -87,5 +88,32 @@ class SentenceRendererBuilderTest {
                         .noun()
                         .text(" there!")
                         .execute());
+    }
+
+    @Test
+    public void testAllBuilders() {
+        SentenceRendererBuilder sr = new SentenceRendererBuilder(GlobalTestData.WORD_DATA)
+                .nounBuilder().build()
+                .text(" ")
+                .verbBuilder().build()
+                .text(" ")
+                .pronounBuilder().build()
+                .text(" ")
+                .prepositionBuilder().build()
+                .text(" ")
+                .conjunctionBuilder().build()
+                .text(" ")
+                .adverbBuilder().build()
+                .text(" ")
+                .adjectiveBuilder().build();
+
+        assertEquals("noun swim me on & adverbly subtle", sr.execute());
+        assertEquals(Word.Type.Noun, sr.getRenderers().get(0).getType());
+        assertEquals(Word.Type.Verb, sr.getRenderers().get(2).getType());
+        assertEquals(Word.Type.Pronoun, sr.getRenderers().get(4).getType());
+        assertEquals(Word.Type.Preposition, sr.getRenderers().get(6).getType());
+        assertEquals(Word.Type.Conjunction, sr.getRenderers().get(8).getType());
+        assertEquals(Word.Type.Adverb, sr.getRenderers().get(10).getType());
+        assertEquals(Word.Type.Adjective, sr.getRenderers().get(12).getType());
     }
 }

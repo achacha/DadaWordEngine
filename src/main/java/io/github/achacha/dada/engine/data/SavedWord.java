@@ -1,7 +1,6 @@
 package io.github.achacha.dada.engine.data;
 
 import com.google.common.base.Preconditions;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.annotation.Nonnull;
 
@@ -21,6 +20,10 @@ public class SavedWord {
      */
     private final String form;
 
+    /**
+     * @param word Word
+     * @param form String form of the Word saved or "" for base
+     */
     public SavedWord(@Nonnull Word word, @Nonnull String form) {
         this.word = word;
         this.form = form;
@@ -29,10 +32,7 @@ public class SavedWord {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("word", word)
-                .append("form", form)
-                .toString();
+        return word.getWordString();
     }
 
     /**
@@ -44,10 +44,18 @@ public class SavedWord {
     }
 
     /**
+     * @return String of the Word
+     * @see Word#getWordString()
+     */
+    public String getWordString() {
+        return word.getWordString();
+    }
+
+    /**
      * @return form String used when this word was saved
      */
     @Nonnull
-    public String getForm() {
+    public String getFormName() {
         return form;
     }
 }

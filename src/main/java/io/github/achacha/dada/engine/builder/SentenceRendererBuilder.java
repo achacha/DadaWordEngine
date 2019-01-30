@@ -7,9 +7,9 @@ import io.github.achacha.dada.engine.data.Conjunction;
 import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.Preposition;
 import io.github.achacha.dada.engine.data.Pronoun;
+import io.github.achacha.dada.engine.data.SavedWord;
 import io.github.achacha.dada.engine.data.Text;
 import io.github.achacha.dada.engine.data.Verb;
-import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.data.WordsByType;
 import io.github.achacha.dada.engine.render.AdjectiveRenderer;
@@ -25,7 +25,6 @@ import io.github.achacha.dada.engine.render.RenderContextToString;
 import io.github.achacha.dada.engine.render.TextRenderer;
 import io.github.achacha.dada.engine.render.VerbRenderer;
 import io.github.achacha.dada.integration.tags.GlobalData;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.logging.log4j.LogManager;
@@ -52,7 +51,7 @@ public class SentenceRendererBuilder {
     /**
      * Single map used by all renderers to save words
      */
-    private Map<String, Object> attributes = new HashMap<>();
+    private Map<String, SavedWord> attributes = new HashMap<>();
 
     private RenderContextToString<Adjective> adjectiveRenderContext;
     private RenderContextToString<Adverb> adverbRenderContext;
@@ -89,10 +88,13 @@ public class SentenceRendererBuilder {
     public SentenceRendererBuilder(Sentence senetenceTemplate) {
         this.wordData = senetenceTemplate.wordData;
         initializeContexts();
-        renderers = senetenceTemplate.getWords().stream()
-                .filter(word-> word.getType() != Word.Type.Unknown || StringUtils.isNotBlank(word.getWord()))
-                .map(WordRendererHelper::mapWordToRenderer)
-                .collect(Collectors.toList());
+        senetenceTemplate.getWords().forEach(
+                savedWord->{
+                    BaseWordRenderer renderer = WordRendererHelper.mapWordToRenderer(savedWord.getWord());
+                    renderer.setForm(savedWord.getFormName());
+                    renderers.add(renderer);
+                }
+        );
     }
 
     private void initializeContexts() {

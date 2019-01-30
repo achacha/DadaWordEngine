@@ -227,26 +227,28 @@ public class WordData {
     /**
      * Given some text (word) find any words that match it
      * @param text String MUST be in lower case
-     * @return Optional Word
+     * @return Optional SavedWord which contains Word and the form
      */
     @Nonnull
-    public Optional<? extends Word> findFirstWordsByText(String text) {
+    public Optional<SavedWord> findFirstWordsByText(String text) {
         String findText = text.trim().toLowerCase();
 
         return getWordsByTypeStream()
                 .flatMap(wbt->{
-                            Word w = wbt.getWordByText(findText);
+                            SavedWord w = wbt.getWordByText(findText);
                             return w == null ? Stream.empty() : Stream.of(w);
                 })
                 .findAny();
     }
 
     /**
+     * List of words ordered as following: prepositions, conjunctions, pronouns, adverbs, adjectives, verbs, nouns
+     * // TODO: May need better ordering and word selection
      * @return Stream of all WordsByType in this data set
      */
     @Nonnull
     public Stream<WordsByType> getWordsByTypeStream() {
-        return Stream.of(nouns,verbs,adjectives,adverbs,pronouns,conjunctions,prepositions);
+        return Stream.of(prepositions, conjunctions, pronouns, adverbs, adjectives, verbs, nouns);
     }
 
     /**

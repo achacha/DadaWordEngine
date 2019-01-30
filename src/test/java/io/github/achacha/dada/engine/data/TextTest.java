@@ -12,7 +12,7 @@ public class TextTest {
     public void testInternals() {
         Text text = new Text("text 1");
         assertNotNull(text.toString());
-        assertEquals("text 1", text.getWord());
+        assertEquals("text 1", text.getWordString());
         assertEquals(Word.Type.Unknown, text.getType());
     }
 
@@ -23,6 +23,6 @@ public class TextTest {
         parts.add("text 2");
 
         Text text = new Text(parts);
-        assertEquals("text 1", text.getWord());
+        assertEquals("text 1", text.getWordString());
     }
 }

@@ -29,7 +29,7 @@ public class FindWordsThatRhymeExample {
             List<SavedWord> wordsMatched = wordData.getNouns().findRhymes(input);
             if (wordsMatched.size() > 0) {
                     List<String> allMatched = wordsMatched.stream()
-                            .map(SavedWord::getForm)   // Get the word form that was used
+                            .map(SavedWord::getFormName)   // Get the word form that was used
                             .collect(Collectors.toList());
                     Collections.shuffle(allMatched);
 

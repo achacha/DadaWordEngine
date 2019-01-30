@@ -37,7 +37,7 @@ public class WordsByTypeTest {
         assertEquals(1, verbs.getWordsData().size());
 
         Verb verb = verbs.getWordsData().get(0);
-        assertEquals("swim", verb.getWord());
+        assertEquals("swim", verb.getWordString());
         assertEquals("swam", verb.getPast());
         assertEquals("swum", verb.getPastParticiple());
         assertEquals("swims", verb.getSingular());
@@ -58,7 +58,7 @@ public class WordsByTypeTest {
         assertEquals(1, adverbs.getWordsData().size());
 
         Adverb adverb = adverbs.getWordsData().get(0);
-        assertEquals("adverbly", adverb.getWord());
+        assertEquals("adverbly", adverb.getWordString());
     }
 
     @Test

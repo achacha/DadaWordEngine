@@ -159,6 +159,7 @@ public abstract class BaseWordRenderer<T extends Word> {
 
     /**
      * Word is loaded from the provided key (must have been saved previously)
+     * The form of the saved word will be used when loaded
      * @param loadKey keyword to load from
      */
     public void setLoadKey(String loadKey) {
@@ -233,6 +234,7 @@ public abstract class BaseWordRenderer<T extends Word> {
     /**
      * Use form name to set the form
      * Invalid form name for a given word is ignored
+     * Loaded words will use the form of the time they were saved
      * @param formName Name of a form
      */
     public abstract void setForm(String formName);
@@ -245,19 +247,30 @@ public abstract class BaseWordRenderer<T extends Word> {
         // Load word if key present
         Word word = null;
         if (loadKey != null) {
-            SavedWord savedWord = (SavedWord) rendererContext.getAttribute(loadKey);
+            SavedWord savedWord = rendererContext.getAttribute(loadKey);
+
             if (savedWord == null) {
-                LOGGER.error("There is no saved key={}, using random word", loadKey);
                 word = generateWord();
+                LOGGER.error("There is no saved key={}, using random word=", loadKey, word);
             }
             else {
+                // Saved word, use it
                 word = savedWord.getWord();
+                if (word.getType() != getType()) {
+                    LOGGER.debug("SavedWord found, but type mismatched, ignoring saved key. key={} word={} word.type={} this.type={}", loadKey, word, word.getType(), getType());
+                    word = null;
+                }
+                else {
+                    LOGGER.debug("SavedWord found, key={} word={}", loadKey, word);
+                    setForm(savedWord.getFormName());
+                }
+
             }
         }
 
         // If rhymeKey is selected and we did not load a word
         if (word == null && rhymeKey != null) {
-            SavedWord savedWord = (SavedWord) rendererContext.getAttribute(rhymeKey);
+            SavedWord savedWord = rendererContext.getAttribute(rhymeKey);
             if (savedWord == null) {
                 LOGGER.error("There is no saved rhyme key={}, using random word", rhymeKey);
                 word = generateWord();  // Use first word since we don't care about syllables
@@ -268,7 +281,7 @@ public abstract class BaseWordRenderer<T extends Word> {
             }
 
             // Try to rhyme, if not it just gets the word that is being used as a rhyme template
-            List<SavedWord> rhymedWords = rendererContext.getWords().findRhymes(word.getWord());
+            List<SavedWord> rhymedWords = rendererContext.getWords().findRhymes(word.getWordString());
             if (rhymedWords.size() > 0) {
                 word = rhymedWords.get(RandomUtils.nextInt(0, rhymedWords.size())).getWord();
                 LOGGER.debug("rhymeKey: Rhyme word selected, word={}", word);
@@ -294,7 +307,7 @@ public abstract class BaseWordRenderer<T extends Word> {
     }
 
     /**
-     * Execute tag with provided Word
+     * Execute renderer with provided Word
      * This method is meant to be called for testing and by main execute method once it selects the word
      *
      * @param word Word
@@ -397,7 +410,7 @@ public abstract class BaseWordRenderer<T extends Word> {
      * @return Selected word by form
      */
     protected String selectWord(Word word) {
-        return word.getWord();
+        return word.getWordString();
     }
 
     protected String process(String word) {

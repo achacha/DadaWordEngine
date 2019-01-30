@@ -21,9 +21,9 @@ public class TextRendererTest {
         TextRenderer tag = new TextRenderer("constant");
 
         // All should return same thing
-        assertEquals("constant", tag.generateWord().getWord());
-        assertEquals("constant", tag.generateWord().getWord());
-        assertEquals("constant", tag.generateWord().getWord());
+        assertEquals("constant", tag.generateWord().getWordString());
+        assertEquals("constant", tag.generateWord().getWordString());
+        assertEquals("constant", tag.generateWord().getWordString());
         assertEquals("constant", tag.execute());
 
         tag.setArticle(ArticleMode.the);

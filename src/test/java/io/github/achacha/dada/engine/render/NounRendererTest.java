@@ -140,6 +140,6 @@ public class NounRendererTest {
                     .build()
                 .execute();
 
-        assertEquals("The nouns Noun NOUN", sentence);
+        assertEquals("The nouns Nouns NOUN", sentence);
     }
 }

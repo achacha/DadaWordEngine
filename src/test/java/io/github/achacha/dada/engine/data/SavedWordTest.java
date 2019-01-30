@@ -11,6 +11,6 @@ public class SavedWordTest {
         SavedWord sw = new SavedWord(TestWords.makeNoun("noun"), Noun.Form.singular.name());
         assertNotNull(sw.toString());
         assertEquals(TestWords.makeNoun("noun"), sw.getWord());
-        assertEquals(Noun.Form.singular.name(), sw.getForm());
+        assertEquals(Noun.Form.singular.name(), sw.getFormName());
     }
 }
