@@ -78,7 +78,7 @@ public class TestJspContext extends JspContext {
      */
     @Override
     public Enumeration<String> getAttributeNamesInScope(int scope) {
-        return new Vector(backingMap.keySet()).elements();
+        return new Vector<>(backingMap.keySet()).elements();
     }
 
     @Override
