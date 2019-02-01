@@ -53,4 +53,3 @@ Word Data
 1. All data is converted to lower case
 2. Leader # is used as a comment
 3. Whitespace is trimmed front and back
- 

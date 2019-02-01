@@ -9,7 +9,7 @@ public class RendererPredicates {
     /**
      * Occurs percent of the time
      * @param percent int [0,100)
-     * @return true if random < percent provided
+     * @return true if random less than percent provided
      */
     public static Predicate<BaseWordRenderer> truePercent(int percent) {
         return (bwr)-> RandomUtils.nextInt(0, 100) < percent;
