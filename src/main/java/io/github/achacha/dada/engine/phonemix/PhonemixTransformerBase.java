@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.phonemix;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -116,20 +117,33 @@ public abstract class PhonemixTransformerBase implements PhoneticTransformer {
         return postprocess(word);
     }
 
-    protected void transformThree(char[] s) {
+    @VisibleForTesting
+    void transformThree(char[] s) {
         int i = 0;
         int endPos = s.length - 2;
         while (i < endPos) {
             switch (s[i]) {
-                // ght -> t__
+                // ght -> __t
                 case 'g':
                     if (s[i + 1] == 'h' && s[i + 2] == 't') {
                         LOGGER.debug("> ght detected, i={} s={}", i, s);
-                        s[i] = 't';
+                        s[i] = NONE;
                         s[i + 1] = NONE;
-                        s[i + 2] = NONE;
+                        s[i + 2] = 't';
                         i += 2;
                         LOGGER.debug("< ght->t__, i={} s={}", i, s);
+                    }
+                    break;
+
+                // sch -> _sk
+                case 's':
+                    if (s[i + 1] == 'c' && s[i + 2] == 'h') {
+                        LOGGER.debug("> sch detected, i={} s={}", i, s);
+                        s[i] = NONE;
+                        s[i + 1] = 's';
+                        s[i + 2] = 'k';
+                        i += 2;
+                        LOGGER.debug("< sch->sk_, i={} s={}", i, s);
                     }
                     break;
             }
@@ -137,31 +151,62 @@ public abstract class PhonemixTransformerBase implements PhoneticTransformer {
         }
     }
 
-    protected void transformTwo(char[] s) {
+    @VisibleForTesting
+    void transformTwo(char[] s) {
         int i = 0;
         int endPos = s.length - 1;
         while (i < endPos) {
             switch (s[i]) {
                 case 'c':
                     switch (s[i + 1]) {
-                        // c that sounds like s
+                        // c that sounds like k
                         case 'a':
                         case 'o':
                         case 'u':
-                        case 'c':
-                        case 'k':
                             LOGGER.debug(" > c sounds like k, i={} s={}", i, s);
                             s[i] = 'k';
                             LOGGER.debug(" < c->k, i={} s={}", i, s);
                             break;
 
+                        // c? sounds like k
+                        case 'c':
+                        case 'k':
+                            LOGGER.debug(" > c? sounds like k, i={} s={}", i, s);
+                            s[i] = NONE;
+                            s[i+1] = 'k';
+                            LOGGER.debug(" < c?->_k, i={} s={}", i, s);
+                            ++i;
+                            break;
 
-                        // c that sounds like k
+
+                        // c that sounds like s
                         case 'e':
                         case 'i':
                             LOGGER.debug(" > c sounds like s, i={} s={}", i, s);
                             s[i] = 's';
                             LOGGER.debug(" < c->s, i={} s={}", i, s);
+                            break;
+
+                        // ch -> C
+                        case 'h':
+                            LOGGER.debug(" > ch detected, i={} s={}", i, s);
+                            s[i] = '_';
+                            s[i+1] = 'C';
+                            ++i;
+                            LOGGER.debug(" < ch->_C, i={} s={}", i, s);
+                            break;
+                    }
+                    break;
+
+                case 's':
+                    switch (s[i + 1]) {
+                        // sh -> S
+                        case 'h':
+                            LOGGER.debug(" > sh detected, i={} s={}", i, s);
+                            s[i] = NONE;
+                            s[i+1] = 'S';
+                            LOGGER.debug(" < sh->_S, i={} s={}", i, s);
+                            ++i;
                             break;
                     }
                     break;
@@ -174,7 +219,7 @@ public abstract class PhonemixTransformerBase implements PhoneticTransformer {
                             s[i] = NONE;
                             s[i + 1] = 'f';
                             ++i;
-                            LOGGER.debug(" < gh->f_, i={} s={}", i, s);
+                            LOGGER.debug(" < gh->_f, i={} s={}", i, s);
                             break;
                     }
                     break;
@@ -188,12 +233,20 @@ public abstract class PhonemixTransformerBase implements PhoneticTransformer {
                             ++i;
                             LOGGER.debug(" < zz->tz, at i={} s={}", i, s);
                             break;
+
+                        // zh -> Z sounds like z
+                        case 'h':
+                            LOGGER.debug(" > zh sounds like z, i={} s={}", i, s);
+                            s[i] = '_';
+                            s[i+1] = 'z';
+                            LOGGER.debug(" < zh->_z, i={} s={}", i, s);
+                            break;
                     }
                     break;
 
                 case 'a':
-                case 'e':
-                    // au -> O, eu -> O
+                case 'o':
+                    // au -> O, ou -> O
                     switch (s[i + 1]) {
                         case 'u':
                             LOGGER.debug(" > au detected, i={} s={}", i, s);
@@ -205,15 +258,15 @@ public abstract class PhonemixTransformerBase implements PhoneticTransformer {
                     }
                     break;
 
-                case 'o':
-                    // ou -> A
+                case 'e':
+                    // eu -> _u
                     switch (s[i + 1]) {
                         case 'u':
-                            LOGGER.debug(" > ou detected, i={} s={}", i, s);
+                            LOGGER.debug(" > eu detected, i={} s={}", i, s);
                             s[i] = NONE;
-                            s[i + 1] = 'A';
+                            s[i + 1] = 'u';
                             ++i;
-                            LOGGER.debug(" < ou->A_, i={} s={}", i, s);
+                            LOGGER.debug(" < eu->_u, i={} s={}", i, s);
                             break;
                     }
                     break;
@@ -228,9 +281,7 @@ public abstract class PhonemixTransformerBase implements PhoneticTransformer {
                             ++i;
                             LOGGER.debug(" < wh->w_, i={} s={}", i, s);
                             break;
-                    }
-                    // wr -> r
-                    switch (s[i + 1]) {
+
                         case 'r':
                             LOGGER.debug(" > wr detected, i={} s={}", i, s);
                             s[i] = NONE;
@@ -249,7 +300,20 @@ public abstract class PhonemixTransformerBase implements PhoneticTransformer {
                             s[i] = NONE;
                             s[i + 1] = 'z';
                             ++i;
-                            LOGGER.debug(" < th->z_, i={} s={}", i, s);
+                            LOGGER.debug(" < th->_z, i={} s={}", i, s);
+                            break;
+                    }
+                    break;
+
+                case 'd':
+                    // dg -> j
+                    switch (s[i + 1]) {
+                        case 'g':
+                            LOGGER.debug(" > dg detected, i={} s={}", i, s);
+                            s[i] = NONE;
+                            s[i + 1] = 'j';
+                            ++i;
+                            LOGGER.debug(" < dg->_j, i={} s={}", i, s);
                             break;
                     }
                     break;

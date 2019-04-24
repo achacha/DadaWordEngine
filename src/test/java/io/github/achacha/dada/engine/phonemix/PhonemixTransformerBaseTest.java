@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PhonemixTransformerBaseTest {
@@ -83,6 +84,70 @@ public class PhonemixTransformerBaseTest {
         PhoneticTransformer transformer = PhoneticTransformerBuilder.builder().build();
 
         assertEquals("sklnt", transformer.transform("succulent"));
+    }
 
+    private void assertThree(PhonemixTransformerBase transformer, String expected, String inputString) {
+        char[] input = inputString.toCharArray();
+        transformer.transformThree(input);
+        assertArrayEquals(expected.toCharArray(), input);
+    }
+
+    @Test
+    public void testCompactingThree() {
+        PhonemixTransformerBase transformer = (PhonemixTransformerBase)PhoneticTransformerBuilder.builder().build();
+
+        assertThree(transformer,"__t", "ght");
+        assertThree(transformer,"_sk", "sch");
+    }
+
+    private void assertTwo(PhonemixTransformerBase transformer, String expected, String inputString) {
+        char[] inputA = inputString.toCharArray();
+        transformer.transformTwo(inputA);
+        assertArrayEquals(expected.toCharArray(), inputA);
+    }
+
+    @Test
+    public void testCompactingTwo() {
+        PhonemixTransformerBase transformer = (PhonemixTransformerBase)PhoneticTransformerBuilder.builder().build();
+
+        // c
+        assertTwo(transformer,"ka", "ca");
+        assertTwo(transformer,"ko", "co");
+        assertTwo(transformer,"ku", "cu");
+
+        assertTwo(transformer,"_k", "cc");
+        assertTwo(transformer,"_k", "ck");
+
+        assertTwo(transformer,"se", "ce");
+        assertTwo(transformer,"si", "ci");
+
+        assertTwo(transformer,"_C", "ch");
+
+        // s
+        assertTwo(transformer,"_S", "sh");
+
+        // g
+        assertTwo(transformer,"_f", "gh");
+
+        // z
+        assertTwo(transformer,"tz", "zz");
+        assertTwo(transformer,"_z", "zh");
+
+        // [ae]
+        assertTwo(transformer,"_O", "au");
+        assertTwo(transformer,"_O", "ou");
+
+        // o
+        assertTwo(transformer,"_u", "eu");
+
+        // w
+        assertTwo(transformer,"_w", "wh");
+        assertTwo(transformer,"_r", "wr");
+
+        // t
+        assertTwo(transformer,"_z", "th");
+
+        // d
+        assertTwo(transformer,"_j", "dg");
     }
 }

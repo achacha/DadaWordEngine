@@ -27,7 +27,7 @@ class WordRendererHelperTest {
 
     // NOTE: words passed to map method are only used to get the Type, renderer will pick from WordData
     @Test
-    void mapWordToRenderer() {
+    public void mapWordToRenderer() {
         BaseWordRenderer renderer = WordRendererHelper.mapWordToRenderer(new Text(" tree   "), true);
         assertTrue(renderer instanceof TextRenderer);
         assertEquals("tree", renderer.execute());

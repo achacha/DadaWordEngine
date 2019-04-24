@@ -28,7 +28,7 @@ public class PhonemixTransformerTest {
     public void testCompoundSoundsWithExplicitVowels() {
         PhoneticTransformer transformer = PhoneticTransformerBuilder.builder().build();
 
-        assertEquals("enAf", transformer.transform("Enough"));
+        assertEquals("enOf", transformer.transform("Enough"));
         assertEquals("tOt", transformer.transform("Taught"));
         assertEquals("kOt", transformer.transform("Caught"));
     }
@@ -39,7 +39,7 @@ public class PhonemixTransformerTest {
                 .withIgnoreLeadingVowel()
                 .build();
 
-        assertEquals("nAf", transformer.transform("Enough"));
+        assertEquals("nOf", transformer.transform("Enough"));
     }
 
     @Test

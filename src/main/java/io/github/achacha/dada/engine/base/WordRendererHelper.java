@@ -39,6 +39,6 @@ public class WordRendererHelper {
             case Verb: return new VerbRenderer();
             case Unknown: return new TextRenderer(trimText ? word.getWordString().trim() : word.getWordString());
         }
-        throw new RuntimeException("Undeclared word type, cannot map to renderer");
+        throw new IllegalArgumentException("Undeclared word type, cannot map to renderer");
     }
 }
