@@ -212,14 +212,36 @@ public abstract class PhonemixTransformerBase implements PhoneticTransformer {
                     break;
 
                 case 'g':
-                    // gh -> f
                     switch (s[i + 1]) {
+                        // gh -> f
                         case 'h':
                             LOGGER.debug(" > gh sounds like f, i={} s={}", i, s);
                             s[i] = NONE;
                             s[i + 1] = 'f';
                             ++i;
                             LOGGER.debug(" < gh->_f, i={} s={}", i, s);
+                            break;
+
+                        // gn -> n
+                        case 'n':
+                            LOGGER.debug(" > gn sounds like n, i={} s={}", i, s);
+                            s[i] = NONE;
+                            s[i + 1] = 'n';
+                            ++i;
+                            LOGGER.debug(" < gn->_n, i={} s={}", i, s);
+                            break;
+                    }
+                    break;
+
+                case 'k':
+                    switch (s[i + 1]) {
+                        // kn -> n
+                        case 'n':
+                            LOGGER.debug(" > kn sounds like n, i={} s={}", i, s);
+                            s[i] = NONE;
+                            s[i + 1] = 'n';
+                            ++i;
+                            LOGGER.debug(" < kn->_n, i={} s={}", i, s);
                             break;
                     }
                     break;

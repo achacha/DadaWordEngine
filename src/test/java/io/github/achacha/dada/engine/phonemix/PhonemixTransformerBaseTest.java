@@ -128,6 +128,10 @@ public class PhonemixTransformerBaseTest {
 
         // g
         assertTwo(transformer,"_f", "gh");
+        assertTwo(transformer,"_n", "gn");
+
+        // k
+        assertTwo(transformer,"_n", "kn");
 
         // z
         assertTwo(transformer,"tz", "zz");
