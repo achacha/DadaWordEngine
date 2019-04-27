@@ -141,6 +141,6 @@ public class ConjunctionRenderer extends BaseWordRenderer<Conjunction> {
 
     @Override
     public void setForm(String formName) {
-        LOGGER.error("Unexpected form name for this={} formName={}", this, formName);
+        // NO-OP, word has no forms
     }
 }

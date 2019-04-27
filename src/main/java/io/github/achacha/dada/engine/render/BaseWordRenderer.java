@@ -251,7 +251,7 @@ public abstract class BaseWordRenderer<T extends Word> {
 
             if (savedWord == null) {
                 word = generateWord();
-                LOGGER.error("There is no saved key={}, using random word=", loadKey, word);
+                LOGGER.debug("There is no saved key={}, using random word={}", loadKey, word);
             }
             else {
                 // Saved word, use it
@@ -272,7 +272,7 @@ public abstract class BaseWordRenderer<T extends Word> {
         if (word == null && rhymeKey != null) {
             SavedWord savedWord = rendererContext.getAttribute(rhymeKey);
             if (savedWord == null) {
-                LOGGER.error("There is no saved rhyme key={}, using random word", rhymeKey);
+                LOGGER.debug("There is no saved rhyme key={}, using random word", rhymeKey);
                 word = generateWord();  // Use first word since we don't care about syllables
             }
             else {
@@ -383,7 +383,6 @@ public abstract class BaseWordRenderer<T extends Word> {
     protected void saveWord(Word word) {
         if (saveKey != null) {
             if (word != null) {
-                Preconditions.checkNotNull(word);
                 String formName = getFormName();
                 Preconditions.checkNotNull(formName);
                 SavedWord sw = new SavedWord(word, formName);

@@ -45,9 +45,18 @@ public class ConjunctionRendererTest {
     public void testBuilder() {
         SentenceRendererBuilder renderers = new SentenceRendererBuilder();
 
+        // Test 2 types of renderers, one with SentenceRenderer context and one with a new instance
         String sentence = renderers
-                .conjunctionBuilder().withArticleMode(ArticleMode.a).withCapsMode(CapsMode.all).withRhymeWith("with").withSaveKey("saved").withSyllablesDesired(2).build()
-                .conjunctionBuilder().withCapsMode(CapsMode.none).withLoadKey("saved").withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getConjunctions())).withRhymeKey("saved").build()
+                .conjunctionBuilder()
+                    .withArticleMode(ArticleMode.a)
+                    .withCapsMode(CapsMode.all)
+                    .withRhymeWith("with")
+                    .withSyllablesDesired(2)
+                    .build()
+                .conjunctionBuilder()
+                    .withCapsMode(CapsMode.none)
+                    .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getConjunctions()))
+                    .build()
                 .execute();
         assertEquals("A &&", sentence);
     }

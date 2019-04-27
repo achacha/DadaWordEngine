@@ -410,28 +410,6 @@ public class SentenceRendererBuilder {
      * @return Sentence string randomized by their types
      */
     public String execute() {
-//        final int SIZE = renderers.size();
-//        StringBuilder output = new StringBuilder();
-//        if (SIZE > 0) {
-//            // Initial item
-//            BaseWordRenderer previous = renderers.get(0);
-//            output.append(previous.execute());
-//
-//            // Add rest
-//            // More than 1 item uses the custom spacing rule
-//            // Space only inserted when Text node is not adjacent
-//            for (int i = 1; i < SIZE; ++i) {
-//                BaseWordRenderer current = renderers.get(i);
-//
-//                if (!(previous instanceof TextRenderer) && !(current instanceof TextRenderer))
-//                    output.append(" ");
-//
-//                output.append(current.execute());
-//                previous = current;
-//            }
-//        }
-//        return output.toString();
-
         return renderers.stream().map(BaseWordRenderer::execute).collect(Collectors.joining());
     }
 

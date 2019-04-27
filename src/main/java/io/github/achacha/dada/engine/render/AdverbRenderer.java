@@ -141,6 +141,6 @@ public class AdverbRenderer extends BaseWordRenderer<Adverb> {
 
     @Override
     public void setForm(String formName) {
-        LOGGER.error("Unexpected form name for this={} formName={}", this, formName);
+        // NO-OP, word has no forms
     }
 }
