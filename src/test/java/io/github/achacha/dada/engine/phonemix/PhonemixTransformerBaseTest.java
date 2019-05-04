@@ -7,10 +7,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static io.github.achacha.dada.engine.phonemix.PhonemixTransformerBase.NONE;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PhonemixTransformerBaseTest {
+    @Test
+    public void verifyInternals() {
+        assertEquals('_', NONE);   // Make sure this is not changed
+    }
+
     @Test
     public void testTransformAndIndex() {
         PhoneticTransformer transformer = PhoneticTransformerBuilder.builder().build();
@@ -86,29 +92,55 @@ public class PhonemixTransformerBaseTest {
         assertEquals("sklnt", transformer.transform("succulent"));
     }
 
-    private void assertThree(PhonemixTransformerBase transformer, String expected, String inputString) {
-        char[] input = inputString.toCharArray();
-        transformer.transformThree(input);
-        assertArrayEquals(expected.toCharArray(), input);
-    }
-
-    @Test
-    public void testCompactingThree() {
-        PhonemixTransformerBase transformer = (PhonemixTransformerBase)PhoneticTransformerBuilder.builder().build();
-
-        assertThree(transformer,"__t", "ght");
-        assertThree(transformer,"_sk", "sch");
+    private void assertOne(PhonemixTransformerBase transformer, String expected, String inputString) {
+        char[] inputA = inputString.toCharArray();
+        transformer.transformOne(inputA);
+        assertArrayEquals(expected.toCharArray(), inputA);
     }
 
     private void assertTwo(PhonemixTransformerBase transformer, String expected, String inputString) {
         char[] inputA = inputString.toCharArray();
-        transformer.transformTwo(inputA);
+        transformer.transformDigraph(inputA);
         assertArrayEquals(expected.toCharArray(), inputA);
     }
 
+    private void assertThree(PhonemixTransformerBase transformer, String expected, String inputString) {
+        char[] input = inputString.toCharArray();
+        transformer.transformTrigraph(input);
+        assertArrayEquals(expected.toCharArray(), input);
+    }
+
     @Test
-    public void testCompactingTwo() {
+    public void testCompactingTrigraph() {
         PhonemixTransformerBase transformer = (PhonemixTransformerBase)PhoneticTransformerBuilder.builder().build();
+
+        // c
+        assertThree(transformer,"_Sa", "cia");
+        assertThree(transformer,"_So", "cio");
+        assertThree(transformer,"cid", "cid");
+
+        // g
+        assertThree(transformer,"__t", "ght");
+
+        // s
+        assertThree(transformer,"_sk", "sch");
+        assertThree(transformer,"ska", "sca");
+        assertThree(transformer,"_se", "sce");
+        assertThree(transformer,"_si", "sci");
+        assertThree(transformer,"sko", "sco");
+        assertThree(transformer,"sku", "scu");
+
+        // w
+        assertThree(transformer,"_ho", "who");
+        assertThree(transformer,"whe", "whe");  // digraphs handle this case
+    }
+
+    @Test
+    public void testCompactingDigraph() {
+        PhonemixTransformerBase transformer = (PhonemixTransformerBase)PhoneticTransformerBuilder.builder().build();
+
+        // a
+        assertTwo(transformer,"_O", "au");
 
         // c
         assertTwo(transformer,"ka", "ca");
@@ -123,35 +155,59 @@ public class PhonemixTransformerBaseTest {
 
         assertTwo(transformer,"_C", "ch");
 
-        // s
-        assertTwo(transformer,"_S", "sh");
+        // d
+        assertTwo(transformer,"_j", "dg");
+
+        // e
+        assertTwo(transformer,"_u", "eu");
 
         // g
-        assertTwo(transformer,"_f", "gh");
+        assertTwo(transformer,"_f", "gh");    // End of word
+        assertTwo(transformer,"_go", "gho");  // Not end of word
         assertTwo(transformer,"_n", "gn");
 
         // k
         assertTwo(transformer,"_n", "kn");
 
-        // z
-        assertTwo(transformer,"tz", "zz");
-        assertTwo(transformer,"_z", "zh");
-
-        // [ae]
-        assertTwo(transformer,"_O", "au");
+        // o
+        assertTwo(transformer,"_O", "oo");
         assertTwo(transformer,"_O", "ou");
 
-        // o
-        assertTwo(transformer,"_u", "eu");
+        // p
+        assertTwo(transformer,"_f", "ph");
+        assertTwo(transformer,"_s", "ps");
+
+        // t
+        assertTwo(transformer,"_z", "th");
+        assertTwo(transformer,"o_S", "oti");  // sh sound when following vowel
+        assertTwo(transformer,"cti", "cti");  // ti not changed
+
+        // s
+        assertTwo(transformer,"_s", "sc");    // trigraph handles sc[aeiouh]
+        assertTwo(transformer,"_S", "sh");
 
         // w
         assertTwo(transformer,"_w", "wh");
         assertTwo(transformer,"_r", "wr");
 
-        // t
-        assertTwo(transformer,"_z", "th");
+        // z
+        assertTwo(transformer,"tz", "zz");
+        assertTwo(transformer,"_z", "zh");
+    }
 
-        // d
-        assertTwo(transformer,"_j", "dg");
+    @Test
+    public void testCompactingOne() {
+        PhonemixTransformerBase transformer = (PhonemixTransformerBase)PhoneticTransformerBuilder.builder().build();
+
+        // Vowel
+        assertOne(transformer, "a", "a");   // Leading vowel kept
+        assertOne(transformer, "b_", "ba");
+        assertOne(transformer, "b_", "be");
+        assertOne(transformer, "b_", "bi");
+        assertOne(transformer, "b_", "bo");
+        assertOne(transformer, "b_", "bu");
+        assertOne(transformer, "b_", "bh");
+
+        assertOne(transformer, "k", "q");
     }
 }
