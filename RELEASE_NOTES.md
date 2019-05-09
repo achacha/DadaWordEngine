@@ -8,3 +8,7 @@ Release notes
 - Better builders
 - Rendering supports external container fo saved words and a custome Writer
 - More unit tests (coverage overall at 90%+, engine at 100%)
+
+1.3.6
+---
+- Better handling of digraphs and trigraphs
