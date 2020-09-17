@@ -1,6 +1,5 @@
 package io.github.achacha.dada.tools;
 
-import com.google.common.collect.ImmutableMap;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -18,10 +17,9 @@ public class WordDataConsole {
 
     private static final Options OPTIONS = buildOptions();
 
-    private static final Map<String, Class<? extends BaseActionHandler>> ACTION_HANDLERS = ImmutableMap.<String, Class<? extends BaseActionHandler>>builder()
-            .put("verify", ActionHandlerVerify.class)
-            .put("dedup", DedupActionHandler.class)
-            .build();
+    private static final Map<String, Class<? extends BaseActionHandler>> ACTION_HANDLERS = Map.of(
+        "verify", ActionHandlerVerify.class,
+        "dedup", DedupActionHandler.class);
 
     public static void main(String[] args) {
         if (args.length < 1) {

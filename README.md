@@ -1,6 +1,9 @@
 DaDa Word Engine
 ===
 
+Minimum JDK: 11
+
+
 What is it?
 ---
 Generic word parsing, construction and processing tool for generating sentences based on word types.

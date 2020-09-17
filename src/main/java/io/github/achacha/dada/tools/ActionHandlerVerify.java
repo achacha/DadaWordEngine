@@ -5,6 +5,7 @@ import io.github.achacha.dada.engine.data.WordsByType;
 import org.apache.commons.cli.CommandLine;
 
 import java.io.PrintStream;
+import java.util.Optional;
 
 public class ActionHandlerVerify implements BaseActionHandler {
     @Override
@@ -15,10 +16,17 @@ public class ActionHandlerVerify implements BaseActionHandler {
             return;
         }
 
+        System.out.println("Processing: "+"resource:/data/"+dataset);
         WordData wordData = new WordData("resource:/data/"+dataset);
-        wordData.getWordsByTypeStream()
+        Optional<Boolean> hasErrors = wordData.getWordsByTypeStream()
                 .map(WordsByType::isDuplicateFound)
-                .filter(b->b).findFirst()
-                .ifPresent(b-> out.println("Data set contains errors"));
+                .filter(b->b).findFirst();
+
+        if (hasErrors.isPresent()) {
+            System.out.println("\nData set contains errors");
+        }
+        else {
+            System.out.println("\nNo errors detected");
+        }
     }
 }
