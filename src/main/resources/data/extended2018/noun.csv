@@ -1,6 +1,6 @@
 #singular,plural
 aardvark,aardvarks
-abacus,abacuss
+abacus,abacuses
 abbey,abbies
 abdomen,abdomens
 ability,abilities
@@ -70,16 +70,16 @@ airport,airports
 airship,airships
 alarm,alarms
 alb,albs
-albatross,albatrosss
+albatross,albatrosses
 alcohol,alcohols
 alcove,alcoves
 alder,alders
 algebra,algebras
 alibi,alibis
 allergist,allergists
-alley,alleies
+alley,alleys
 alligator,alligators
-alloy,alloies
+alloy,alloys
 almanac,almanacs
 almond,almonds
 alpaca,alpacas
@@ -103,7 +103,7 @@ analgesia,analgesias
 analog,analogs
 analogue,analogues
 analogy,analogies
-analysis,analysiss
+analysis,analysis
 analyst,analysts
 anatomy,anatomies
 anesthesiology,anesthesiologies
@@ -290,7 +290,7 @@ base,bases
 baseball,baseballs
 basement,basements
 basin,basins
-basis,basises
+basis,basis
 basket,baskets
 basketball,basketballs
 bass,basses
@@ -326,7 +326,7 @@ beaver,beavers
 bed,beds
 bedroom,bedrooms
 bee,bees
-beech,beechs
+beech,beeches
 beef,beefs
 beer,beers
 beet,beets
@@ -442,12 +442,11 @@ boot,boots
 bootee,bootees
 booth,booths
 bootie,booties
-boots,bootss
 booty,booties
 border,borders
 bore,bores
 bosom,bosoms
-boss,bosss
+boss,bosses
 botany,botanies
 bother,bothers
 bottle,bottles
@@ -562,7 +561,7 @@ cabinet,cabinets
 cable,cables
 caboose,cabooses
 cacao,cacaos
-cactus,cactuss
+cactus,cactii
 caddy,caddies
 cadet,cadets
 cafe,cafes
@@ -571,7 +570,7 @@ cake,cakes
 calcification,calcifications
 calculation,calculations
 calculator,calculators
-calculus,calculuses
+calculus,calculii
 calendar,calendars
 calf,calves
 calico,calicos
@@ -726,7 +725,7 @@ chemical,chemicals
 chemistry,chemistries
 cheque,cheques
 cherry,cherries
-chess,chesss
+chess,chesses
 chest,chests
 chick,chicks
 chicken,chickens
@@ -847,7 +846,7 @@ collar,collars
 collection,collections
 college,colleges
 collision,collisions
-colloquia,colloquias
+colloquial,colloquials
 colon,colons
 colonisation,colonisations
 colony,colonies
@@ -1043,7 +1042,7 @@ crow,crows
 crowd,crowds
 crown,crowns
 crude,crudes
-crush,crushs
+crush,crushes
 cry,cries
 crystallography,crystallographies
 cub,cubs
@@ -1099,7 +1098,8 @@ dark,darks
 dart,darts
 dash,dashes
 dashboard,dashboards
-data,datas
+data,data
+datum,data
 database,databases
 date,dates
 daughter,daughters
@@ -1126,13 +1126,13 @@ decrease,decreases
 decryption,decryptions
 dedication,dedications
 deep,deeps
-deer,deers
+deer,deer
 defense,defenses
 deficit,deficits
 definition,definitions
 deformation,deformations
 degree,degrees
-delay,delaies
+delay,delays
 delete,deletes
 delight,delights
 delivery,deliveries
@@ -1403,7 +1403,7 @@ envy,envies
 epauliere,epaulieres
 epee,epees
 ephemera,ephemeras
-ephemeris,ephemeriss
+ephemeris,ephemerises
 epoch,epochs
 eponym,eponyms
 epoxy,epoxies
@@ -1508,7 +1508,7 @@ fatigue,fatigues
 faucet,faucets
 fault,faults
 fawn,fawns
-fax,faxs
+fax,faxes
 fear,fears
 feast,feasts
 feather,feathers
@@ -1691,7 +1691,7 @@ galn,galns
 galosh,galoshes
 game,games
 gamebird,gamebirds
-gamma-ray,gamma-raies
+gamma-ray,gamma-rays
 gander,ganders
 gap,gaps
 garage,garages
@@ -1740,17 +1740,16 @@ girlfriend,girlfriends
 git,gits
 give,gives
 glad,glads
-gladiolus,gladioluss
+gladiolus,gladiolii
 gland,glands
 glass,glasses
 glass_elephant,glass_elephants
-glasses,glassess
+glasses,glasses
 glen,glens
 glider,gliders
 gliding,glidings
 glockenspiel,glockenspiels
 glove,gloves
-gloves,glovess
 glue,glues
 glut,gluts
 go,gos
@@ -2018,7 +2017,6 @@ hypothermia,hypothermias
 ice,ices
 ice-cream,ice-creams
 icebreaker,icebreakers
-icecream,icecreams
 icicle,icicles
 icon,icons
 idea,ideas
@@ -2206,7 +2204,7 @@ kleenex,kleenexes
 klomps,klompses
 knee,knees
 kneejerk,kneejerks
-knickers,knickerss
+knickers,knickers
 knife,knifes
 knife-edge,knife-edges
 knight,knights
@@ -2262,7 +2260,7 @@ layer,layers
 lead,leads
 leader,leaders
 leadership,leaderships
-leaf,leafs
+leaf,leaves
 league,leagues
 leaker,leakers
 leash,leashes
@@ -2876,7 +2874,7 @@ pavement,pavements
 pavilion,pavilions
 paw,paws
 pawnshop,pawnshops
-pay,paies
+pay,pays
 payee,payees
 payment,payments
 pea,peas
@@ -2935,6 +2933,7 @@ phase,phases
 pheasant,pheasants
 philosopher,philosophers
 philosophy,philosophies
+pho,phos
 phone,phones
 photo,photos
 photographer,photographers
@@ -2958,7 +2957,7 @@ pigeon,pigeons
 pike,pikes
 pile,piles
 pilgrimage,pilgrimages
-pillbox,pillboxs
+pillbox,pillboxes
 pillow,pillows
 pilot,pilots
 pimp,pimps
@@ -2979,7 +2978,7 @@ pioneer,pioneers
 pipe,pipes
 piracy,piracies
 piss,pisss
-pitch,pitchs
+pitch,pitches
 pith,piths
 pizza,pizzas
 place,places
@@ -3122,7 +3121,7 @@ professor,professors
 profile,profiles
 profit,profits
 program,programs
-progress,progresss
+progress,progresses
 project,projects
 promise,promises
 promotion,promotions
@@ -3180,7 +3179,7 @@ quality,qualities
 quantity,quantities
 quart,quarts
 quarter,quarters
-quartz,quartzs
+quartz,quartz
 queen,queens
 question,questions
 quicksand,quicksands
@@ -3275,7 +3274,7 @@ register,registers
 regret,regrets
 regular,regulars
 regulation,regulations
-reindeer,reindeers
+reindeer,reindeer
 reinscription,reinscriptions
 reject,rejects
 relation,relations
@@ -3399,9 +3398,10 @@ rugby,rugbys
 ruin,ruins
 rule,rules
 rum,rums
+run,runs
 runaway,runaways
 runner,runners
-rush,rushs
+rush,rushes
 rutabaga,rutabagas
 ruth,ruths
 rye,ryes
@@ -3641,7 +3641,7 @@ skylight,skylights
 skyscraper,skyscrapers
 skywalk,skywalks
 slapstick,slapsticks
-slash,slashs
+slash,slashes
 slave,slaves
 sled,sleds
 sledge,sledges
@@ -3724,7 +3724,7 @@ soybean,soybeans
 space,spaces
 spacing,spacings
 spade,spades
-spaghetti,spaghettis
+spaghetti,spaghetti
 spandex,spandexes
 spank,spanks
 spare,spares
@@ -4143,7 +4143,7 @@ towel,towels
 tower,towers
 town,towns
 townhouse,townhouses
-toy,toies
+toy,toys
 trachoma,trachomas
 track,tracks
 tracksuit,tracksuits
@@ -4191,7 +4191,7 @@ trolley,trolleys
 trombone,trombones
 trooper,troopers
 trouble,troubles
-trousers,trouserss
+trousers,trousers
 trout,trouts
 trove,troves
 trowel,trowels
@@ -4246,7 +4246,7 @@ underpants,underpants
 underpass,underpasses
 undershirt,undershirts
 understanding,understandings
-underwear,underwears
+underwear,underwear
 underwire,underwires
 unemployment,unemployments
 unibody,unibodies
@@ -4299,7 +4299,7 @@ verdict,verdicts
 vermicello,vermicelli
 verse,verses
 version,versions
-vertigo,vertigoes
+vertigo,vertigos
 vessel,vessels
 vest,vests
 vestment,vestments
@@ -4351,7 +4351,7 @@ wallet,wallets
 wallpaper,wallpapers
 wallpaper_poem,wallpaper_poems
 walnut,walnuts
-walrus,walruss
+walrus,walruses
 wampum,wampums
 wannabe,wannabes
 war,wars
@@ -4376,9 +4376,9 @@ waterfall,waterfalls
 waterski,waterskis
 waterspout,waterspouts
 wave,waves
-wax,waxs
-way,waies
-weakness,weaknesss
+wax,waxes
+way,ways
+weakness,weaknesses
 wealth,wealths
 weapon,weapons
 wear,wears
@@ -4407,7 +4407,6 @@ whale,whales
 wharf,wharfs
 wheat,wheats
 wheel,wheels
-whereas,whereass
 while,whiles
 whip,whips
 whirlpool,whirlpools
@@ -4422,7 +4421,7 @@ wholesaler,wholesalers
 whorl,whorls
 width,widths
 wife,wifes
-wilderness,wildernesss
+wilderness,wildernesses
 wildlife,wildlifes
 will,wills
 willow,willows
@@ -4444,13 +4443,13 @@ wisdom,wisdoms
 wiseguy,wiseguies
 wish,wishes
 wisteria,wisterias
-witch,witchs
+witch,witches
 witch-hunt,witch-hunts
 withdrawal,withdrawals
-witness,witnesss
+witness,witnesses
 wolf,wolfs
 wombat,wombats
-women,womens
+woman,women
 wonder,wonders
 wood,woods
 woodland,woodlands
