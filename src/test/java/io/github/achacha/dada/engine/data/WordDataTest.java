@@ -59,7 +59,11 @@ public class WordDataTest {
 
         assertTrue(pronoun.isPresent());
         String formName = pronoun.get().getFormName();
-        assertTrue(Pronoun.Form.subjective.name().equals(formName) || Pronoun.Form.personal.name().equals(formName));
+        assertTrue(
+                Pronoun.Form.subjective.name().equals(formName) ||
+                        Pronoun.Form.personal.name().equals(formName) ||
+                        Pronoun.Form.singular.name().equals(formName)
+        );
         assertEquals("i", pronoun.get().getWord().getWordString());
 
         // Make sure we get by type and it's indeed of that type

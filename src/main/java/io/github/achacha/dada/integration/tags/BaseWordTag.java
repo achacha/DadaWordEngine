@@ -11,10 +11,10 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.JspTag;
-import javax.servlet.jsp.tagext.SimpleTag;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
-public abstract class BaseWordTag<T extends Word, R extends BaseWordRenderer<T>> implements SimpleTag {
+public abstract class BaseWordTag<T extends Word, R extends BaseWordRenderer<T>> extends SimpleTagSupport {
     protected static final Logger LOGGER = LogManager.getLogger(BaseWordTag.class);
 
     /** Renderer used by the word type specific tag */
@@ -59,6 +59,7 @@ public abstract class BaseWordTag<T extends Word, R extends BaseWordRenderer<T>>
         LOGGER.debug("setJspBody={}", jspBody);
         // At this time the tags are defined in TLD as body-content of empty, so this would never get called
         // If this changes the body can be contained in the context
+        // 'text' tag is the exception and uses body to define the word
     }
 
     /**

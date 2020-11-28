@@ -1,7 +1,7 @@
-#pronoun   ,PER,SUB,OBJ,POS,DEM,INT,REL,REF,REC,IND
-me         , y , n , y , n , n , n , n , n , n , n
-who        , n , y , n , n , n , y , y , n , n , n
-these      , n , n , n , y , y , n , n , n , n , n
-myself     , n , n , n , n , n , n , n , y , n , n
-each other , n , n , n , n , n , n , n , n , y , n
-anybody    , n , n , n , n , n , n , n , n , n , y
+#pronoun   ,PER,SUB,OBJ,POS,DEM,INT,REL,REF,REC,IND,SIN,PLU
+me         , y , n , y , n , n , n , n , n , n , n , y , n
+who        , n , y , n , n , n , y , y , n , n , n , n , n
+these      , n , n , n , y , y , n , n , n , n , n , n , y
+myself     , n , n , n , n , n , n , n , y , n , n , n , n
+each other , n , n , n , n , n , n , n , n , y , n , n , n
+anybody    , n , n , n , n , n , n , n , n , n , y , n , n

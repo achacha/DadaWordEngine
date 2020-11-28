@@ -35,4 +35,19 @@ public class BaseWordRendererTest {
 
         assertEquals("noun", noun.execute());
     }
+
+    @Test
+    public void testRhymeInForm() {
+        AdjectiveRenderer adjective = new AdjectiveRenderer();
+        adjective.setSaveKey("save0");
+        String savedWord = adjective.execute();
+
+        adjective.setSaveKey(null);
+        adjective.setRhymeKey("save0");
+
+        String rhymedWord = adjective.execute();
+
+        // Since only 1 word in word data, they should rhyme with each other
+        assertEquals(savedWord, rhymedWord);
+    }
 }

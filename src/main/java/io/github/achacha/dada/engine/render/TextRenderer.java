@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * Tag that represents constant text string
  */
 public class TextRenderer extends BaseWordRenderer<Text> {
-    private final Text text;
+    private Text text;
 
     /**
      * Text renderer without article or capitalization
@@ -46,6 +46,15 @@ public class TextRenderer extends BaseWordRenderer<Text> {
                 articleMode,
                 capsMode
         );
+        this.text = Text.of(text);
+    }
+
+    /**
+     * Override constrant text
+     * This is needed since we may not have the text at the time of creation
+     * @param text String constant
+     */
+    public void setText(String text) {
         this.text = Text.of(text);
     }
 
@@ -169,5 +178,8 @@ public class TextRenderer extends BaseWordRenderer<Text> {
         return text;
     }
 
-
+    @Override
+    protected String selectWord(Word word) {
+        return word.getWordString();
+    }
 }

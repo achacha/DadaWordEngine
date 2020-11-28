@@ -97,6 +97,9 @@ public class PronounRendererTest {
 
         tag.setForm(Pronoun.Form.indefinite.name());
         assertEquals("anybody", tag.execute());
+
+        tag.setForm(Pronoun.Form.plural.name());
+        assertEquals("these", tag.execute());
     }
 
     @Test

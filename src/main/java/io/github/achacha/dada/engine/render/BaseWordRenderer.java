@@ -293,7 +293,11 @@ public abstract class BaseWordRenderer<T extends Word> {
             // Rhyme this word with another
             List<SavedWord> rhymedWords = rendererContext.getWords().findRhymes(rhymeWith);
             if (rhymedWords.size() > 0) {
-                word = rhymedWords.get(RandomUtils.nextInt(0, rhymedWords.size())).getWord();
+                SavedWord savedWord = rhymedWords.get(RandomUtils.nextInt(0, rhymedWords.size()));
+
+                // Set the form name for when it was saved
+                setForm(savedWord.getFormName());
+                word = savedWord.getWord();
                 LOGGER.debug("rhymeWith: Rhyme word selected, word={}", word);
             } else {
                 LOGGER.debug("rhymeWith: No rhyming word found for word={}, will use it", word);

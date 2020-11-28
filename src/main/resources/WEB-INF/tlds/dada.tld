@@ -47,6 +47,10 @@
             <description>Try to find a rhyme to a previously saved word</description>
         </attribute>
         <attribute>
+            <name>rhymeWith</name>
+            <description>Try to find a rhyme to a given word</description>
+        </attribute>
+        <attribute>
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
@@ -88,6 +92,10 @@
         <attribute>
             <name>rhyme</name>
             <description>Try to find a rhyme to a previously saved word</description>
+        </attribute>
+        <attribute>
+            <name>rhymeWith</name>
+            <description>Try to find a rhyme to a given word</description>
         </attribute>
         <attribute>
             <name>syllables</name>
@@ -133,12 +141,17 @@
             <description>Try to find a rhyme to a previously saved word</description>
         </attribute>
         <attribute>
+            <name>rhymeWith</name>
+            <description>Try to find a rhyme to a given word</description>
+        </attribute>
+        <attribute>
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
 
         <attribute>
             <name>form</name>
+            <description>One of ["personal","subjective","objective","possessive","demonstrative","interrogative","relative","reflexive","reciprocal","indefinite","singular","plural"], default "personal"</description>
         </attribute>
     </tag>
 
@@ -174,12 +187,17 @@
             <description>Try to find a rhyme to a previously saved word</description>
         </attribute>
         <attribute>
+            <name>rhymeWith</name>
+            <description>Try to find a rhyme to a given word</description>
+        </attribute>
+        <attribute>
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
 
         <attribute>
             <name>form</name>
+            <description>One of ["positive","comparative","superlative"], default "positive"</description>
         </attribute>
     </tag>
 
@@ -215,12 +233,17 @@
             <description>Try to find a rhyme to a previously saved word</description>
         </attribute>
         <attribute>
+            <name>rhymeWith</name>
+            <description>Try to find a rhyme to a given word</description>
+        </attribute>
+        <attribute>
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
 
         <attribute>
             <name>form</name>
+            <description>none</description>
         </attribute>
     </tag>
 
@@ -256,13 +279,17 @@
             <description>Try to find a rhyme to a previously saved word</description>
         </attribute>
         <attribute>
+            <name>rhymeWith</name>
+            <description>Try to find a rhyme to a given word</description>
+        </attribute>
+        <attribute>
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
 
         <attribute>
             <name>form</name>
-            <description>One of ["personal","subjective","objective","possessive","demonstrative","interrogative","relative","reflexive","reciprocal","indefinite"]</description>
+            <description>none</description>
         </attribute>
     </tag>
 
@@ -298,12 +325,55 @@
             <description>Try to find a rhyme to a previously saved word</description>
         </attribute>
         <attribute>
+            <name>rhymeWith</name>
+            <description>Try to find a rhyme to a given word</description>
+        </attribute>
+        <attribute>
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
 
         <attribute>
             <name>form</name>
+            <description>none</description>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>text</name>
+        <tag-class>io.github.achacha.dada.integration.tags.TextTag</tag-class>
+        <body-content>scriptless</body-content>
+        <description>Tag is for displaying non-random text</description>
+
+        <!-- Common attributes -->
+        <attribute>
+            <name>article</name>
+            <description>One of ["none","a","the"], default "none"</description>
+        </attribute>
+        <attribute>
+            <name>capsMode</name>
+            <description>One of ["none","first","words","all"], default "none"</description>
+        </attribute>
+
+        <attribute>
+            <name>save</name>
+            <description>Save word from the contents of the body of this tag</description>
+        </attribute>
+        <attribute>
+            <name>load</name>
+            <description>Load a previously saved word</description>
+        </attribute>
+        <attribute>
+            <name>rhyme</name>
+            <description>Try to find a rhyme to a previously saved word</description>
+        </attribute>
+        <attribute>
+            <name>rhymeWith</name>
+            <description>Try to find a rhyme to a given word</description>
+        </attribute>
+        <attribute>
+            <name>syllables</name>
+            <description>Number of syllables the word should have</description>
         </attribute>
     </tag>
 </taglib>

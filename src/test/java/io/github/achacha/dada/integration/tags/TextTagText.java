@@ -14,7 +14,10 @@ public class TextTagText {
 
     @Test
     public void testInternal() {
-        TextTag tag = new TextTag("some text");
+        TextTag tag = new TextTag();
+        assertEquals("", tag.getWordRenderer().execute());
+
+        tag = new TextTag("some text");
         assertEquals("some text", tag.getWordRenderer().execute());
     }
 }

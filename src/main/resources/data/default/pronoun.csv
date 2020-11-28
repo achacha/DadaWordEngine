@@ -1,74 +1,74 @@
-#pronoun   ,PER,SUB,OBJ,POS,DEM,INT,REL,REF,REC,IND
-i          , y , y , n , n , n , n , n , n , n , n
-you        , y , y , y , n , n , n , n , n , n , n
-he         , y , y , n , n , n , n , n , n , n , n
-she        , y , y , n , n , n , n , n , n , n , n
-it         , y , y , y , n , n , n , n , n , n , n
-we         , y , y , n , n , n , n , n , n , n , n
-they       , y , y , n , n , n , n , n , n , n , n
-me         , y , n , y , n , n , n , n , n , n , n
-him        , y , n , y , n , n , n , n , n , n , n
-her        , y , n , y , n , n , n , n , n , n , n
-us         , y , n , y , n , n , n , n , n , n , n
-them       , y , n , y , n , n , n , n , n , n , n
-who        , n , y , n , n , n , y , y , n , n , n
-what       , n , y , n , n , n , y , y , n , n , n
-whom       , n , n , y , n , n , y , y , n , n , n
-mine       , n , n , n , y , n , n , n , n , n , n
-yours      , n , n , n , y , n , n , n , n , n , n
-his        , n , n , n , y , n , n , n , n , n , n
-hers       , n , n , n , y , n , n , n , n , n , n
-ours       , n , n , n , y , n , n , n , n , n , n
-theirs     , n , n , n , y , n , n , n , n , n , n
-this       , n , n , n , y , y , n , n , n , n , n
-that       , n , n , n , y , y , n , y , n , n , n
-these      , n , n , n , y , y , n , n , n , n , n
-those      , n , n , n , y , y , n , n , n , n , n
-which      , n , n , n , n , n , y , y , n , n , n
-whose      , n , n , n , n , n , y , y , n , n , n
-whoever    , n , n , n , n , n , y , y , n , n , n
-whatever   , n , n , n , n , n , y , y , n , n , n
-whichever  , n , n , n , n , n , y , y , n , n , n
-whomever   , n , n , n , n , n , y , y , n , n , n
-myself     , n , n , n , n , n , n , n , y , n , n
-yourself   , n , n , n , n , n , n , n , y , n , n
-himself    , n , n , n , n , n , n , n , y , n , n
-herself    , n , n , n , n , n , n , n , y , n , n
-itself     , n , n , n , n , n , n , n , y , n , n
-ourselves  , n , n , n , n , n , n , n , y , n , n
-themselves , n , n , n , n , n , n , n , y , n , n
-each other , n , n , n , n , n , n , n , n , y , n
-one another, n , n , n , n , n , n , n , n , y , n
-anything   , n , n , n , n , n , n , n , n , n , y
-everybody  , n , n , n , n , n , n , n , n , n , y
-another    , n , n , n , n , n , n , n , n , n , y
-each       , n , n , n , n , n , n , n , n , n , y
-few        , n , n , n , n , n , n , n , n , n , y
-many       , n , n , n , n , n , n , n , n , n , y
-some       , n , n , n , n , n , n , n , n , n , y
-all        , n , n , n , n , n , n , n , n , n , y
-any        , n , n , n , n , n , n , n , n , n , y
-anybody    , n , n , n , n , n , n , n , n , n , y
-anyone     , n , n , n , n , n , n , n , n , n , y
-everyone   , n , n , n , n , n , n , n , n , n , y
-everything , n , n , n , n , n , n , n , n , n , y
-no one     , n , n , n , n , n , n , n , n , n , y
-nobody     , n , n , n , n , n , n , n , n , n , y
-nothing    , n , n , n , n , n , n , n , n , n , y
-none       , n , n , n , n , n , n , n , n , n , y
-other      , n , n , n , n , n , n , n , n , n , y
-others     , n , n , n , n , n , n , n , n , n , y
-several    , n , n , n , n , n , n , n , n , n , y
-somebody   , n , n , n , n , n , n , n , n , n , y
-someone    , n , n , n , n , n , n , n , n , n , y
-something  , n , n , n , n , n , n , n , n , n , y
-most       , n , n , n , n , n , n , n , n , n , y
-enough     , n , n , n , n , n , n , n , n , n , y
-little     , n , n , n , n , n , n , n , n , n , y
-more       , n , n , n , n , n , n , n , n , n , y
-both       , n , n , n , n , n , n , n , n , n , y
-either     , n , n , n , n , n , n , n , n , n , y
-neither    , n , n , n , n , n , n , n , n , n , y
-one        , n , n , n , n , n , n , n , n , n , y
-much       , n , n , n , n , n , n , n , n , n , y
-such       , n , n , n , n , n , n , n , n , n , y
+#pronoun   ,PER,SUB,OBJ,POS,DEM,INT,REL,REF,REC,IND,SIN,PLU
+i          , y , y , n , n , n , n , n , n , n , n , y , n
+you        , y , y , y , n , n , n , n , n , n , n , y , n
+he         , y , y , n , n , n , n , n , n , n , n , y , n
+she        , y , y , n , n , n , n , n , n , n , n , y , n
+it         , y , y , y , n , n , n , n , n , n , n , y , n
+we         , y , y , n , n , n , n , n , n , n , n , n , y
+they       , y , y , n , n , n , n , n , n , n , n , n , y
+me         , y , n , y , n , n , n , n , n , n , n , y , n
+him        , y , n , y , n , n , n , n , n , n , n , n , n
+her        , y , n , y , n , n , n , n , n , n , n , y , n
+us         , y , n , y , n , n , n , n , n , n , n , n , y
+them       , y , n , y , n , n , n , n , n , n , n , n , y
+who        , n , y , n , n , n , y , y , n , n , n , y , n
+what       , n , y , n , n , n , y , y , n , n , n , y , n
+whom       , n , n , y , n , n , y , y , n , n , n , y , n
+mine       , n , n , n , y , n , n , n , n , n , n , y , n
+yours      , n , n , n , y , n , n , n , n , n , n , y , n
+his        , n , n , n , y , n , n , n , n , n , n , y , n
+hers       , n , n , n , y , n , n , n , n , n , n , y , n
+ours       , n , n , n , y , n , n , n , n , n , n , n , y
+theirs     , n , n , n , y , n , n , n , n , n , n , n , y
+this       , n , n , n , y , y , n , n , n , n , n , y , n
+that       , n , n , n , y , y , n , y , n , n , n , y , n
+these      , n , n , n , y , y , n , n , n , n , n , n , y
+those      , n , n , n , y , y , n , n , n , n , n , n , y
+which      , n , n , n , n , n , y , y , n , n , n , n , y
+whose      , n , n , n , n , n , y , y , n , n , n , n , n
+whoever    , n , n , n , n , n , y , y , n , n , n , y , n
+whatever   , n , n , n , n , n , y , y , n , n , n , y , n
+whichever  , n , n , n , n , n , y , y , n , n , n , y , n
+whomever   , n , n , n , n , n , y , y , n , n , n , y , n
+myself     , n , n , n , n , n , n , n , y , n , n , n , n
+yourself   , n , n , n , n , n , n , n , y , n , n , n , n
+himself    , n , n , n , n , n , n , n , y , n , n , n , n
+herself    , n , n , n , n , n , n , n , y , n , n , n , n
+itself     , n , n , n , n , n , n , n , y , n , n , n , n
+ourselves  , n , n , n , n , n , n , n , y , n , n , n , n
+themselves , n , n , n , n , n , n , n , y , n , n , n , n
+each other , n , n , n , n , n , n , n , n , y , n , n , n
+one another, n , n , n , n , n , n , n , n , y , n , n , n
+anything   , n , n , n , n , n , n , n , n , n , y , y , n
+everybody  , n , n , n , n , n , n , n , n , n , y , n , y
+another    , n , n , n , n , n , n , n , n , n , y , y , n
+each       , n , n , n , n , n , n , n , n , n , y , y , n
+few        , n , n , n , n , n , n , n , n , n , y , n , y
+many       , n , n , n , n , n , n , n , n , n , y , n , y
+some       , n , n , n , n , n , n , n , n , n , y , n , y
+all        , n , n , n , n , n , n , n , n , n , y , n , y
+any        , n , n , n , n , n , n , n , n , n , y , n , y
+anybody    , n , n , n , n , n , n , n , n , n , y , y , n
+anyone     , n , n , n , n , n , n , n , n , n , y , n , y
+everyone   , n , n , n , n , n , n , n , n , n , y , n , y
+everything , n , n , n , n , n , n , n , n , n , y , n , y
+no one     , n , n , n , n , n , n , n , n , n , y , y , n
+nobody     , n , n , n , n , n , n , n , n , n , y , y , n
+nothing    , n , n , n , n , n , n , n , n , n , y , y , n
+none       , n , n , n , n , n , n , n , n , n , y , n , y
+other      , n , n , n , n , n , n , n , n , n , y , y , n
+others     , n , n , n , n , n , n , n , n , n , y , n , y
+several    , n , n , n , n , n , n , n , n , n , y , n , y
+somebody   , n , n , n , n , n , n , n , n , n , y , y , n
+someone    , n , n , n , n , n , n , n , n , n , y , y , n
+something  , n , n , n , n , n , n , n , n , n , y , y , n
+most       , n , n , n , n , n , n , n , n , n , y , n , y
+enough     , n , n , n , n , n , n , n , n , n , y , n , n
+little     , n , n , n , n , n , n , n , n , n , y , n , n
+more       , n , n , n , n , n , n , n , n , n , y , n , n
+both       , n , n , n , n , n , n , n , n , n , y , n , y
+either     , n , n , n , n , n , n , n , n , n , y , y , n
+neither    , n , n , n , n , n , n , n , n , n , y , n , y
+one        , n , n , n , n , n , n , n , n , n , y , y , n
+much       , n , n , n , n , n , n , n , n , n , y , n , n
+such       , n , n , n , n , n , n , n , n , n , y , n , n

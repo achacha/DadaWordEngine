@@ -14,7 +14,10 @@ import java.util.Set;
  */
 public class Pronoun extends Word {
 
-    /** Types of pronouns */
+    /**
+     *  Types of pronouns
+     *  A pronoun can be both or neither singular or plural
+     */
     public enum Form {
         personal,
         subjective,
@@ -25,20 +28,23 @@ public class Pronoun extends Word {
         relative,
         reflexive,
         reciprocal,
-        indefinite
+        indefinite,
+        singular,
+        plural
     }
 
     protected final Set<Form> attributes;
 
     protected Pronoun(ArrayList<String> attrs) {
         super(attrs.get(0));
-        Preconditions.checkArgument(attrs.size() == 11, "Pronoun expects word with attributes to be in 11 parts, attrs=%s", attrs);
+        Preconditions.checkArgument(attrs.size() == 13, "Pronoun expects word with attributes to be in 12 parts, attrs=%s", attrs);
 
         this.attributes = new HashSet<>();
-        for (int i=1; i<11; ++i) {
+        for (int i=1; i<13; ++i) {
             boolean isSet = BooleanUtils.toBoolean(attrs.get(i));
-            if (isSet)
-                attributes.add(Form.values()[i-1]);
+            if (isSet) {
+                attributes.add(Form.values()[i - 1]);
+            }
         }
 
         LOGGER.trace("Adding pronoun=`{}` with attributes={}", this.word, this.attributes);
@@ -61,7 +67,7 @@ public class Pronoun extends Word {
     }
 
     /*
-    #Pronoun,PER,SUB,OBJ,POS,DEM,INT,REL,REF,REC,IND
+    #Pronoun,PER,SUB,OBJ,POS,DEM,INT,REL,REF,REC,IND,PLU
      */
     @Override
     public String toCsv() {
@@ -75,7 +81,8 @@ public class Pronoun extends Word {
                 (isA(Form.relative) ? "y," : "n,") +
                 (isA(Form.reflexive) ? "y," : "n,") +
                 (isA(Form.reciprocal) ? "y," : "n,") +
-                (isA(Form.indefinite) ? "y," : "n,")
+                (isA(Form.indefinite) ? "y," : "n,") +
+                (isA(Form.plural) ? "y," : "n,")
                 ;
     }
 
