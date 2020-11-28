@@ -133,6 +133,14 @@ public abstract class BaseWordTag<T extends Word, R extends BaseWordRenderer<T>>
         wordRenderer.setRhymeKey(value);
     }
 
+    /**
+     * Called by Jasper
+     * @param value String rhyme this word with another word
+     * @see #setSave(String)
+     */
+    public void setRhymeWith(String value) {
+        wordRenderer.setRhymeWith(value);
+    }
 
     /**
      * Called by Jasper
