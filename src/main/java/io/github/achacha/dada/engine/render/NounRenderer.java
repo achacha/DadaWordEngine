@@ -61,7 +61,7 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
         private String rhymeWith;
         private int syllablesDesired;
         private String fallback;
-        private Predicate<BaseWordRenderer> fallbackPredicate;
+        private Predicate<BaseWordRenderer<Noun>> fallbackPredicate;
 
         public Builder(SentenceRendererBuilder sentenceBuilder) {
             this.sentenceBuilder = sentenceBuilder;
@@ -138,7 +138,7 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
             return this;
         }
 
-        public Builder withFallback(String fallback, Predicate<BaseWordRenderer> fallbackPredicate) {
+        public Builder withFallback(String fallback, Predicate<BaseWordRenderer<Noun>> fallbackPredicate) {
             this.fallback = fallback;
             this.fallbackPredicate = fallbackPredicate;
             return this;
@@ -148,10 +148,9 @@ public class NounRenderer extends BaseWordRenderer<Noun>{
 
     @Override
     protected String selectWord(Word word) {
-        Noun noun = (Noun)word;
         switch(form) {
-            case plural: return noun.getPlural();
-            default: return super.selectWord(noun);
+            case plural: return ((Noun)word).getPlural();
+            default: return super.selectWord(word);
         }
     }
 

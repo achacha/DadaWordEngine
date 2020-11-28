@@ -14,7 +14,7 @@ public class NotQuiteTheRavenExample {
                 .text("Over many a quaint and curious volume of forgotten lore—\n")
                 .text("    While I nodded, nearly")
                 .verbBuilder()
-                    .withFallback("napping", RendererPredicates.truePercent(50))
+                    .withFallback("napping", RendererPredicates.trueIfPercent(50))
                     .withRhymeWith("nap")
                     .withForm(Verb.Form.present)
                     .build()

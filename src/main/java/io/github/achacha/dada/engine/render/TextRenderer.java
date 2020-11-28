@@ -5,22 +5,20 @@ import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Text;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.data.WordsByType;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+
+import java.util.function.Predicate;
 
 /**
  * Tag that represents constant text string
  */
 public class TextRenderer extends BaseWordRenderer<Text> {
-    private Text text;
-
     /**
      * Text renderer without article or capitalization
      * @param text String constant
      */
     public TextRenderer(String text) {
         super(new RenderContextToString<>(WordsByType.empty()));
-        this.text = Text.of(text);
+        this.fallback = text;
     }
 
     /**
@@ -30,23 +28,23 @@ public class TextRenderer extends BaseWordRenderer<Text> {
      */
     public TextRenderer(String text, RenderContext<Text> renderContext) {
         super(renderContext);
-        this.text = Text.of(text);
+        this.fallback = text;
     }
 
     /**
      * Extended constructor
-     * @param text String constant
+     * @param fallback String constant
      * @param articleMode {@link ArticleMode}
      * @param capsMode {@link CapsMode}
      * @param renderContext {@link RenderContext} or null to use {@link RenderContextToString} with GlobalData
      */
-    public TextRenderer(String text, ArticleMode articleMode, CapsMode capsMode, RenderContext<Text> renderContext) {
+    public TextRenderer(String fallback, ArticleMode articleMode, CapsMode capsMode, RenderContext<Text> renderContext) {
         super(
                 renderContext == null ? new RenderContextToString<>(WordsByType.empty()) : renderContext,
                 articleMode,
                 capsMode
         );
-        this.text = Text.of(text);
+        this.fallback = fallback;
     }
 
     /**
@@ -55,7 +53,7 @@ public class TextRenderer extends BaseWordRenderer<Text> {
      * @param text String constant
      */
     public void setText(String text) {
-        this.text = Text.of(text);
+        this.fallback = text;
     }
 
     @Override
@@ -74,7 +72,8 @@ public class TextRenderer extends BaseWordRenderer<Text> {
 
     public static class Builder {
         private final SentenceRendererBuilder sentenceBuilder;
-        private String text;
+        private String fallback;
+        private Predicate<BaseWordRenderer<Text>> fallbackPredicate = textBaseWordRenderer -> true;
         private ArticleMode articleMode = ArticleMode.none;
         private CapsMode capsMode = CapsMode.none;
         private RenderContext<Text> renderContext;
@@ -92,13 +91,14 @@ public class TextRenderer extends BaseWordRenderer<Text> {
          * @return {@link SentenceRendererBuilder} provided in constructor
          */
         public SentenceRendererBuilder build() {
-            Preconditions.checkNotNull(text);
+            Preconditions.checkNotNull(fallback);
 
-            TextRenderer renderer = new TextRenderer(text, articleMode, capsMode, renderContext);
+            TextRenderer renderer = new TextRenderer(fallback, articleMode, capsMode, renderContext);
             renderer.loadKey = loadKey;
             renderer.saveKey = saveKey;
             renderer.rhymeKey = rhymeKey;
             renderer.rhymeWith = rhymeWith;
+            renderer.fallbackPredicate = fallbackPredicate;
 
             // Validate and add
             validateRenderer(renderer);
@@ -107,8 +107,14 @@ public class TextRenderer extends BaseWordRenderer<Text> {
             return sentenceBuilder;
         }
 
-        public Builder withText(String text) {
-            this.text = text;
+        public Builder withFallback(String fallback) {
+            this.fallback = fallback;
+            return this;
+        }
+
+        public Builder withFallback(String fallback, Predicate<BaseWordRenderer<Text>> fallbackPredicate) {
+            this.fallback = fallback;
+            this.fallbackPredicate = fallbackPredicate;
             return this;
         }
 
@@ -149,21 +155,6 @@ public class TextRenderer extends BaseWordRenderer<Text> {
     }
 
     @Override
-    public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
-                .append("class", getClass().getSimpleName())
-                .append("text", text)
-                .append("articleMode", articleMode)
-                .append("capsMode", capsMode)
-                .append("loadKey", loadKey)
-                .append("saveKey", saveKey)
-                .append("rhymeKey", rhymeKey)
-                .append("rhymeWith", rhymeWith)
-                .append("syllablesDesired", syllablesDesired)
-                .toString();
-    }
-
-    @Override
     public String getFormName() {
         return Text.Form.none.name();
     }
@@ -175,7 +166,7 @@ public class TextRenderer extends BaseWordRenderer<Text> {
 
     @Override
     protected Word generateWord() {
-        return text;
+        return Text.of(fallback);
     }
 
     @Override

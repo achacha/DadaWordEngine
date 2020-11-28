@@ -61,7 +61,7 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
         private String rhymeWith;
         private int syllablesDesired;
         private String fallback;
-        private Predicate<BaseWordRenderer> fallbackPredicate;
+        private Predicate<BaseWordRenderer<Verb>> fallbackPredicate;
 
         public Builder(SentenceRendererBuilder sentenceBuilder) {
             this.sentenceBuilder = sentenceBuilder;
@@ -138,7 +138,7 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
             return this;
         }
 
-        public Builder withFallback(String fallback, Predicate<BaseWordRenderer> fallbackPredicate) {
+        public Builder withFallback(String fallback, Predicate<BaseWordRenderer<Verb>> fallbackPredicate) {
             this.fallback = fallback;
             this.fallbackPredicate = fallbackPredicate;
             return this;
@@ -147,20 +147,19 @@ public class VerbRenderer extends BaseWordRenderer<Verb> {
 
     @Override
     protected String selectWord(Word word) {
-        Verb verb = (Verb)word;
         switch (form) {
             case infinitive:
-                return verb.getInfinitive();
+                return ((Verb)word).getInfinitive();
             case past:
-                return verb.getPast();
+                return ((Verb)word).getPast();
             case singular:
-                return verb.getSingular();
+                return ((Verb)word).getSingular();
             case present:
-                return verb.getPresent();
+                return ((Verb)word).getPresent();
             case pastparticiple:
-                return verb.getPastParticiple();
+                return ((Verb)word).getPastParticiple();
             default:
-                return super.selectWord(verb);
+                return super.selectWord(word);
         }
     }
 

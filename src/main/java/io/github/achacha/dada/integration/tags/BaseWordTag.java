@@ -1,10 +1,13 @@
 package io.github.achacha.dada.integration.tags;
 
+import com.google.common.annotations.VisibleForTesting;
+import io.github.achacha.dada.engine.base.RendererPredicates;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.BaseWordRenderer;
 import io.github.achacha.dada.engine.render.CapsMode;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,6 +16,7 @@ import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.JspTag;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
+import java.io.StringWriter;
 
 public abstract class BaseWordTag<T extends Word, R extends BaseWordRenderer<T>> extends SimpleTagSupport {
     protected static final Logger LOGGER = LogManager.getLogger(BaseWordTag.class);
@@ -56,10 +60,18 @@ public abstract class BaseWordTag<T extends Word, R extends BaseWordRenderer<T>>
 
     @Override
     public void setJspBody(JspFragment jspBody) {
-        LOGGER.debug("setJspBody={}", jspBody);
-        // At this time the tags are defined in TLD as body-content of empty, so this would never get called
-        // If this changes the body can be contained in the context
-        // 'text' tag is the exception and uses body to define the word
+        // Write body from fragment
+        if (jspBody != null) {
+            StringWriter sw = new StringWriter();
+            try {
+                jspBody.invoke(sw);
+                String text = sw.toString();
+                LOGGER.debug("text={}", text);
+                wordRenderer.setFallback(text);
+            } catch (Exception e) {
+                LOGGER.error("Failed to read body of text element", e);
+            }
+        }
     }
 
     /**
@@ -147,6 +159,40 @@ public abstract class BaseWordTag<T extends Word, R extends BaseWordRenderer<T>>
      * @param value String converted to int, syllables desired
      */
     public void setSyllables(String value) {
-        wordRenderer.setSyllablesDesired(Integer.valueOf(value));
+        wordRenderer.setSyllablesDesired(Integer.parseInt(value));
+    }
+
+    /**
+     * Manually set fallback string
+     * This is normally done when body of the tag is read
+     * @see #setJspBody(JspFragment)
+     * @param fallback String
+     */
+    @VisibleForTesting
+    public void setFallback(String fallback) {
+        wordRenderer.setFallback(fallback);
+    }
+
+    /**
+     * Probability that the fallback should be shown
+     * valid range = [0.0,1.0)
+     *
+     * @param probability String converted to double, must be [0.0,1.0), if not then defaults to always false (i.e. never show fallback)
+     */
+    public void setFallbackProbability(String probability) {
+        if (NumberUtils.isParsable(probability)) {
+            double p = Float.parseFloat(probability);
+            if (p >= 0.0 && p <= 1.0) {
+                wordRenderer.setFallbackPredicate(RendererPredicates.trueIfProbability(p));
+            }
+            else {
+                LOGGER.debug("Probability must be 0.0 <= p <= 1.0, provided p="+p);
+                wordRenderer.setFallbackPredicate(RendererPredicates.falseAlways());
+            }
+        }
+        else {
+            LOGGER.debug("Unable to parse fallbackProbability="+probability);
+            wordRenderer.setFallbackPredicate(RendererPredicates.falseAlways());
+        }
     }
 }

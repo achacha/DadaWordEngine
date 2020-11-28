@@ -16,5 +16,6 @@ public class AdverbTagTest {
     public void testInternals() {
         AdverbTag tag = new AdverbTag();
         assertNotNull(tag.toString());
+        assertNotNull(tag.getWordRenderer().execute());
     }
 }

@@ -2,6 +2,7 @@ package io.github.achacha.dada.engine.render;
 
 import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.SavedWord;
+import io.github.achacha.dada.engine.data.TestWords;
 import io.github.achacha.dada.engine.data.Text;
 import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.data.WordsByType;
@@ -55,6 +56,33 @@ public class RenderContextToStringTest {
     @Test
     public void useExternalData() throws IOException {
         HashMap<String, SavedWord> data = new HashMap<>();
+        data.put("saved_word", new SavedWord(TestWords.makeAdverb("suddenly"), ""));
+
+        try (
+                StringWriter sw = new StringWriter()
+        ) {
+            RenderContextToString<Noun> context = new RenderContextToString<>(
+                    GlobalData.getWordData().getNouns(),
+                    data,
+                    sw
+            );
+
+            NounRenderer nrender = new NounRenderer(context);
+            nrender.setForm(Noun.Form.plural);
+            nrender.setArticle(ArticleMode.a);
+            nrender.setCapsMode(CapsMode.words);
+            assertEquals("A Nouns", nrender.execute());
+
+            NounRenderer saved = new NounRenderer(context);
+            saved.setLoadKey("saved_word");
+            saved.setCapsMode(CapsMode.words);
+            assertEquals("Noun", saved.execute());   // Saved word is not a Noun, generate random since it's non-Text
+        }
+    }
+
+    @Test
+    public void useExternalDataText() throws IOException {
+        HashMap<String, SavedWord> data = new HashMap<>();
         data.put("saved_word", new SavedWord(new Text("tree"), ""));
 
         try (
@@ -75,7 +103,7 @@ public class RenderContextToStringTest {
             NounRenderer saved = new NounRenderer(context);
             saved.setLoadKey("saved_word");
             saved.setCapsMode(CapsMode.words);
-            assertEquals("Noun", saved.execute());   // Saved word is not a Noun, random one will be generated
+            assertEquals("Tree", saved.execute());   // Saved word is not a Noun, since Text was used then use as-is
         }
     }
 }

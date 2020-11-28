@@ -21,8 +21,8 @@
     <tag>
         <name>noun</name>
         <tag-class>io.github.achacha.dada.integration.tags.NounTag</tag-class>
-        <body-content>empty</body-content>
-        <description>Tag is for displaying nouns</description>
+        <body-content>scriptless</body-content>
+        <description>Tag is for displaying nouns, body contains fallback</description>
 
         <!-- Common attributes -->
         <attribute>
@@ -53,6 +53,10 @@
         <attribute>
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
+        </attribute>
+        <attribute>
+            <name>fallbackProbability</name>
+            <description>Probability that fallback will be used [0.0,1.0) instead of random generated word</description>
         </attribute>
 
         <!-- Noun specific -->
@@ -68,8 +72,8 @@
     <tag>
         <name>verb</name>
         <tag-class>io.github.achacha.dada.integration.tags.VerbTag</tag-class>
-        <body-content>empty</body-content>
-        <description>Tag is for displaying nouns</description>
+        <body-content>scriptless</body-content>
+        <description>Tag is for displaying verbs, body contains fallback</description>
 
         <!-- Common attributes -->
         <attribute>
@@ -100,6 +104,10 @@
         <attribute>
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
+        </attribute>
+        <attribute>
+            <name>fallbackProbability</name>
+            <description>Probability that fallback will be used [0.0,1.0) instead of random generated word</description>
         </attribute>
 
         <!-- Verb specific -->
@@ -115,8 +123,8 @@
     <tag>
         <name>pronoun</name>
         <tag-class>io.github.achacha.dada.integration.tags.PronounTag</tag-class>
-        <body-content>empty</body-content>
-        <description>Tag is for displaying nouns</description>
+        <body-content>scriptless</body-content>
+        <description>Tag is for displaying pronouns, body contains fallback</description>
 
         <!-- Common attributes -->
         <attribute>
@@ -148,7 +156,12 @@
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
+        <attribute>
+            <name>fallbackProbability</name>
+            <description>Probability that fallback will be used [0.0,1.0) instead of random generated word</description>
+        </attribute>
 
+        <!-- Pronoun specific-->
         <attribute>
             <name>form</name>
             <description>One of ["personal","subjective","objective","possessive","demonstrative","interrogative","relative","reflexive","reciprocal","indefinite","singular","plural"], default "personal"</description>
@@ -161,8 +174,8 @@
     <tag>
         <name>adjective</name>
         <tag-class>io.github.achacha.dada.integration.tags.AdjectiveTag</tag-class>
-        <body-content>empty</body-content>
-        <description>Tag is for displaying adjectives</description>
+        <body-content>scriptless</body-content>
+        <description>Tag is for displaying adjectives, body contains fallback</description>
 
         <!-- Common attributes -->
         <attribute>
@@ -194,7 +207,12 @@
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
+        <attribute>
+            <name>fallbackProbability</name>
+            <description>Probability that fallback will be used [0.0,1.0) instead of random generated word</description>
+        </attribute>
 
+        <!-- Adjective specific -->
         <attribute>
             <name>form</name>
             <description>One of ["positive","comparative","superlative"], default "positive"</description>
@@ -207,8 +225,8 @@
     <tag>
         <name>adverb</name>
         <tag-class>io.github.achacha.dada.integration.tags.AdverbTag</tag-class>
-        <body-content>empty</body-content>
-        <description>Tag is for displaying adverbs</description>
+        <body-content>scriptless</body-content>
+        <description>Tag is for displaying adverbs, body contains fallback</description>
 
         <!-- Common attributes -->
         <attribute>
@@ -240,7 +258,12 @@
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
+        <attribute>
+            <name>fallbackProbability</name>
+            <description>Probability that fallback will be used [0.0,1.0) instead of random generated word</description>
+        </attribute>
 
+        <!-- Adverb specific -->
         <attribute>
             <name>form</name>
             <description>none</description>
@@ -253,8 +276,8 @@
     <tag>
         <name>conjunction</name>
         <tag-class>io.github.achacha.dada.integration.tags.ConjunctionTag</tag-class>
-        <body-content>empty</body-content>
-        <description>Tag is for displaying conjunctions</description>
+        <body-content>scriptless</body-content>
+        <description>Tag is for displaying conjunctions, body contains fallback</description>
 
         <!-- Common attributes -->
         <attribute>
@@ -286,7 +309,12 @@
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
+        <attribute>
+            <name>fallbackProbability</name>
+            <description>Probability that fallback will be used [0.0,1.0) instead of random generated word</description>
+        </attribute>
 
+        <!-- Conjunction specific -->
         <attribute>
             <name>form</name>
             <description>none</description>
@@ -299,8 +327,8 @@
     <tag>
         <name>preposition</name>
         <tag-class>io.github.achacha.dada.integration.tags.PrepositionTag</tag-class>
-        <body-content>empty</body-content>
-        <description>Tag is for displaying prepositions</description>
+        <body-content>scriptless</body-content>
+        <description>Tag is for displaying prepositions, body contains fallback</description>
 
         <!-- Common attributes -->
         <attribute>
@@ -332,7 +360,12 @@
             <name>syllables</name>
             <description>Number of syllables the word should have</description>
         </attribute>
+        <attribute>
+            <name>fallbackProbability</name>
+            <description>Probability that fallback will be used [0.0,1.0) instead of random generated word</description>
+        </attribute>
 
+        <!-- Preposition specific -->
         <attribute>
             <name>form</name>
             <description>none</description>
@@ -343,7 +376,7 @@
         <name>text</name>
         <tag-class>io.github.achacha.dada.integration.tags.TextTag</tag-class>
         <body-content>scriptless</body-content>
-        <description>Tag is for displaying non-random text</description>
+        <description>Tag is for displaying non-random text, body contains fallback</description>
 
         <!-- Common attributes -->
         <attribute>

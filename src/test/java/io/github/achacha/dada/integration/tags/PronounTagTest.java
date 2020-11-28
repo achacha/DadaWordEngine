@@ -9,5 +9,6 @@ public class PronounTagTest {
     public void testInternals() {
         PronounTag tag = new PronounTag();
         assertNotNull(tag.toString());
+        assertNotNull(tag.getWordRenderer().execute());
     }
 }

@@ -16,5 +16,6 @@ public class AdjectiveTagTest {
     public void testInternals() {
         AdjectiveTag tag = new AdjectiveTag();
         assertNotNull(tag.toString());
+        assertNotNull(tag.getWordRenderer().execute());
     }
 }

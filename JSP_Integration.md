@@ -1,4 +1,4 @@
-JSP Tags supported (also in /help.jsp)
+JSP Tags supported
 -----
 noun
 pronoun
@@ -7,6 +7,7 @@ verb
 adverb
 conjunction
 preposition
+text
 
 
 Importing
@@ -16,8 +17,17 @@ Importing
 
 Usage
 ---
-<d:noun />
+*Render a random noun*
 
+&lt;d:noun />
+
+
+Usage with fallback
+---
+
+Render a random noun with 75% chance of using fallback 'Spoon'
+
+&lt;d:noun fallbackProbability="0.75">Spoon&lt;d:noun>
 
 
 Tag Specifics
@@ -70,9 +80,13 @@ Tag Specifics
 
 **preposition**
 
+**text**
+
+
 Examples
 ------
 <d:noun /> - lower case noun  *e.g. car*
+<d:noun fallbackProbability="0.5">bike</noun> - lower case noun  *e.g. car* with 50% chance of using constant 'bike'
 <d:noun article="the" /> - prepended article *e.g. the car*
 <d:noun article="the" capMode="first"/> - prepended article *e.g. The car*
 <d:noun article="the" capMode="words"/> - prepended article *e.g. The Car*

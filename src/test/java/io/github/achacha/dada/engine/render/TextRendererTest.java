@@ -43,10 +43,43 @@ public class TextRendererTest {
         SentenceRendererBuilder renderers = new SentenceRendererBuilder();
 
         String sentence = renderers
-                .textBuilder().withText("Option").withArticleMode(ArticleMode.the).withCapsMode(CapsMode.first).withRhymeWith("with").withSaveKey("saved").build()
+                .textBuilder()
+                    .withFallback("Option", textBaseWordRenderer -> true)
+                    .withArticleMode(ArticleMode.the)
+                    .withCapsMode(CapsMode.first)
+                    .withRhymeWith("with")
+                    .withSaveKey("saved")
+                    .build()
                 .text(" ")
-                .textBuilder().withText("option").withCapsMode(CapsMode.first).withLoadKey("saved").withRenderContext(new RenderContextToString<>(WordsByType.empty())).withRhymeKey("saved").build()
+                .textBuilder()
+                    .withFallback("option")
+                    .withCapsMode(CapsMode.first)
+                    .withLoadKey("saved")
+                    .withRenderContext(new RenderContextToString<>(WordsByType.empty()))
+                    .withRhymeKey("saved").build()
                 .execute();
         assertEquals("The Option Option", sentence);
+    }
+
+    @Test
+    public void testPredicateFalse() {
+        SentenceRendererBuilder renderers = new SentenceRendererBuilder();
+
+        // Fallback predicate with text doesn't make sense since it's a constant, so always on
+        String sentence = renderers
+                .textBuilder()
+                    .withFallback("ALWAYS1", textBaseWordRenderer -> false)
+                    .build()
+                .text(".")
+                .textBuilder()
+                    .withFallback("ALWAYS2", textBaseWordRenderer -> true)
+                    .build()
+                .text(".")
+                .textBuilder()
+                    .withFallback("ALWAYS3")
+                    .build()
+                .execute();
+
+        assertEquals("ALWAYS1.ALWAYS2.ALWAYS3", sentence);
     }
 }

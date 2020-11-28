@@ -3,6 +3,7 @@ package io.github.achacha.dada.engine.render;
 import com.google.common.base.Preconditions;
 import io.github.achacha.dada.engine.base.WordHelper;
 import io.github.achacha.dada.engine.data.SavedWord;
+import io.github.achacha.dada.engine.data.Text;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.integration.tags.GlobalData;
 import org.apache.commons.lang3.RandomUtils;
@@ -63,13 +64,14 @@ public abstract class BaseWordRenderer<T extends Word> {
 
     /**
      * Fallback word, if randomization is not used, this is the word that will be used
+     * This is also the body of the text based sub-classes i.e. {@link TextRenderer}
      */
     protected String fallback;
 
     /**
      * Function that determines if the fallback should be used
      */
-    protected Predicate<BaseWordRenderer> fallbackPredicate;
+    protected Predicate<BaseWordRenderer<T>> fallbackPredicate;
 
     /** How many words to try to get syllables desired before using the closest one */
     protected final static int TRIES_TO_GET_SYLLABLES = 10;
@@ -127,10 +129,36 @@ public abstract class BaseWordRenderer<T extends Word> {
         return fallback;
     }
 
+    /**
+     * Article mode
+     * @return {@link ArticleMode}
+     */
+    public ArticleMode getArticleMode() {
+        return articleMode;
+    }
+
+    /**
+     * Word constant to rhyme with
+     * @return String
+     */
+    public String getRhymeWith() {
+        return rhymeWith;
+    }
+
+    /**
+     * Predicate used to determine if fallback should be used instead of random word
+     * @return {@link Predicate}
+     */
+    public Predicate<BaseWordRenderer<T>> getFallbackPredicate() {
+        return fallbackPredicate;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
                 .append("class", getClass().getSimpleName())
+                .append("fallback", fallback)
+                .append("fallbackPredicate", fallbackPredicate)
                 .append("articleMode", articleMode)
                 .append("capsMode", capsMode)
                 .append("loadKey", loadKey)
@@ -240,6 +268,30 @@ public abstract class BaseWordRenderer<T extends Word> {
     public abstract void setForm(String formName);
 
     /**
+     * Article mode
+     * @param articleMode {@link ArticleMode}
+     */
+    public void setArticleMode(ArticleMode articleMode) {
+        this.articleMode = articleMode;
+    }
+
+    /**
+     * Fallback/default text
+     * @param fallback String
+     */
+    public void setFallback(String fallback) {
+        this.fallback = fallback;
+    }
+
+    /**
+     * Probability that the fallback will be used
+     * @param fallbackPredicate {@link Predicate}
+     */
+    public void setFallbackPredicate(Predicate<BaseWordRenderer<T>> fallbackPredicate) {
+        this.fallbackPredicate = fallbackPredicate;
+    }
+
+    /**
      * Execute tag
      * @return Content for this tag
      */
@@ -257,14 +309,19 @@ public abstract class BaseWordRenderer<T extends Word> {
                 // Saved word, use it
                 word = savedWord.getWord();
                 if (word.getType() != getType()) {
-                    LOGGER.debug("SavedWord found, but type mismatched, ignoring saved key. key={} word={} word.type={} this.type={}", loadKey, word, word.getType(), getType());
-                    word = null;
+                    if (word instanceof Text) {
+                        LOGGER.debug("SavedWord found, but type mismatched, using Text as-is. key={} word={} word.type={} this.type={}", loadKey, word, word.getType(), getType());
+                        setForm(Text.Form.none.name());
+                    }
+                    else {
+                        LOGGER.debug("SavedWord found, but type mismatched and non-Text, ignoring saved key. key={} word={} word.type={} this.type={}", loadKey, word, word.getType(), getType());
+                        word = null;
+                    }
                 }
                 else {
                     LOGGER.debug("SavedWord found, key={} word={}", loadKey, word);
                     setForm(savedWord.getFormName());
                 }
-
             }
         }
 
@@ -366,7 +423,7 @@ public abstract class BaseWordRenderer<T extends Word> {
 
         // Do pre processing
         LOGGER.debug("Pre-processing and selecting word={}", word);
-        saveWord(word);
+        saveWord(word, selectedWord);
 
         // Process word
         LOGGER.debug("Processing selected word={}", selectedWord);
@@ -382,9 +439,11 @@ public abstract class BaseWordRenderer<T extends Word> {
 
     /**
      * Save word unless fallback was used
-     * @param word Word
+     * If Fallback is used then selectedWord will be treated as {@link Text}
+     * @param word Word or null if fallback was used
+     * @param selectedWord Selected word
      */
-    protected void saveWord(Word word) {
+    protected void saveWord(Word word, String selectedWord) {
         if (saveKey != null) {
             if (word != null) {
                 String formName = getFormName();
@@ -394,7 +453,14 @@ public abstract class BaseWordRenderer<T extends Word> {
                 rendererContext.setAttribute(saveKey, sw);
             }
             else {
-                LOGGER.debug("Not saving key={} since fallback was used", saveKey);
+                if (selectedWord != null) {
+                    SavedWord sw = new SavedWord(Text.of(selectedWord), "none");
+                    rendererContext.setAttribute(saveKey, sw);
+                    LOGGER.debug("Not saving key={} since fallback was used, saving fallback instead, fallback={}", saveKey, selectedWord);
+                }
+                else {
+                    LOGGER.error("Both Word and selectedWord are null when trying to save, doing nothing");
+                }
             }
         }
     }
@@ -453,9 +519,7 @@ public abstract class BaseWordRenderer<T extends Word> {
         return word;
     }
 
-    static void validateRenderer(BaseWordRenderer renderer) {
-        if (renderer.fallback != null && renderer.saveKey != null)
-            throw new RuntimeException("Renderer cannot have both saveKey and fallback, renderer="+renderer);
+    static <TT extends Word> void validateRenderer(BaseWordRenderer<TT> renderer) {
         if (renderer.loadKey != null && renderer.saveKey != null)
             throw new RuntimeException("Renderer cannot have both loadKey and saveKey, renderer="+renderer);
     }

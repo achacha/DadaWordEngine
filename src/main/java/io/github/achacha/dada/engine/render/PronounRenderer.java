@@ -71,7 +71,7 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
         private String rhymeWith;
         private int syllablesDesired;
         private String fallback;
-        private Predicate<BaseWordRenderer> fallbackPredicate;
+        private Predicate<BaseWordRenderer<Pronoun>> fallbackPredicate;
 
         public Builder(SentenceRendererBuilder sentenceBuilder) {
             this.sentenceBuilder = sentenceBuilder;
@@ -148,7 +148,7 @@ public class PronounRenderer extends BaseWordRenderer<Pronoun> {
             return this;
         }
 
-        public Builder withFallback(String fallback, Predicate<BaseWordRenderer> fallbackPredicate) {
+        public Builder withFallback(String fallback, Predicate<BaseWordRenderer<Pronoun>> fallbackPredicate) {
             this.fallback = fallback;
             this.fallbackPredicate = fallbackPredicate;
             return this;

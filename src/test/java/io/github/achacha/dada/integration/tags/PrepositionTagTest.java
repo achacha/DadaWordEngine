@@ -16,5 +16,6 @@ public class PrepositionTagTest {
     public void testInternals() {
         PrepositionTag tag = new PrepositionTag();
         assertNotNull(tag.toString());
+        assertNotNull(tag.getWordRenderer().execute());
     }
 }

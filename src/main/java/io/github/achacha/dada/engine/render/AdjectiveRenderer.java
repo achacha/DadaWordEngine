@@ -70,7 +70,7 @@ public class AdjectiveRenderer extends BaseWordRenderer<Adjective> {
         private String rhymeWith;
         private int syllablesDesired;
         private String fallback;
-        private Predicate<BaseWordRenderer> fallbackPredicate;
+        private Predicate<BaseWordRenderer<Adjective>> fallbackPredicate;
 
         public Builder(SentenceRendererBuilder sentenceBuilder) {
             this.sentenceBuilder = sentenceBuilder;
@@ -147,7 +147,7 @@ public class AdjectiveRenderer extends BaseWordRenderer<Adjective> {
             return this;
         }
 
-        public Builder withFallback(String fallback, Predicate<BaseWordRenderer> fallbackPredicate) {
+        public Builder withFallback(String fallback, Predicate<BaseWordRenderer<Adjective>> fallbackPredicate) {
             this.fallback = fallback;
             this.fallbackPredicate = fallbackPredicate;
             return this;
@@ -179,18 +179,17 @@ public class AdjectiveRenderer extends BaseWordRenderer<Adjective> {
 
     @Override
     protected String selectWord(Word word) {
-        Adjective adjective = (Adjective)word;
         switch (form) {
             // Comparative
             case comparative:
-                return adjective.getComparative();
+                return ((Adjective)word).getComparative();
 
             // Superlative
             case superlative:
-                return adjective.getSuperlative();
+                return ((Adjective)word).getSuperlative();
 
             default:
-                return super.selectWord(adjective);
+                return super.selectWord(word);
         }
     }
 }

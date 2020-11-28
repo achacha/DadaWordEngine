@@ -74,6 +74,7 @@ public class VerbRendererTest {
                     .withRhymeWith("fly")
                     .withSyllablesDesired(3)
                     .withSaveKey("rhymes_with_fly")
+                    .withFallback("NEVER", p -> false)
                     .build()
                 .text(" ")
                 .verbBuilder()
@@ -89,9 +90,14 @@ public class VerbRendererTest {
                     .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getVerbs()))
                     .withCapsMode(CapsMode.all)
                     .build()
+                .text(" ")
+                .verbBuilder()
+                    .withForm(Verb.Form.present)
+                    .withFallback("ALWAYS", p -> true)
+                    .build()
                 .execute();
 
-        assertEquals("The swam Swam SWUM", sentence);
+        assertEquals("The swam Swam SWUM ALWAYS", sentence);
     }
 
 }

@@ -12,7 +12,7 @@ public class GenerateQuasiRandomSentenceExample {
     public static void main(String[] args) {
         SentenceRendererBuilder renderer = new SentenceRendererBuilder()
                 .nounBuilder()
-                    .withFallback("rose", RendererPredicates.truePercent(30))
+                    .withFallback("rose", RendererPredicates.trueIfPercent(30))
                     .withCapsMode(CapsMode.first)
                     .withArticleMode(ArticleMode.a)
                     .build()

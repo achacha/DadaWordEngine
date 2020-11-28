@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TextTagText {
     @BeforeAll
@@ -15,6 +16,7 @@ public class TextTagText {
     @Test
     public void testInternal() {
         TextTag tag = new TextTag();
+        assertNotNull(tag.toString());
         assertEquals("", tag.getWordRenderer().execute());
 
         tag = new TextTag("some text");

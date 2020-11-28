@@ -55,7 +55,7 @@ public class ConjunctionRenderer extends BaseWordRenderer<Conjunction> {
         private String rhymeWith;
         private int syllablesDesired;
         private String fallback;
-        private Predicate<BaseWordRenderer> fallbackPredicate;
+        private Predicate<BaseWordRenderer<Conjunction>> fallbackPredicate;
 
         public Builder(SentenceRendererBuilder sentenceBuilder) {
             this.sentenceBuilder = sentenceBuilder;
@@ -127,7 +127,7 @@ public class ConjunctionRenderer extends BaseWordRenderer<Conjunction> {
             return this;
         }
 
-        public Builder withFallback(String fallback, Predicate<BaseWordRenderer> fallbackPredicate) {
+        public Builder withFallback(String fallback, Predicate<BaseWordRenderer<Conjunction>> fallbackPredicate) {
             this.fallback = fallback;
             this.fallbackPredicate = fallbackPredicate;
             return this;

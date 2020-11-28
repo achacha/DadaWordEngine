@@ -14,7 +14,9 @@ import javax.servlet.jsp.tagext.JspTag;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Noun class also tests some BaseWordTag members
@@ -130,6 +132,10 @@ public class NounTagTest {
         assertEquals(ArticleMode.the, tag.wordRenderer.getArticle());
         tag.setSyllables("6");
         assertEquals(6, tag.wordRenderer.getSyllablesDesired());
+        tag.setFallbackProbability("1.0");
+        assertTrue(tag.wordRenderer.getFallbackPredicate().test(tag.wordRenderer));
+        tag.setFallbackProbability("0.0");
+        assertFalse(tag.wordRenderer.getFallbackPredicate().test(tag.wordRenderer));
     }
 
     @Test

@@ -16,5 +16,6 @@ public class ConjunctionTagTest {
     public void testInternals() {
         ConjunctionTag tag = new ConjunctionTag();
         assertNotNull(tag.toString());
+        assertNotNull(tag.getWordRenderer().execute());
     }
 }
