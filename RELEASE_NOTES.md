@@ -4,11 +4,21 @@ Release notes
 
 1.3.5
 ---
-- Improved Senetence and SentenceRenderBuilder parsing and handling of text blocks
+- Improved Sentence and SentenceRenderBuilder parsing and handling of text blocks
 - Better builders
-- Rendering supports external container fo saved words and a custome Writer
+- Rendering supports external container for saved words and a custom Writer
 - More unit tests (coverage overall at 90%+, engine at 100%)
 
 1.3.6
 ---
 - Better handling of digraphs and trigraphs
+
+1.3.7
+---
+- Fallback probability to a provided constant, predicate support in builders
+- d:text JSP tag now supports initial data as tag body, that is used as fallback
+- Pronouns now have data for singular or plural forms
+- Better rhyming and support for rhymeWith attribute
+- Java 11 support
+- Fixed some data
+- More tests
