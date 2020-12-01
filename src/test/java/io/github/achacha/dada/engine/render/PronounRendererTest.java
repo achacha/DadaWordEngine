@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.base.RendererPredicates;
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Pronoun;
 import io.github.achacha.dada.engine.data.Pronouns;
@@ -107,9 +108,22 @@ public class PronounRendererTest {
         SentenceRendererBuilder renderers = new SentenceRendererBuilder();
 
         String sentence = renderers
-                .pronounBuilder().withArticleMode(ArticleMode.the).withCapsMode(CapsMode.first).withRhymeWith("with").withSaveKey("saved").withSyllablesDesired(2).build()
+                .pronounBuilder()
+                    .withArticleMode(ArticleMode.the)
+                    .withCapsMode(CapsMode.first)
+                    .withRhymeWith("with")
+                    .withSaveKey("saved")
+                    .withSyllablesDesired(2)
+                    .withFallback("NEVER", RendererPredicates.falseAlways())
+                    .build()
                 .text(" ")
-                .pronounBuilder().withCapsMode(CapsMode.none).withLoadKey("saved").withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getPronouns())).withRhymeKey("saved").build()
+                .pronounBuilder()
+                    .withCapsMode(CapsMode.none)
+                    .withLoadKey("saved")
+                    .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getPronouns()))
+                    .withFallback("NEVER")
+                    .withRhymeKey("saved")
+                    .build()
                 .execute();
         assertEquals("The me me", sentence);
 

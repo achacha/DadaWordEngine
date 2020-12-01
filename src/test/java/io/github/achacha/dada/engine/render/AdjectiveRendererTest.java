@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.base.RendererPredicates;
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Adjective;
 import io.github.achacha.dada.integration.tags.GlobalData;
@@ -63,12 +64,14 @@ public class AdjectiveRendererTest {
                     .withLoadKey("rhymes_with_fly")
                     .withCapsMode(CapsMode.first)
                     .withArticleMode(ArticleMode.the)
+                    .withFallback("NEVER", RendererPredicates.falseAlways())
                     .build()
                 .text(" ")
                 .adjectiveBuilder()
                     .withRhymeKey("rhymes_with_fly")
                     .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getAdjectives()))
                     .withForm(Adjective.Form.comparative)
+                    .withFallback("NEVER")
                     .build()
                 .execute();
 

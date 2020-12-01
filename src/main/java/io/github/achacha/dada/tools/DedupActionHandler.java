@@ -4,8 +4,12 @@ import io.github.achacha.dada.engine.data.WordData;
 import io.github.achacha.dada.engine.data.WordsByType;
 import org.apache.commons.cli.CommandLine;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -32,8 +36,13 @@ public class DedupActionHandler implements BaseActionHandler {
         WordData wordData = new WordData("resource:/data/"+dataset);
         wordData.getWordsByTypeStream().filter(WordsByType::isDuplicateFound).forEach(byType->{
             out.println("Processing: "+byType.getType());
-            try {
-                byType.saveWords(basePath);
+            Path outfile = basePath.resolve(byType.getType().getTypeName()+".csv");
+            try(
+                    FileOutputStream fos = new FileOutputStream(outfile.toFile());
+                    OutputStreamWriter osw = new OutputStreamWriter(fos, Charset.defaultCharset());
+                    BufferedWriter writer = new BufferedWriter(osw)
+            ) {
+                byType.writeWords(writer);
             }
             catch(IOException e) {
                 e.printStackTrace(out);

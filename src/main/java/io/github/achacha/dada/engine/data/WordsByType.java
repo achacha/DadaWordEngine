@@ -3,7 +3,6 @@ package io.github.achacha.dada.engine.data;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.io.Files;
 import io.github.achacha.dada.engine.phonemix.PhoneticTransformer;
 import io.github.achacha.dada.engine.phonemix.PhoneticTransformerBuilder;
 import org.apache.commons.io.IOUtils;
@@ -20,7 +19,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -392,7 +390,7 @@ public class WordsByType<T extends Word> {
             case Adverb:
                 return "#Adverb";
             case Pronoun:
-                return "#Pronoun,PER,SUB,OBJ,POS,DEM,INT,REL,REF,REC,IND";
+                return "#Pronoun,PER,SUB,OBJ,POS,DEM,INT,REL,REF,REC,IND,SIN,PLU";
             case Conjunction:
                 return "#Conjunction";
             case Preposition:
@@ -403,23 +401,11 @@ public class WordsByType<T extends Word> {
     }
 
     /**
-     * Save word list to base path with output name of 'type'.csv
-     * @param basePath Path
-     * @throws IOException if unable to read files
-     */
-    public void saveWords(Path basePath) throws IOException {
-        Path outfile = basePath.resolve(type.getTypeName()+".csv");
-        try(BufferedWriter writer = Files.newWriter(outfile.toFile(), Charset.defaultCharset())) {
-            writeWords(writer);
-        }
-    }
-
-    /**
      * Write data to file
      * @param writer BufferedWriter
      * @throws IOException if unable to write file
      */
-    protected void writeWords(BufferedWriter writer) throws IOException {
+    public void writeWords(BufferedWriter writer) throws IOException {
         writer.write(getOutputHeader());
         writer.write("\n");
 

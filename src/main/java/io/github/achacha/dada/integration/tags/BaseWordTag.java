@@ -184,15 +184,16 @@ public abstract class BaseWordTag<T extends Word, R extends BaseWordRenderer<T>>
             double p = Float.parseFloat(probability);
             if (p >= 0.0 && p <= 1.0) {
                 wordRenderer.setFallbackPredicate(RendererPredicates.trueIfProbability(p));
+                return;
             }
             else {
                 LOGGER.debug("Probability must be 0.0 <= p <= 1.0, provided p="+p);
-                wordRenderer.setFallbackPredicate(RendererPredicates.falseAlways());
             }
         }
         else {
             LOGGER.debug("Unable to parse fallbackProbability="+probability);
-            wordRenderer.setFallbackPredicate(RendererPredicates.falseAlways());
         }
+        wordRenderer.setFallbackPredicate(null);
+        throw new IllegalArgumentException("Invalid probability specified: probability="+probability);
     }
 }

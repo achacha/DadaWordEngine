@@ -89,7 +89,7 @@ public class WordsByTypeTest {
         wordData.getWordsByTypeStream().forEach(this::saveWordsAndVerify);
     }
 
-    private void saveWordsAndVerify(WordsByType wordByType) {
+    private void saveWordsAndVerify(WordsByType<? extends Word> wordByType) {
         StringWriter sw = new StringWriter();
         BufferedWriter writer = new BufferedWriter(sw);
         try {

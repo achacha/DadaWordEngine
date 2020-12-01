@@ -89,6 +89,7 @@ public class VerbRendererTest {
                     .withRhymeKey("rhymes_with_fly")
                     .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getVerbs()))
                     .withCapsMode(CapsMode.all)
+                    .withFallback("NEVER")
                     .build()
                 .text(" ")
                 .verbBuilder()

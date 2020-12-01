@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.base.RendererPredicates;
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Preposition;
 import io.github.achacha.dada.integration.tags.GlobalData;
@@ -46,9 +47,22 @@ public class PrepositionRendererTest {
         SentenceRendererBuilder renderers = new SentenceRendererBuilder();
 
         String sentence = renderers
-                .prepositionBuilder().withArticleMode(ArticleMode.a).withCapsMode(CapsMode.first).withRhymeWith("with").withSaveKey("saved").withSyllablesDesired(2).build()
+                .prepositionBuilder()
+                    .withArticleMode(ArticleMode.a)
+                    .withCapsMode(CapsMode.first)
+                    .withRhymeWith("with")
+                    .withSaveKey("saved")
+                    .withSyllablesDesired(2)
+                    .withFallback("NEVER", RendererPredicates.falseAlways())
+                    .build()
                 .text(" ")
-                .prepositionBuilder().withCapsMode(CapsMode.all).withLoadKey("saved").withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getPrepositions())).withRhymeKey("saved").build()
+                .prepositionBuilder()
+                    .withCapsMode(CapsMode.all)
+                    .withLoadKey("saved")
+                    .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getPrepositions()))
+                    .withRhymeKey("saved")
+                    .withFallback("NEVER")
+                    .build()
                 .execute();
 
         assertEquals("An on ON", sentence);

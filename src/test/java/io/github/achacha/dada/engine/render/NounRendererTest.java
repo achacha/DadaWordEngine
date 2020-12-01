@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.base.RendererPredicates;
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Noun;
 import io.github.achacha.dada.engine.data.TestWords;
@@ -124,12 +125,14 @@ public class NounRendererTest {
                     .withRhymeWith("fly")
                     .withSyllablesDesired(3)
                     .withSaveKey("rhymes_with_fly")
+                    .withFallback("NEVER", RendererPredicates.falseAlways())
                     .build()
                 .text(" ")
                 .nounBuilder()
                     .withLoadKey("rhymes_with_fly")
                     .withCapsMode(CapsMode.first)
                     .withArticleMode(ArticleMode.none)
+                    .withFallback("NEVER")
                     .build()
                 .text(" ")
                 .nounBuilder()

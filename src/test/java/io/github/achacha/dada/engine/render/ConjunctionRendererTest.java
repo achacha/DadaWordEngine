@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.base.RendererPredicates;
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Conjunction;
 import io.github.achacha.dada.integration.tags.GlobalData;
@@ -52,11 +53,13 @@ public class ConjunctionRendererTest {
                     .withCapsMode(CapsMode.all)
                     .withRhymeWith("with")
                     .withSyllablesDesired(2)
+                    .withFallback("NEVER", RendererPredicates.falseAlways())
                     .build()
                 .conjunctionBuilder()
                     .withCapsMode(CapsMode.none)
                     .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getConjunctions()))
-                    .build()
+                    .withFallback("NEVER")
+                .build()
                 .execute();
         assertEquals("A &&", sentence);
     }

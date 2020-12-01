@@ -1,5 +1,6 @@
 package io.github.achacha.dada.engine.render;
 
+import io.github.achacha.dada.engine.base.RendererPredicates;
 import io.github.achacha.dada.engine.builder.SentenceRendererBuilder;
 import io.github.achacha.dada.engine.data.Adverb;
 import io.github.achacha.dada.integration.tags.GlobalData;
@@ -46,9 +47,22 @@ public class AdverbRendererTest {
         SentenceRendererBuilder renderers = new SentenceRendererBuilder();
 
         String sentence = renderers
-                .adverbBuilder().withArticleMode(ArticleMode.a).withCapsMode(CapsMode.all).withRhymeWith("shoe").withSaveKey("saved_shoe").withSyllablesDesired(2).build()
+                .adverbBuilder()
+                    .withArticleMode(ArticleMode.a)
+                    .withCapsMode(CapsMode.all)
+                    .withRhymeWith("shoe")
+                    .withSaveKey("saved_shoe")
+                    .withSyllablesDesired(2)
+                    .withFallback("NEVER")
+                .build()
                 .text(" ")
-                .adverbBuilder().withCapsMode(CapsMode.none).withLoadKey("saved_shoe").withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getAdverbs())).withRhymeKey("saved_shoe").build()
+                .adverbBuilder()
+                    .withCapsMode(CapsMode.none)
+                    .withLoadKey("saved_shoe")
+                    .withRenderContext(new RenderContextToString<>(GlobalData.getWordData().getAdverbs()))
+                    .withRhymeKey("saved_shoe")
+                    .withFallback("NEVER", RendererPredicates.falseAlways())
+                .build()
                 .execute();
         assertEquals("AN ADVERBLY adverbly", sentence);
     }
