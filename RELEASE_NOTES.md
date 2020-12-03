@@ -19,6 +19,6 @@ Release notes
 - d:text JSP tag now supports initial data as tag body, that is used as fallback
 - Pronouns now have data for singular or plural forms
 - Better rhyming and support for rhymeWith attribute
-- Java 11 support
-- Fixed some data
-- More tests
+- Official Java 11 support (minimum version)
+- Fixed some data (motly in noun forms and spelling)
+- More tests and more coverage
