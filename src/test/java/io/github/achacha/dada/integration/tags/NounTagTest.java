@@ -5,12 +5,12 @@ import io.github.achacha.dada.engine.data.SavedWord;
 import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.CapsMode;
 import io.github.achacha.dada.test.GlobalTestData;
+import jakarta.servlet.jsp.tagext.JspFragment;
+import jakarta.servlet.jsp.tagext.JspTag;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import javax.servlet.jsp.tagext.JspFragment;
-import javax.servlet.jsp.tagext.JspTag;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

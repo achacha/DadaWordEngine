@@ -5,10 +5,10 @@ import io.github.achacha.dada.engine.data.SavedWord;
 import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.data.WordsByType;
 import io.github.achacha.dada.engine.render.RenderContext;
+import jakarta.servlet.jsp.JspContext;
+import jakarta.servlet.jsp.tagext.JspTag;
 
 import javax.annotation.Nullable;
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.tagext.JspTag;
 import java.io.Writer;
 
 public class RenderContextToJspTag<T extends Word> extends RenderContext<T> {

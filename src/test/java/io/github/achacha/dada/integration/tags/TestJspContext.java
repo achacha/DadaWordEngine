@@ -1,10 +1,11 @@
 package io.github.achacha.dada.integration.tags;
 
-import javax.el.ELContext;
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.el.ExpressionEvaluator;
-import javax.servlet.jsp.el.VariableResolver;
+import jakarta.el.ELContext;
+import jakarta.servlet.jsp.JspContext;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.el.ExpressionEvaluator;
+import jakarta.servlet.jsp.el.VariableResolver;
+
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;

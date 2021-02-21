@@ -1,6 +1,7 @@
 package io.github.achacha.dada.integration.tags;
 
-import javax.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.JspWriter;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;

@@ -6,15 +6,15 @@ import io.github.achacha.dada.engine.data.Word;
 import io.github.achacha.dada.engine.render.ArticleMode;
 import io.github.achacha.dada.engine.render.BaseWordRenderer;
 import io.github.achacha.dada.engine.render.CapsMode;
+import jakarta.servlet.jsp.JspContext;
+import jakarta.servlet.jsp.tagext.JspFragment;
+import jakarta.servlet.jsp.tagext.JspTag;
+import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.tagext.JspFragment;
-import javax.servlet.jsp.tagext.JspTag;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.io.StringWriter;
 

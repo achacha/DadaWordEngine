@@ -22,3 +22,7 @@ Release notes
 - Official Java 11 support (minimum version)
 - Fixed some data (motly in noun forms and spelling)
 - More tests and more coverage
+
+1.5.0
+---
+Convert to using jakarta. instead of javax. available in Tomcat10
